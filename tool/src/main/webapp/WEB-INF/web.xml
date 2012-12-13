@@ -4,11 +4,11 @@
 	 xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	 version="2.4">
 
-	<display-name>sakai.hec-archive</display-name>
+	<display-name>sakai.hec-course-archive</display-name>
 
 	<!--  This application's servlet class -->
 	<servlet>
-		<servlet-name>sakai.hec-archive</servlet-name>
+		<servlet-name>sakai.hec-course-archive</servlet-name>
 	    <servlet-class>uk.ac.cam.caret.sakai.WebappToolServlet</servlet-class>
 	    <init-param>
 	      	<param-name>main-page</param-name>
@@ -29,7 +29,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>sakai.request</filter-name>
-		<servlet-name>sakai.hec-archive</servlet-name>
+		<servlet-name>sakai.hec-course-archive</servlet-name>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

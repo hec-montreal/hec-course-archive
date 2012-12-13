@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ca.hec</groupId>
-	<artifactId>hec-archive</artifactId>
+	<artifactId>hec-course-archive</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>HEC Archive</name>
-	<description>Tool for searching in the archive of all HEC Course Outlines in PDF form</description>
+	<name>HEC Course Archive</name>
+	<description>Tool for searching in the archive of all HEC course outlines in PDF form</description>
 
 	<parent>
 		<groupId>org.sakaiproject.purepoms</groupId>
