@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<registration>
+	<tool id="sakai.hec-archive" 
+		title="My Sakai App hec-archive-tool" 
+		description="This description is set in the hec-archive-tool registration file, found in the webapp/tools directory">
+
+		<category name="course" />
+      	<category name="project" />
+
+		<configuration name="functions.require" /> 
+		
+    </tool>
+</registration>
+
