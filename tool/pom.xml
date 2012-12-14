@@ -44,7 +44,7 @@
 		<!-- project dependencies -->
 		<dependency>
 			<groupId>ca.hec</groupId>
-			<artifactId>hec-archive-api</artifactId>
+			<artifactId>hec-course-archive-api</artifactId>
 		</dependency>
 		
         <!-- we are running a webapp in a servlet container so we need the servlet API -->

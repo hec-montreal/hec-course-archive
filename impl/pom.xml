@@ -15,7 +15,7 @@
 
 		<dependency>
 			<groupId>ca.hec</groupId>
-			<artifactId>hec-archive-api</artifactId>
+			<artifactId>hec-course-archive-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>

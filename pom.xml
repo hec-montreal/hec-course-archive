@@ -20,14 +20,14 @@
 			<!-- project dependencies -->
 			<dependency>
 				<groupId>ca.hec</groupId>
-				<artifactId>hec-archive-api</artifactId>
+				<artifactId>hec-course-archive-api</artifactId>
 				<version>1.0-SNAPSHOT</version>
 				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>ca.hec</groupId>
-				<artifactId>hec-archive-impl</artifactId>
+				<artifactId>hec-course-archive-impl</artifactId>
 				<version>1.0-SNAPSHOT</version>
 				<scope>runtime</scope>
 			</dependency>
