@@ -3,6 +3,8 @@
 
 <beans>
 
+	<import resource="spring-hibernate.xml" />
+
 	<!--  SakaiProxy -->
  	<bean id="ca.hec.archive.logic.SakaiProxy"
     	class="ca.hec.archive.logic.SakaiProxyImpl"

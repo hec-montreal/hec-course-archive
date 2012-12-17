@@ -2,7 +2,7 @@ package ca.hec.archive.logic;
 
 import java.util.List;
 
-import ca.hec.archive.model.Item;
+import ca.hec.archive.model.ArchiveCourseSection;
 
 /**
  * An example logic interface
@@ -16,5 +16,5 @@ public interface ProjectLogic {
 	 * Get a list of Items
 	 * @return
 	 */
-	public List<Item> getItems();
+	public List<ArchiveCourseSection> getItems();
 }

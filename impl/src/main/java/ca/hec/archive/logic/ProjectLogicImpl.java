@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import ca.hec.archive.model.Item;
+import ca.hec.archive.model.ArchiveCourseSection;
 
 /**
  * Implementation of {@link ProjectLogic}
@@ -21,12 +21,12 @@ public class ProjectLogicImpl implements ProjectLogic {
 	/**
 	 * {@inheritDoc}
 	 */
-	public List<Item> getItems() {
+	public List<ArchiveCourseSection> getItems() {
 		
-		List<Item> items = new ArrayList<Item>();
+		List<ArchiveCourseSection> items = new ArrayList<ArchiveCourseSection>();
 		
-		items.add(new Item(1,"hello"));
-		items.add(new Item(2,"world"));
+		items.add(new ArchiveCourseSection());
+		items.add(new ArchiveCourseSection());
 		
 		return items;
 		
