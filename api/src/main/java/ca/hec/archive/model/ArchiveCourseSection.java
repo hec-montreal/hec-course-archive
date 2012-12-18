@@ -1,12 +1,9 @@
 package ca.hec.archive.model;
 
-import lombok.AllArgsConstructor;
+import ca.hec.cdm.model.CatalogDescription;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ArchiveCourseSection {
 
 	private long id;
@@ -14,4 +11,5 @@ public class ArchiveCourseSection {
 	private String section;
 	private String period;
 	private String instructor;
+	private CatalogDescription catalogDescription;
 }

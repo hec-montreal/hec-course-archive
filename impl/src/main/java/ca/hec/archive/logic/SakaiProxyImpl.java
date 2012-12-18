@@ -12,6 +12,14 @@ import org.sakaiproject.tool.api.SessionManager;
 import org.sakaiproject.tool.api.ToolManager;
 import org.sakaiproject.user.api.UserDirectoryService;
 import org.sakaiproject.user.api.UserNotDefinedException;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+import ca.hec.archive.dao.ArchiveDao;
+import ca.hec.archive.model.ArchiveCourseSection;
+import ca.hec.cdm.api.CatalogDescriptionService;
+import ca.hec.cdm.exception.DatabaseException;
+import ca.hec.cdm.exception.StaleDataException;
+import ca.hec.cdm.model.CatalogDescription;
 
 /**
  * Implementation of {@link SakaiProxy}
@@ -41,7 +49,20 @@ public class SakaiProxyImpl implements SakaiProxy {
  	* {@inheritDoc}
  	*/
 	public String getCurrentUserDisplayName() {
-	   return userDirectoryService.getCurrentUser().getDisplayName();
+	    CatalogDescription cd = catalogDescriptionService.getCatalogDescription(5663L);
+	    ArchiveCourseSection acs = new ArchiveCourseSection();
+	    acs.setCatalogDescription(cd);
+	    acs.setInstructor("curtis van osch");
+	    acs.setSession("H2013");
+	    acs.setSection("B02");
+	    
+	    try {
+		archiveDao.saveArchiveCourseSection(acs);
+	    } catch (StaleDataException e) {
+	    } catch (DatabaseException e) {
+	    }
+	    
+	    return cd.getDescription();
 	}
 	
 	/**
@@ -96,6 +117,9 @@ public class SakaiProxyImpl implements SakaiProxy {
 	private UserDirectoryService userDirectoryService;
 	
 	@Getter @Setter
+	private CatalogDescriptionService catalogDescriptionService;
+	
+	@Getter @Setter
 	private SecurityService securityService;
 	
 	@Getter @Setter
@@ -106,4 +130,7 @@ public class SakaiProxyImpl implements SakaiProxy {
 	
 	@Getter @Setter
 	private SiteService siteService;
+
+	@Getter @Setter
+	private ArchiveDao archiveDao;
 }
