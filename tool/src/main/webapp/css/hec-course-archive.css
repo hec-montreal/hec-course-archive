@@ -1,0 +1,81 @@
+/***************************************************************************************************/
+/******************************* Search Form Frame *************************************************/
+/***************************************************************************************************/
+#search_form_frame{
+	border-style:solid;
+	border-width:1px;
+	border-radius:1px;
+	border-color:rgba(0, 0, 0, 0.1);
+	padding:8px;
+}
+
+#search_form_table{
+	text-align:center;
+	width:90%;
+}
+
+#search_form_table td{
+	width:50%;
+	padding:4px;
+}
+
+.search_form_label{
+	float:right;
+}
+.search_form_input{
+	float:left;
+}
+
+#search_form_button_container{
+	margin-top:10px;
+	float:left;
+}
+#search_form_button{
+	height:23px;
+	width:90px;
+	font-size: 1em;
+	padding: 1px;
+}
+
+#search_form_button span{
+	padding: 2px;
+}
+
+
+/***************************************************************************************************/
+/******************************* Search Result Frame ***********************************************/
+/***************************************************************************************************/
+/**override Datatables Plugin CSS**/
+.DataTables_sort_icon {
+    float: right;
+}
+
+#search_result_frame{
+	border-style:solid;
+	border-width:1px;
+	border-radius:1px;
+	border-color:rgba(0, 0, 0, 0.1);
+	padding:8px;
+	margin-top:10px;
+}
+
+#search_result_table{
+	width:100%;
+	border-collapse:collapse;
+}
+
+#search_result_table tr
+{ 
+	border:1px;
+}
+
+#search_result_table tr.even{
+ background-color: #F5F0F2;}
+
+#search_result_table tr:hover{ 
+	background-color:#DEDCDD;
+	cursor:pointer;
+}
+
+
+
