@@ -13,7 +13,39 @@
 	  </tr>
 	  <tr>
 		<td><span class="search_form_label">Enseignant:</span></td>
-		<td><input class="search_form_input" type="text" name="fname"></td>
+		<td>
+<select class="chosen">
+	<option selected="selected">Sélectionner un professeur</option>
+	<option>Abraham, Yves-Marie</option>
+	<option >Aktouf, Omar</option>
+	<option>Allain, Élodie</option>
+	<option>Allali, Brahim</option>
+	<option>Ananou, Claude</option>
+	<option>Arcand, Sébastien</option>
+	<option>Aubé, Caroline</option>
+	<option>Aubert, Benoit A.</option>
+	<option>Babin, Gilbert</option>
+	<option>Bahn, Olivier</option>
+	<option>Balloffet, Pierre</option>
+	<option>Bareil, Céline</option>
+	<option>Barès, Franck</option>
+	<option>Barin Cruz, Luciano</option>
+	<option>Barki, Henri</option>
+	<option>Barnea, Amir</option>
+	<option>Bauwens, Luc</option>
+	<option>Beauchamp, Charlotte</option>
+	<option>Beaudoin, Claude</option>
+	<option>Béchard, Jean-Pierre</option>
+	<option>Bédard, Renée</option>
+	<option>Bélanger, Carol</option>
+	<option>Bélanger-Martin, Luc</option>
+	<option>Bellavance, François</option>
+	<option>Belzile, Germain</option>
+	<option>Ben Ameur, Hatem</option>
+	<option>Bitektine, Alexandre B.</option>
+	<option>Boisvert, Hugues</option>
+	<option>Bouakez, Hafedh</option>
+</select></td>
 	  </tr>
 	  <tr>
 		<td></td>

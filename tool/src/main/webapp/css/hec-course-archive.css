@@ -24,6 +24,16 @@
 }
 .search_form_input{
 	float:left;
+	width:220px;
+}
+
+select.chosen{
+	width:226px;
+}
+
+select.chosen + div{
+	display: block;
+	float:left;
 }
 
 #search_form_button_container{
@@ -39,7 +49,7 @@
 
 #search_form_button span{
 	padding: 2px;
-}
+} 
 
 
 /***************************************************************************************************/
@@ -73,7 +83,8 @@
  background-color: #F5F0F2;}
 
 #search_result_table tr:hover{ 
-	background-color:#DEDCDD;
+	background-color:#9C9195;
+	color:white;
 	cursor:pointer;
 }
 
