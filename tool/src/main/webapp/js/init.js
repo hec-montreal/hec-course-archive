@@ -1,5 +1,5 @@
 /*****************************Initialisation of frame sizes  **********************************/
-var iframeHeight = 500;
+var iframeHeight = 1000;
 
 var frame = parent.document.getElementById(window.name);
 $(frame).css('height', iframeHeight);
@@ -11,6 +11,7 @@ $(document)
 		.ready(
 				function() {			
 					$('#search_form_button').button();
+					 $('.chosen').chosen();
 					oTable = $('#search_result_table').dataTable({
 		"bJQueryUI" : true,
 		"sAjaxSource" : 'stub.json',		
