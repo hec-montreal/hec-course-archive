@@ -29,6 +29,11 @@
 			<groupId>org.sakaiproject.kernel</groupId>
 			<artifactId>sakai-kernel-api</artifactId>
 		</dependency>
+		<!-- Sakai dependencies -->
+		<dependency>
+			<groupId>org.sakaiproject.kernel</groupId>
+			<artifactId>sakai-kernel-util</artifactId>
+		</dependency>
 
 
 	</dependencies>
@@ -42,14 +47,12 @@
 					<include>**/*.hbm.xml</include>
 				</includes>
 			</resource>
-			<!-- 
 			<resource>
 				<directory>${basedir}/src/main/bundle</directory>
 				<includes>
 					<include>**/*.properties</include>
 				</includes>
 			</resource>
-			-->
 		</resources>
 	</build>
 </project>
