@@ -48,22 +48,44 @@ public class HecCourseArchiveController {
 	public ModelAndView handleCourseRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 	    
-	    //pretend to load the section  ***************************************
+	    List<ArchiveCourseSection> sections = null;
+	    
+	    //pretend to load the sections  ***************************************
+	    sections = new ArrayList<ArchiveCourseSection>();
+	    
 	    CatalogDescription cd = new CatalogDescription();
 	    cd.setTitle("Le titre du Cours");
 	    cd.setCourseId("1-234-99");
 	    cd.setDescription("Voici une belle description annuaire pour un beau cours");
-	    ArchiveCourseSection acs = new ArchiveCourseSection("E2012", "B01", cd);
-	    // *******************************************************************
+	    cd.setDepartment("Finance");
+	    cd.setCareer("Bachelor");
+	    cd.setCredits((float) 3);
+	    cd.setRequirements("These are the requirements");
+	    
+	    for (int i=0; i<7; i++) {
+		ArchiveCourseSection acs = new ArchiveCourseSection("E201"+i, "B0"+i, cd);
+		sections.add(acs);
+	    }
+	    // ********************************************************************
 	    
 	    Map<String, Object> map = new HashMap<String,Object>();
-	    map.put("courseId", acs.getCatalogDescription().getCourseId());
-	    map.put("title", acs.getCatalogDescription().getTitle());
-	    map.put("description", acs.getCatalogDescription().getDescription());
-	    map.put("session", acs.getSession());
-	    map.put("section", acs.getSection());
-	    map.put("instructor", acs.getInstructor());
-	    //TODO add the rest
+	    map.put("courseId", cd.getCourseId());
+	    map.put("title", cd.getTitle());
+	    map.put("description", cd.getDescription());
+	    map.put("department", cd.getDepartment());
+	    map.put("career", cd.getCareer());
+	    map.put("credits", cd.getCredits());
+	    map.put("requirements", cd.getRequirements());
+	    
+	    List<Map<String, Object>> section_details = new ArrayList<Map<String, Object>>();
+	    for (ArchiveCourseSection acs : sections) {
+		Map<String, Object> section = new HashMap<String, Object>();
+		section.put("session", acs.getSession());
+		section.put("section", acs.getSection());
+		section.put("instructor", acs.getInstructor());
+		section_details.add(section);
+	    }
+	    map.put("sections", section_details);
 	    
 	    return new ModelAndView("jsonView", map);
 	}
