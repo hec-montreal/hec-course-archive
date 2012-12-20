@@ -9,7 +9,14 @@ $(document)
 				function() {
 					$('#search_form_button').button();
 					$('.chosen').chosen({allow_single_deselect: true});
-					$('#search_result_table').dataTable();
+					oTable = $('#search_result_table').dataTable();
 					$('#search_result_frame').hide();
 					bindSearch();
+				
+					// bind click listener for table row to populate form
+					$('#search_result_table tr').live("click", function() {
+						var courseId = oTable.fnGetData(this, 0);
+						
+						window.location.href = "course.jsp?courseId="+courseId;
+					});
 				});

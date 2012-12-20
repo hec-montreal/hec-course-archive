@@ -44,10 +44,34 @@ public class HecCourseArchiveController {
 	}
 
 	
-	@RequestMapping(value = "/search.json")
-	public ModelAndView handleSearch(HttpServletRequest request,
+	@RequestMapping(value = "/course.json")
+	public ModelAndView handleCourseRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 	    
+	    //pretend to load the section  ***************************************
+	    CatalogDescription cd = new CatalogDescription();
+	    cd.setTitle("Le titre du Cours");
+	    cd.setCourseId("1-234-99");
+	    cd.setDescription("Voici une belle description annuaire pour un beau cours");
+	    ArchiveCourseSection acs = new ArchiveCourseSection("E2012", "B01", cd);
+	    // *******************************************************************
+	    
+	    Map<String, Object> map = new HashMap<String,Object>();
+	    map.put("courseId", acs.getCatalogDescription().getCourseId());
+	    map.put("title", acs.getCatalogDescription().getTitle());
+	    map.put("description", acs.getCatalogDescription().getDescription());
+	    map.put("session", acs.getSession());
+	    map.put("section", acs.getSection());
+	    map.put("instructor", acs.getInstructor());
+	    //TODO add the rest
+	    
+	    return new ModelAndView("jsonView", map);
+	}
+	
+	@RequestMapping(value = "/search.json")
+	public ModelAndView handleSearch(HttpServletRequest request,
+		HttpServletResponse response) throws Exception {
+		    
 	    //search parameters
 	    String course_id = request.getParameter("courseId");
 	    String title = request.getParameter("courseTitle");
