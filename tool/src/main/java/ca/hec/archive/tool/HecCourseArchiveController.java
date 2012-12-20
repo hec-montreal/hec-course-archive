@@ -124,4 +124,48 @@ public class HecCourseArchiveController {
 		
 	    return new ModelAndView("jsonView", map);
 	}
+	
+	@RequestMapping(value = "/instructors.json")
+	public ModelAndView handleListInstructors(HttpServletRequest request,
+		HttpServletResponse response) throws Exception {
+	    
+	    List<String> instructors = new ArrayList<String>();
+	    //fake instructors list ************************************
+	    instructors.add("Abraham, Yves-Marie");
+	    instructors.add("Aktouf, Omar");
+	    instructors.add("Allain, Élodie");
+	    instructors.add("Allali, Brahim");
+	    instructors.add("Ananou, Claude");
+	    instructors.add("Arcand, Sébastien");
+	    instructors.add("Aubé, Caroline");
+	    instructors.add("Aubert, Benoit A.");
+	    instructors.add("Babin, Gilbert");
+	    instructors.add("Bahn, Olivier");
+	    instructors.add("Balloffet, Pierre");
+	    instructors.add("Bareil, Céline");
+	    instructors.add("Barès, Franck");
+	    instructors.add("Barin Cruz, Luciano");
+	    instructors.add("Barki, Henri");
+	    instructors.add("Barnea, Amir");
+	    instructors.add("Bauwens, Luc");
+	    instructors.add("Beauchamp, Charlotte");
+	    instructors.add("Beaudoin, Claude");
+	    instructors.add("Béchard, Jean-Pierre");
+	    instructors.add("Bédard, Renée");
+	    instructors.add("Bélanger, Carol");
+	    instructors.add("Bélanger-Martin, Luc");
+	    instructors.add("Bellavance, François");
+	    instructors.add("Belzile, Germain");
+	    instructors.add("Ben Ameur, Hatem");
+	    instructors.add("Bitektine, Alexandre B.");
+	    instructors.add("Boisvert, Hugues");
+	    instructors.add("Bouakez, Hafedh");
+	    // end fake instructors list  **********************
+	    
+	    Map<String, Object> map = new HashMap<String,Object>();
+	    
+	    map.put("data", instructors);
+		
+	    return new ModelAndView("jsonView", map);
+	}
 }

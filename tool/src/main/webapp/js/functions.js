@@ -30,3 +30,18 @@ function bindSearch() {
 		$('#search_result_frame').show();
 	});		
 }
+
+/**
+ * Populate the select box that list the available instructors
+ */
+function populateInstructorsSelectBox(){
+	$.ajax({
+		url : 'instructors.json',
+		datatype : 'json',
+		success : function(listInstructors) {			
+				for ( var i = 0; i < listInstructors.data.length; i++) {
+					$('#input_course_teacher').append('<option>' + listInstructors.data[i] + '</option>');
+				}					
+				$('.chosen').chosen({allow_single_deselect: true});
+		}});
+}

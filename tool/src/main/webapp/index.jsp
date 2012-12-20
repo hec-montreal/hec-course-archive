@@ -4,47 +4,18 @@
 <div id="search_form_frame">
 	<table id="search_form_table">
 	  <tr>
-		<td><span class="search_form_label">Numero:</span></td>
+		<td><span class="search_form_label"><c:out value="${msgs.course_id_label}"/></span></td>
 		<td><input id="input_course_id" class="search_form_input" type="text" name="fname"></td>
 	  </tr>
 	  <tr>
-		<td><span class="search_form_label">Titre:</span></td>
+		<td><span class="search_form_label"><c:out value="${msgs.course_title_label}"/></span></td>
 		<td><input id="input_course_title" class="search_form_input" type="text" name="fname"></td>
 	  </tr>
 	  <tr>
-		<td><span class="search_form_label">Enseignant:</span></td>
+		<td><span class="search_form_label"><c:out value="${msgs.course_teacher_label}"/></span></td>
 		<td>
-<select  id="input_course_teacher" data-placeholder="Sélectionner un enseignant" class="chosen">
+<select  id="input_course_teacher" data-placeholder="<c:out value="${msgs.course_teacher_select_placeholder}" />" class="chosen">
 	<option value></option>
-	<option>Abraham, Yves-Marie</option>
-	<option >Aktouf, Omar</option>
-	<option>Allain, Élodie</option>
-	<option>Allali, Brahim</option>
-	<option>Ananou, Claude</option>
-	<option>Arcand, Sébastien</option>
-	<option>Aubé, Caroline</option>
-	<option>Aubert, Benoit A.</option>
-	<option>Babin, Gilbert</option>
-	<option>Bahn, Olivier</option>
-	<option>Balloffet, Pierre</option>
-	<option>Bareil, Céline</option>
-	<option>Barès, Franck</option>
-	<option>Barin Cruz, Luciano</option>
-	<option>Barki, Henri</option>
-	<option>Barnea, Amir</option>
-	<option>Bauwens, Luc</option>
-	<option>Beauchamp, Charlotte</option>
-	<option>Beaudoin, Claude</option>
-	<option>Béchard, Jean-Pierre</option>
-	<option>Bédard, Renée</option>
-	<option>Bélanger, Carol</option>
-	<option>Bélanger-Martin, Luc</option>
-	<option>Bellavance, François</option>
-	<option>Belzile, Germain</option>
-	<option>Ben Ameur, Hatem</option>
-	<option>Bitektine, Alexandre B.</option>
-	<option>Boisvert, Hugues</option>
-	<option>Bouakez, Hafedh</option>
 </select></td>
 	  </tr>
 	  <tr>
@@ -58,8 +29,8 @@
 	<table id="search_result_table">
 	  <thead>
 		<tr>
-		  <th>No. de r&#233;pertoire</th>
-		  <th>Titre</th>
+		  <th><c:out value="${msgs.course_id_label}"/></th>
+		  <th><c:out value="${msgs.course_title_label}"/></th>
 		  <th></th>
 		  <th></th>
 		</tr>
