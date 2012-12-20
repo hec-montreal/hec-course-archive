@@ -8,9 +8,11 @@ function bindSearch() {
 			var courseTitle=$('#input_course_title').val();
 			var courseTeacher=$('#input_course_teacher').val();
 			
+			window.alert(courseId + " " + courseTitle);
+			
 			oTable = $('#search_result_table').dataTable({
 			"bJQueryUI" : true,
-			"sAjaxSource" : 'stub.json',		
+			"sAjaxSource" : 'search.json',		
 			"bAutoWidth": false,
 			"bPaginate": false,
 			"bInfo": false,
