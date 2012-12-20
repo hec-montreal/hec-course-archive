@@ -20,7 +20,9 @@ function bindSearch() {
 			"sDom": 'rt',
 			"bDestroy": true,
 			"fnServerParams": function ( aoData ) {				
-				aoData.push( { "courseId": courseId, "courseTitle": courseTitle, "courseTeacher": courseTeacher } );
+				aoData.push( { "name": "courseId", "value": courseId });
+				aoData.push( { "name": "courseTitle", "value": courseTitle });
+				aoData.push( { "name": "courseTeacher", "value": courseTeacher });
 			},
 			"aoColumns" : [
 			{ "sWidth": "50%" }, // course id

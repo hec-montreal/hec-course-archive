@@ -49,17 +49,17 @@ public class HecCourseArchiveController {
 			HttpServletResponse response) throws Exception {
 	    
 	    //search parameters
-	    String course_id = request.getParameter("course_id");
-	    String title = request.getParameter("title");
-	    String instructor = request.getParameter("instructor");
+	    String course_id = request.getParameter("courseId");
+	    String title = request.getParameter("courseTitle");
+	    String teacher = request.getParameter("courseTeacher");
 	    
 	    List<ArchiveCourseSection> sections = new ArrayList<ArchiveCourseSection>();
 
 	    //pretend search ************************************
-	    CatalogDescription cd = new CatalogDescription();
 	    for (int i=0; i<5; i++) {
-		cd.setCourseId("2-200-9"+i);
-		cd.setTitle("Le titre du cours #"+i);
+		CatalogDescription cd = new CatalogDescription();
+		cd.setCourseId(course_id + "-" + i);
+		cd.setTitle(title + " #"+i);
 		sections.add(new ArchiveCourseSection("E201"+i, "A0"+i, cd));
 	    }
 	    // end pretend search **********************
