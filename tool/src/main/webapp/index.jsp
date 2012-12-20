@@ -5,17 +5,17 @@
 	<table id="search_form_table">
 	  <tr>
 		<td><span class="search_form_label">Numero:</span></td>
-		<td><input class="search_form_input" type="text" name="fname"></td>
+		<td><input id="input_course_id" class="search_form_input" type="text" name="fname"></td>
 	  </tr>
 	  <tr>
 		<td><span class="search_form_label">Titre:</span></td>
-		<td><input class="search_form_input" type="text" name="fname"></td>
+		<td><input id="input_course_title" class="search_form_input" type="text" name="fname"></td>
 	  </tr>
 	  <tr>
 		<td><span class="search_form_label">Enseignant:</span></td>
 		<td>
-<select class="chosen">
-	<option selected="selected">Sélectionner un professeur</option>
+<select  id="input_course_teacher" data-placeholder="Sélectionner un enseignant" class="chosen">
+	<option value></option>
 	<option>Abraham, Yves-Marie</option>
 	<option >Aktouf, Omar</option>
 	<option>Allain, Élodie</option>

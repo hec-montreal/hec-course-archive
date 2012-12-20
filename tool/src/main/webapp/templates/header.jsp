@@ -14,12 +14,10 @@
 	<script type="text/javascript" src="plugins/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.min.js"></script>	
 	<script type="text/javascript" src="plugins/dataTables-1.9.4/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="plugins/chosen/chosen.jquery.min.js"></script>
-	<script  type="text/javascript" src="js/functions.js"></script>
-	<script type="text/javascript" src="js/init.js"></script>
 
     
 
     <title>Sakai-Spring</title>
 </head>
-<body onload="<%=request.getAttribute("sakai.html.body.onload")%>">
+<body>
 <div class="portletBody">
