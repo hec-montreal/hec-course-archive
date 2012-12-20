@@ -25,9 +25,6 @@ public class ProjectLogicImpl implements ProjectLogic {
 		
 		List<ArchiveCourseSection> items = new ArrayList<ArchiveCourseSection>();
 		
-		items.add(new ArchiveCourseSection());
-		items.add(new ArchiveCourseSection());
-		
 		return items;
 		
 	}
