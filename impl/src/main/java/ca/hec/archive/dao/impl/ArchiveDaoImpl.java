@@ -30,6 +30,8 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	}
     }
 
+    //TODO: ceci ne fonctionne pas pour l'instant 
+    // LazyInitializationException: could not initialize proxy - no Session
     public List<ArchiveCourseSection> getArchiveCourseSections() {
 	List<ArchiveCourseSection> sections = new ArrayList<ArchiveCourseSection>();
 	for (Object o : getHibernateTemplate().find("from ArchiveCourseSection"))

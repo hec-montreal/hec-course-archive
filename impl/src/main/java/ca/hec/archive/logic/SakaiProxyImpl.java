@@ -13,9 +13,7 @@ import org.sakaiproject.tool.api.ToolManager;
 import org.sakaiproject.user.api.UserDirectoryService;
 
 import ca.hec.archive.dao.ArchiveDao;
-import ca.hec.archive.model.ArchiveCourseSection;
 import ca.hec.cdm.api.CatalogDescriptionService;
-import ca.hec.cdm.model.CatalogDescription;
 
 /**
  * Implementation of {@link SakaiProxy}
@@ -45,25 +43,7 @@ public class SakaiProxyImpl implements SakaiProxy {
  	* {@inheritDoc}
  	*/
 	public String getCurrentUserDisplayName() {
-/*
-	    String s = "";
-	    for (ArchiveCourseSection acs : archiveDao.getArchiveCourseSections())
-	    {
-		s += "<br/>" + acs.getCatalogDescription().getTitle();
-	    }
-	    
-	    return s;
-*/
-	    CatalogDescription cd = catalogDescriptionService.getCatalogDescription(5663L);
-	    ArchiveCourseSection acs = new ArchiveCourseSection();
-	    acs.setCatalogDescription(cd);
-	    acs.setInstructor("curtis van osch");
-	    acs.setSession("H2013");
-	    acs.setSection("B02");
-	    
-	    archiveDao.saveArchiveCourseSection(acs);
-	    
-	    return cd.getDescription();
+	    return "test";
 	}
 	
 	/**

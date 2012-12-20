@@ -12,7 +12,7 @@
 	    <servlet-class>uk.ac.cam.caret.sakai.WebappToolServlet</servlet-class>
 	    <init-param>
 	      	<param-name>main-page</param-name>
-	      	<param-value>/index.htm</param-value>
+	      	<param-value>/index.jsp</param-value>
 	    </init-param>
 		<load-on-startup>0</load-on-startup>
   	</servlet>
@@ -46,15 +46,23 @@
 		<listener-class>org.sakaiproject.util.ContextLoaderListener</listener-class>
 	</listener>
 	
-	  <servlet>
-    <servlet-name>springapp</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <load-on-startup>2</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>springapp</servlet-name>
-    <url-pattern>*.htm</url-pattern>
-  </servlet-mapping>
-	
+	<servlet>
+		<servlet-name>HecCourseArchiveViewRendererServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.ViewRendererServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>HecCourseArchive</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HecCourseArchive</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HecCourseArchive</servlet-name>
+		<url-pattern>*.json</url-pattern>
+	</servlet-mapping>
 
 </web-app>
