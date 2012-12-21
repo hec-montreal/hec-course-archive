@@ -97,7 +97,7 @@ public class HecCourseArchiveController {
 	    //search parameters
 	    String course_id = request.getParameter("courseId");
 	    String title = request.getParameter("courseTitle");
-	    String teacher = request.getParameter("courseTeacher");
+	    String instructor = request.getParameter("courseInstructor");
 	    
 	    List<ArchiveCourseSection> sections = new ArrayList<ArchiveCourseSection>();
 

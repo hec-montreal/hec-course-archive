@@ -25,7 +25,7 @@
 
 <div id="courseOutlines">
 <h2>Liste des plans de cours disponible</h2>
-<div id="courseOutlineList"></div>
+<table id="courseOutlineTable"></table>
 </div>
 
 </div>
@@ -46,10 +46,14 @@ $(document).ready(function() {
 			$('#credits').html(course.credits);
 			$('#requirements').html(course.requirements);
 			
+			var currentSession = null;
 			for (var i = 0; i < course.sections.length; i++) {
-				$('#courseOutlineList').append(course.sections[i].session + "</br>");
-			}
-			
+				if (course.sections[i].session !== currentSession) {
+					currentSession = course.sections[i].session;
+					$('#courseOutlineTable').append("<tr><th colspan='3'>"+currentSession+"</th></tr>");
+				}
+				$('#courseOutlineTable').append("<tr><td>"+course.sections[i].section+"</td><td>"+course.sections[i].instructor+"</td><td><a href='#'>PDF</a></td></tr>");
+			}			
 		},
 		error : function(xhr, ajaxOptions, thrownError) {
 //			$('#ajaxMessage').html(server_error_message);

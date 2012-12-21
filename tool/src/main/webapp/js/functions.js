@@ -6,7 +6,7 @@ function bindSearch() {
 	
 			var courseId=$('#input_course_id').val();
 			var courseTitle=$('#input_course_title').val();
-			var courseTeacher=$('#input_course_teacher').val();
+			var courseInstructor=$('#input_course_teacher').val();
 			
 			oTable = $('#search_result_table').dataTable({
 			"bJQueryUI" : true,
@@ -20,7 +20,7 @@ function bindSearch() {
 			"fnServerParams": function ( aoData ) {				
 				aoData.push( { "name": "courseId", "value": courseId });
 				aoData.push( { "name": "courseTitle", "value": courseTitle });
-				aoData.push( { "name": "courseTeacher", "value": courseTeacher });
+				aoData.push( { "name": "courseInstructor", "value": courseInstructor });
 			},
 			"aoColumns" : [
 			{ "sWidth": "50%" }, // course id
