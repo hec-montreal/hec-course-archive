@@ -63,7 +63,12 @@ public class HecCourseArchiveController {
 	    cd.setRequirements("These are the requirements");
 	    
 	    for (int i=0; i<7; i++) {
-		ArchiveCourseSection acs = new ArchiveCourseSection("E201"+i, "B0"+i, cd);
+		String session = "";
+		if (i < 4) session = "E2011";
+		else session = "E2012";
+		
+		ArchiveCourseSection acs = new ArchiveCourseSection(session, "B0"+i, cd);
+		acs.setInstructor("Marie-Odile Thibault");
 		sections.add(acs);
 	    }
 	    // ********************************************************************
@@ -102,12 +107,30 @@ public class HecCourseArchiveController {
 	    List<ArchiveCourseSection> sections = new ArrayList<ArchiveCourseSection>();
 
 	    //pretend search ************************************
-	    for (int i=0; i<5; i++) {
 		CatalogDescription cd = new CatalogDescription();
-		cd.setCourseId(course_id + "-" + i);
-		cd.setTitle(title + " #"+i);
-		sections.add(new ArchiveCourseSection("E201"+i, "A0"+i, cd));
-	    }
+		cd.setCourseId("1-404-96");
+		cd.setTitle("Sociologie de l'entreprise");
+		sections.add(new ArchiveCourseSection("E2011", "A01", cd));
+
+		CatalogDescription cd2 = new CatalogDescription();
+		cd2.setCourseId("2-302-12");
+		cd2.setTitle("Recrutement et sélection des ressources humaines");
+		sections.add(new ArchiveCourseSection("E2012", "B01", cd2));
+
+		CatalogDescription cd3 = new CatalogDescription();
+		cd3.setCourseId("3-005-05");
+		cd3.setTitle("Cours-projet : préparation aux compétitions académiques");
+		sections.add(new ArchiveCourseSection("E2011", "A01", cd3));
+
+		CatalogDescription cd4 = new CatalogDescription();
+		cd4.setCourseId("3-225-11");
+		cd4.setTitle("Éthique et encadrement règlementaire du commerce des valeurs mobilières");
+		sections.add(new ArchiveCourseSection("E2011", "A01", cd4));
+
+		CatalogDescription cd5 = new CatalogDescription();
+		cd5.setCourseId("3-915-85");
+		cd5.setTitle("Impôts et gestion");
+		sections.add(new ArchiveCourseSection("E2011", "A01", cd5));
 	    // end pretend search **********************
 	    
 	    Map<String, Object> map = new HashMap<String,Object>();
