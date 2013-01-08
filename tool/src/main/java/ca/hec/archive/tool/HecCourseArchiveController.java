@@ -54,23 +54,36 @@ public class HecCourseArchiveController {
 	    sections = new ArrayList<ArchiveCourseSection>();
 	    
 	    CatalogDescription cd = new CatalogDescription();
-	    cd.setTitle("Le titre du Cours");
-	    cd.setCourseId("1-234-99");
-	    cd.setDescription("Voici une belle description annuaire pour un beau cours");
+	    cd.setTitle("Finance");
+	    cd.setCourseId("2-200-96");
+	    cd.setDescription("Le cours de finance vise essentiellement à initier l'étudiant à la finance corporative. L'accent est donc mis sur l'apprentissage des outils de base en finance ainsi que sur la compréhension des concepts les plus importants de ce domaine. Plus précisément, le cours a pour objectif de familiariser l'étudiant aux sujets suivants : les fondements de l'évaluation, la décision d'investissement, le coût du capital et du financement des entreprises ainsi que les aspects pratiques du financement des entreprises.");
 	    cd.setDepartment("Finance");
-	    cd.setCareer("Bachelor");
+	    cd.setCareer("Baccalauréat en administration des affaires (B.A.A.)");
 	    cd.setCredits((float) 3);
-	    cd.setRequirements("These are the requirements");
-	    
-	    for (int i=0; i<7; i++) {
-		String session = "";
-		if (i < 4) session = "E2011";
-		else session = "E2012";
-		
-		ArchiveCourseSection acs = new ArchiveCourseSection(session, "B0"+i, cd);
-		acs.setInstructor("Marie-Odile Thibault");
-		sections.add(acs);
-	    }
+	    cd.setRequirements("Préalable(s) : 1-612-96 / Pour version anglaise voir 2-200-97A");
+
+		//create several section
+		ArchiveCourseSection acs0 = new ArchiveCourseSection("Hiver 2013", "A01", cd);
+		acs0.setInstructor("Tarte,Jean-Philippe");
+		sections.add(acs0);
+		ArchiveCourseSection acs1 = new ArchiveCourseSection("Hiver 2013", "C01", cd);
+		acs1.setInstructor("Tremblay,Pierre-Marc");
+		sections.add(acs1);
+		ArchiveCourseSection acs2 = new ArchiveCourseSection("Hiver 2012", "A02", cd);
+		acs2.setInstructor("Tremblay,Pierre-Marc");
+		sections.add(acs2);
+		ArchiveCourseSection acs3 = new ArchiveCourseSection("Hiver 2012", "B02", cd);
+		acs3.setInstructor("Allard,Marie-Hélène & Bouchard,Philippe");
+		sections.add(acs3);
+		ArchiveCourseSection acs4 = new ArchiveCourseSection("Hiver 2012", "C01", cd);
+		acs4.setInstructor("Tremblay,Pierre-Marc & Bouchard,Philippe");
+		sections.add(acs4);
+		ArchiveCourseSection acs5 = new ArchiveCourseSection("Hiver 2012", "D03", cd);
+		acs5.setInstructor("Valéry,Pascale");
+		sections.add(acs5);
+		ArchiveCourseSection acs6 = new ArchiveCourseSection("Hiver 2011", "C02", cd);
+		acs6.setInstructor("Amvella Motaze,Serge Patrick");
+		sections.add(acs6);
 	    // ********************************************************************
 	    
 	    Map<String, Object> map = new HashMap<String,Object>();
