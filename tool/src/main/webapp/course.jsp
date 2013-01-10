@@ -1,3 +1,5 @@
+<jsp:directive.include file="/templates/includes.jsp" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,20 +16,27 @@
 </head>
 <body>
 <div id="courseView">
+<div class="right">
+<a href="#" onClick="history.back();return false;"><c:out value="${msgs.back_button_label}"/></a>
+</div>
+
 <h1 id="heading"></h1>
 
-<div id="course_description_div">
-<h2>Description</h2>
+<div id="course_description_div" class="content">
+<h2><c:out value="${msgs.description_label}"/></h2>
 <div id="description_text"></div>
 
 <table id="course_details_table">
-<tr><th>Discipline</th><th>Programme</th><th>Crédit(s)</th><th>Exigences</th></tr>
+<tr><th><c:out value="${msgs.department_label}"/></th>
+<th><c:out value="${msgs.career_label}"/></th>
+<th><c:out value="${msgs.credits_label}"/></th>
+<th><c:out value="${msgs.requirements_label}"/></th></tr>
 <tr><td id="department"/><td id="career"/><td id="credits"/><td id="requirements"/>
 </table>
 </div>
 
-<div id="course_outlines">
-<h2>Liste des plans de cours disponible</h2>
+<div id="course_outlines" class="content">
+<h2><c:out value="${msgs.course_outline_list_label}"/></h2>
 <table id="course_outline_table"></table>
 </div>
 
