@@ -23,8 +23,8 @@ function bindSearch() {
 				aoData.push( { "name": "courseInstructor", "value": courseInstructor });
 			},
 			"aoColumns" : [
-			{ "sWidth": "50%" }, // course id
-			{ "sWidth": "50%" } // course title
+			null, // course id
+			null // course title
 			]
 		});
 		$('#search_result_frame').show();

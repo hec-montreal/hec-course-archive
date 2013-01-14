@@ -11,20 +11,40 @@
 
 #search_form_table{
 	text-align:center;
-	width:90%;
+	width:100%;
 }
 
-#search_form_table td{
-	width:50%;
+#search_form_table tr td:nth-child(1){
+	width:30%;
 	padding:4px;
+}
+
+#search_form_table tr td:nth-child(2){
+	width:30%;
+	padding:4px;
+}
+
+#search_form_table tr td:nth-child(3){
+	width:40%;
+	padding:4px;
+	font-style: italic;
+	font-size: 1em;
+	line-height:12px;
+	opacity:0.5;
+	text-align:left;
 }
 
 .search_form_label{
 	float:right;
 }
+
 .search_form_input{
 	float:left;
-	width:220px;
+	width:150px;
+}
+
+.search_form_help{
+	float:right;
 }
 
 select.chosen{
@@ -70,7 +90,7 @@ select.chosen + div{
 }
 
 #search_result_table{
-	width:100%;
+	width:100% !important;
 	border-collapse:collapse;
 }
 
@@ -78,6 +98,25 @@ select.chosen + div{
 { 
 	border:1px;
 }
+
+#search_result_table thead tr th:nth-child(1), #search_result_table tr td:nth-child(1)
+{ 
+	width:150px !important;
+	min-width:150px !important;
+}
+
+#search_result_table tr td
+{ 
+	padding-left:10px;
+}
+
+#search_result_table thead tr th:nth-child(2), #search_result_table tr td:nth-child(2)
+{ 	
+	width: 100%;
+	min-width: 100%;
+}
+
+
 
 #search_result_table tr.even{
  background-color: #F5F0F2;}
