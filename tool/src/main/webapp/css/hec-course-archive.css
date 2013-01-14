@@ -144,18 +144,63 @@ select.chosen + div{
 }
 #heading {
 	color: #555555;
+	text-align:center;
 }
+
+#course_outline_table {
+	width: 500px;
+	margin-left:auto; 
+    margin-right:auto;
+	border:1px solid rgba(0, 0, 0, .1);
+	border-collapse:collapse;
+}
+
+#course_outlines h2 , #course_description_div h2 {
+	width: 100%;
+	text-align:center;
+}
+
+#course_outline_table td {
+	padding-left: 10px;
+}
+
 #course_outline_table .pdf_icon_col {
 	padding-right: 0;
 	width: 20px;
 }
+
+#department, #header_department {
+	width:30%;
+	text-align:left;
+	padding-left: 10px;
+}
+
+#career, #header_career {
+	width:30%;
+	text-align:left;
+	padding-left: 10px;
+}
+
+#credits, #header_credits {
+	width:10%;
+	text-align:left;
+	padding-left: 10px;
+}
+
+#requirements, #header_requirements{
+	width:30%;
+	text-align:left;
+	padding-left: 10px;
+}
+
 #course_details_table {
 	margin-top: 1em;
 	border-collapse: collapse;
+	border:1px solid rgba(0, 0, 0, .1);
+	border-collapse:collapse;
+	width:100%
 }
-#course_details_table th {
-	text-align: left;
-}
+
 .right {
 	text-align: right;
 }

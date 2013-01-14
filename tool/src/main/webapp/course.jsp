@@ -27,10 +27,11 @@
 <div id="description_text"></div>
 
 <table id="course_details_table">
-<tr><th><c:out value="${msgs.department_label}"/></th>
-<th><c:out value="${msgs.career_label}"/></th>
-<th><c:out value="${msgs.credits_label}"/></th>
-<th><c:out value="${msgs.requirements_label}"/></th></tr>
+<tr class="ui-state-default" role="columnheader">
+<th id="header_department"><c:out value="${msgs.department_label}"/></th>
+<th id="header_career"><c:out value="${msgs.career_label}"/></th>
+<th id="header_credits"><c:out value="${msgs.credits_label}"/></th>
+<th id="header_requirements"><c:out value="${msgs.requirements_label}"/></th></tr>
 <tr><td id="department"/><td id="career"/><td id="credits"/><td id="requirements"/>
 </table>
 </div>
