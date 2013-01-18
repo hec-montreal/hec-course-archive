@@ -1,0 +1,1437 @@
+/* ---------------------------------------*/
+/*    Attention font-size:80% ci-dessous  */
+/*    doit être la 1ère règle pour le     */
+/*    bon fonctionne,ment du zoom         */
+/* ---------------------------------------*/
+
+/* ---------------------------------------*/
+/*    Definition de la police de base     */
+/* ---------------------------------------*/
+
+body {
+	font-size:80%;
+}
+td {
+	font-size:80%;
+}
+
+body, td {
+	font-family:helvetica,arial,sans-serif;
+	font-weight:normal;
+}
+
+
+/* ----------------------------------------*/
+/*           légende                      */
+/* ---------------------------------------*/
+.fenetre {
+	position: absolute;
+	background-color:white;
+}
+
+#leg {
+left:10px;
+position:absolute;
+top:90px;
+}
+
+/* ---------------------------------------*/
+/*           calculatrice                 */
+/* ---------------------------------------*/
+.calc{
+border: solid 1px red;
+font-family:  verdana, sans-serif ; 
+background-color: #FFFFFF ;
+font-size: 18pt ;
+margin-left:0px;
+margin-right: 500px;
+}
+
+
+.calcx{
+border: solid 1px red;
+font-family:  verdana, sans-serif ; 
+background-color: #FFFFFF ;
+font-size: 8pt ;
+margin-left:0px;
+margin-right: 0px;
+}
+
+/* ---------------------------------------*/
+/*            hyperliens                  */
+/* ---------------------------------------*/
+
+a:link, a:visited	{
+	color:#063871;
+	text-decoration:none;
+}
+
+a:hover {
+	color:#99CC33;
+	text-decoration:none;
+}
+
+/* ---------------------------------------*/
+/*            Éléments principaux         */
+/* ---------------------------------------*/
+
+#mainPageNew {
+	margin-left:6%;
+}
+
+.tableauStructure{
+	font-size:130%;
+	vertical-align:top;
+}
+
+/* Juste pour que les loupes marchent */
+.tableauNormal{
+	font-size:130%;
+}
+
+/* Juste pour que les loupes marchent */
+.tableauNormal2{
+	font-size:120%;
+}
+
+.titrePageNew {
+	color:#063871;
+	font-size:130%;
+	font-weight:bold;
+	margin-top:25px;
+	margin-bottom:25px;
+	margin-left:10px
+}
+
+.titreUrl {
+	color:#063871;
+	font-size:100%;
+	font-weight:bold;
+	margin-right:5px
+}
+
+a.titreUrl:hover {
+	color:#99CC33;
+	font-size:100%;
+	font-weight:bold;
+	margin-right:5px;
+	text-decoration:none;
+}
+
+.alignTextImg {
+	vertical-align: -18%;
+}
+
+.titreUser {
+	color:#000000;
+	font-size:130%;
+	font-weight:bold;
+	margin-top:20px;
+	margin-bottom:5px;
+	margin-left:10px
+}
+
+.alignementTitre {
+	margin-left:10px
+}
+
+.alignementTitre2 {
+	margin-left:15px
+}
+
+.ssTitrePageNew {
+	color:#414141;
+	font-weight: bold;
+	font-size: 115%; 
+	margin-bottom:10px;
+	margin-left:29px;
+}
+
+.ssTitrePageBullet {
+	color:#414141;
+	font-weight: bold;
+	font-size: 115%; 
+	margin-bottom:10px;
+	margin-left:20px;
+}
+
+#coursNew{
+	margin-top:30px;
+}
+
+.titrePageNumeroCours {
+	color:#063871;
+	font-size:130%;
+	font-weight:bold;
+	margin-top:30px;
+	margin-bottom:10px;
+	display:inline;
+}
+
+.titrePageNomCours {
+	color:#063871;
+	font-size:130%;
+	font-weight:bold;
+	margin-top:30px;
+	margin-bottom:10px;
+	display:inline;
+}
+
+#encadreTable {
+	background:#F9F9F9;
+	float: none;
+	width:494px;
+	display:block;
+	padding: 5px 5px 5px 10px;
+	border-left: solid 1px #c1cddb;
+	border-bottom: solid 1px #c1cddb;
+	border-top: solid 1px #c1cddb;
+	border-right: solid 1px #c1cddb;
+	margin-top:0px;
+	margin-bottom:25px;
+	margin-left:29px;
+	font-size:100%;
+}
+
+#encadreTableBlanc {
+	float: none;
+	width:513px;
+	display:block;
+	padding: 5px 5px 5px 20px;
+	margin-top:0px;
+	margin-bottom:25px;
+	margin-left:10px;
+	font-size:100%;
+}
+
+#encadreTableAnnuaireBlanc {
+	float: none;
+	width:100%;
+	display:block;
+	padding: 5px 5px 5px 20px;
+	margin-top:0px;
+	margin-bottom:25px;
+	margin-left:10px;
+	font-size:100%;
+}
+
+.menuFiltreLangue{
+	font-size:100%;
+	font-weight:bold;
+	display:block;
+	background:#f9f9f9;
+	width:513px;
+	padding: 2px 2px 2px 20px;
+	border-top: solid 1px #c1cddb;
+	border-bottom: solid 1px #c1cddb;
+	margin-top:15px;
+	margin-bottom:4px;
+	margin-left:10px;
+}
+
+.progEtudes,.responsables{
+	font-size:105%;
+	font-weight:bold;
+	display:block;
+	background:#f0f0f0;
+	width:483px;
+	padding: 2px 2px 2px 10px;
+	border-top: solid 1px #c1cddb;
+	border-right: solid 1px #c1cddb;
+	border-left: solid 1px #c1cddb;
+	margin-top:10px;
+	margin-bottom:0px;
+	margin-left:29px;
+
+}
+
+.trimestre{
+	font-size:105%;
+	font-weight:bold;
+	display:block;
+	background:#f0f0f0;
+	width:494px;
+	padding: 2px 2px 2px 10px;
+	border-top: solid 1px #c1cddb;
+	border-right: solid 1px #c1cddb;
+	border-left: solid 1px #c1cddb;
+	margin-top:10px;
+	margin-bottom:0px;
+	margin-left:29px;
+}
+
+.numeroCours{
+	font-size:100%;
+	font-weight:normal;
+	color:#414141;
+}
+
+.nomCours{
+	font-size:120%;
+	font-weight:normal;
+	margin-bottom:8px;
+}
+
+.numeroCoursInline{
+	font-size:100%;
+	font-weight:normal;
+	color:#414141;
+	display:inline;
+}
+
+.nomCoursInline{
+	font-size:100%;
+	font-weight:normal;
+	margin-bottom:8px;
+	display:inline;
+	margin-left:8px;
+}
+
+.itemRecherche{
+	font-size:80%;
+	font-weight:bold;
+}
+
+.itemRechercheMini{
+	font-size:60%;
+	font-weight:bold;
+}
+
+.center{
+	text-align:center;
+}
+
+.listeCoursTable{
+	font-size:120%;
+	font-weight:normal;
+	vertical-align:top;
+}
+
+.bulletCarreVert{
+	background: url(../img/d_carrev.gif) no-repeat left;
+	/*background-position-y: 5px;*/
+	margin-left:10px;
+}
+
+/*==================================
+            Encadrés 
+==================================*/
+
+.encadreNews-titre {
+	font-size:120%;
+	font-weight:bold;
+	margin-bottom:5px;
+}
+/*	
+.encadreNews-icone {
+}
+	
+.encadreNews-texte {
+	in-left:4px;
+}
+*/
+.encadreNews-texte2 {
+	margin-left:1px;
+	margin-bottom:15px;
+}
+
+.encadreNews-lien{
+	margin-bottom:5px;
+	margin-left:4px;
+}
+
+#encadreNews {
+	background:#F9F9F9;
+	width:60%;
+	float:right;
+	display:block;
+	padding: 8px 8px 8px 8px;
+	border-left: solid 1px #bcbcbc;
+	border-bottom: solid 1px #bcbcbc;
+	border-top: solid 1px #bcbcbc;
+	border-right: solid 1px #bcbcbc;
+	margin-top:5px;
+	margin-left:6px;
+	margin-bottom:4px;
+	margin-right:4px;
+	font-size:80%;
+}
+
+#encadreNewsAnnuaire {
+	float:right;
+	display:block;
+	padding: 0px 8px 8px 8px;
+	border-left: solid 1px #063871;
+	margin-top:5px;
+	margin-left:6px;
+	margin-bottom:4px;
+	margin-right:4px;
+	font-size:80%;
+}
+
+#encadreRecherche {
+	background:#F9F9F9;
+	float: none;
+	width:492px;
+	display:block;
+	padding: 5px 5px 5px 10px;
+	border-bottom: solid 1px #c1cddb;
+	border-top: solid 1px #c1cddb;
+	border-right: solid 1px #c1cddb;
+	border-left: solid 1px #c1cddb;
+	margin-top:0px;
+	margin-bottom:4px;
+	margin-left:29px;
+	font-size:100%;
+}
+	
+/* ================================
+        Annuaire 
+   ===============================*/
+   
+#infosNew {
+	background:#F9F9F9;
+	width:20%;
+	float:right;
+	display:block;
+	padding: 5px 5px 15px 10px;
+	border-left: solid 1px #bcbcbc;
+	border-bottom: solid 1px #bcbcbc;
+	border-top: solid 1px #bcbcbc;
+	border-right: solid 1px #bcbcbc;
+	margin-top:53px;
+	margin-bottom:4px;
+	font-size:88%;
+	margin-right:1%;
+}
+	
+.titreInfo {
+	font-weight: bold;
+	margin-top:15px;
+	margin-bottom:0px;
+}
+
+.itemInfo {
+	display:block;
+}
+
+#annuaire {
+	margin-left:12%;
+	margin-right:5%;
+}
+
+#annuaire #cours {
+	color:#063871;
+	font-size:150%;
+	font-weight:700;
+	margin-top:20px;
+	margin-bottom:20px;
+	margin-left:5px;
+}
+	
+	
+	
+	
+/* ======================================= */
+/* ============ Footer =================== */
+/* ======================================= */
+
+
+
+#footer2 {
+	width:99%;
+	border-top: solid 1px #063871;
+	margin-top:40px;
+	padding-top:10px;
+	margin-left:1%;
+	clear:both;
+}
+
+
+.profs {
+	font-size:80%;
+	float: left
+}
+
+.service, .dateMaj , .copyright {
+	font-size:80%;
+}
+
+.teximusNew {
+	border-style: none;
+	float:right;
+	width:  87px;
+	height:24px;
+}
+	
+	
+/* ======================================= */
+/* ============ Ancien css =============== */
+/* ======================================= */
+
+#menu {
+	background:white;
+	float: right;
+	width:18%;
+	display:block;
+	padding: 5px 5px 5px 8px;
+	border-left: solid 2px #063871;
+	border-bottom: solid 2px #063871;
+	border-top: solid 1px #003399;
+	border-right: solid 1px #003399;
+	margin-bottom: 4px;
+	font-size:88%;
+}
+	
+.titreMenu{
+	font-weight: bold;
+	margin-bottom:5px;
+}
+
+.itemMenu {
+	display:block;
+}
+	
+/*  --- hyperliens ---  */
+
+.menuon {
+	background: url(../img/petitPoint.gif) no-repeat left;
+	padding-left: 8px;
+	color:#063871;
+	text-decoration:none;
+	display:block;
+}
+
+a.menuoff2:link, a.menuoff2:visited {
+	padding-left: 8px;
+	color:#3366CC;
+	text-decoration:none;
+	display:block;
+}
+
+/* ---          ???            --- */
+a.menuon:link, a.menuon:visited {
+	color:#063871;
+	text-decoration:none;
+}
+
+a.menuoff:link, a.menuoff:visited {
+	color:#3366CC;
+	text-decoration:none;
+}
+
+
+a.menuoff:hover, a.menuoff2:hover {
+	color:#063871;
+	text-decoration:none;
+}
+
+/*  --- imprimables ---  */
+
+.menuImprimables {
+	margin-top:5px;
+	padding-top:5px;
+	padding-bottom:5px;
+	border-top:solid 1px gray;
+	border-bottom:solid 1px gray;
+}
+
+/*  --- nouvelles ---  */
+
+.cours-nouvelles {
+	margin-top:5px;
+}
+
+#contenu21 .texteNouvelles {
+	margin-left:15px;
+}
+
+#contenu21 .nouvelle {
+	margin-top:10px;
+}
+	
+.texteNouvelles {
+	margin-top:5px;
+	margin-left:5px;
+}
+
+.dateNouvelles {
+	font-style:italic;
+	text-align: right;
+	font-size:80%;
+}
+
+.seance-nouvelles {
+	margin-top:5px;
+}
+
+.archiveMenu {
+	margin-top:10px;
+	text-align:right;
+}
+
+
+#recherche {
+	float:right;
+}
+
+#monAccueil {
+	float:right;
+}
+
+#zoom {
+	font-size:10pt;
+	float:right;
+}
+
+
+/* ================================================================ */
+/* ==                                                            == */
+/* ==                            Page                            == */
+/* ==                                                            == */
+/* ================================================================ */
+
+
+#mainPage {
+	margin-left:12%;
+	margin-right:5%;
+}
+
+
+#mainPagePlanImprimable {
+	margin-left:5%;
+	margin-right:2%;
+}
+
+/* ---------------------------------------*/
+/*       headerPage - logos               */
+/* ---------------------------------------*/
+
+#headerPage{
+	width:100%;
+}
+
+
+.logoHEC {
+	background: url(../img/Logo1.gif) no-repeat left top;
+	width: 179px;
+	height: 70px;
+	float:left;
+}
+
+.logoAnglais{
+	background: url(../img/LogoEnglish.gif) no-repeat left top;
+	width: 100px;
+	height: 20px;
+}
+
+.logoEspagnol{
+	background: url(../img/LogoEspanol.gif) no-repeat left top;
+	width: 100px;
+	height: 20px;
+}
+
+.zoneCours {
+	background: url(../img/Logo2.gif) no-repeat top left;
+	width: 343px;
+	height: 70px;
+}
+
+/* ---------------------------------------*/
+/*       headerPage - titres              */
+/* ---------------------------------------*/
+
+
+#cours {
+	color:#063871;
+	font-size:125%;
+	font-weight:700;
+	margin-top:3px;
+	margin-left:0px;
+	z-index: 1;
+}
+
+
+#codeCours {
+	float: left;
+}
+
+#libelleCours {
+	margin-left:5px;
+}
+
+#session-section {
+	color:#063871;
+	font-size:100%;
+	font-weight:700;
+	margin-top:3px;
+	margin-left:0px;
+	white-space: nowrap;
+	z-index: 1;
+}
+
+#sessionCours {
+	float: left;
+}
+
+#separateur-session-section {
+	float: left;
+	margin-left:5px;
+}
+
+#section {
+}
+
+#profs {
+	color:#063871;
+	font-size:100%;
+	font-weight:700;
+	margin-left:0px;
+	margin-top:3px;
+	margin-bottom:5px;
+}
+
+
+.titrePage {
+	color:black;
+	font-size:130%;
+	font-weight:bold;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+
+
+/* ---------------------------------------*/
+/*       headerPage - rubriques           */
+/* ---------------------------------------*/
+
+#hyperliensRubriques {
+	color:#063871;
+	margin-top:15px;
+	margin-bottom:10px;
+}
+
+/* ---------------------------------------*/
+/*             contenus                   */
+/* ---------------------------------------*/
+
+#contenu10,
+#contenu11,
+#contenu12,
+#contenu13,
+#contenu14,
+#contenu15
+#contenu16
+#contenu22 {
+	margin-top:10px;
+	margin-right:0px;
+	margin-bottom:20px;
+}
+
+.contenuQuestion {
+	margin-top :0px;
+	margin-left:0px;
+	background:#eeeeff;
+	}
+
+.contenuReponse {
+	margin-top :0px;
+	margin-left:0px;
+	}
+
+
+#contenu17,
+#contenu18,
+#contenu19,
+#contenu20 {
+	border-top: solid 1px #063871;
+	margin-top:20px;
+	margin-right:0px;
+	margin-bottom:20px;
+}
+
+/* ---------------------------------------*/
+/*             important                  */
+/* ---------------------------------------*/
+
+.rubriqueImportant {
+	display:block;
+	margin-top:20px;
+}
+
+.important {
+	display:block;
+	margin-top:20px;
+	padding-top:5px;
+	padding-bottom:5px;
+	width:95%;
+	border-top: solid 2px #aa0000;
+	border-bottom: solid 2px #aa0000;
+	background:#eeeeee;
+}
+
+.logoImportant {
+	background: url(../img/d_carrer.gif) no-repeat left;
+	width:  9px;
+	height: 9px;
+	float: left;
+}
+
+.important .ressource {
+	margin-left:17px;
+}
+/* ---------------------------------------*/
+/*             ressources                 */
+/* ---------------------------------------*/
+
+.ressource {
+	margin-top:10px;
+}
+
+.ressource2007 {
+	margin-top:10px;
+	margin-left:-170px;
+}
+
+.contenuRessource {
+	margin-top :0px;
+	margin-left:13px;
+}
+
+
+/*--- titreRessource ---*/
+.titreRessource {
+	margin-left:12px;
+	font-weight:normal;
+	text-indent:0px;;
+}
+
+#contenu14 .titreRessource {
+	font-weight:bold;
+	}
+
+#contenu14 .contenuRessource .titreRessource{
+	font-weight:normal;
+	}
+
+/*--- logoRessource ---*/
+.logoRessource {
+	background: url(../img/point.gif) no-repeat left;
+	width:  5px;
+	height: 5px;
+	float: left;
+	margin-right:0px;
+}
+
+.logoFAQ {
+	background: url(../img/point.gif) no-repeat left;
+	width:  5px;
+	height: 5px;
+	float: left;
+	margin-left:5px;
+	margin-right:0px;
+}
+
+#contenu14 .logoRessource {
+	background: url(../img/d_carrev.gif) no-repeat left;
+	width:  9px;
+	height: 9px;
+	float: left;
+	margin-right:5px;
+}
+
+
+#contenu14 .contenuRessource .logoRessource {
+	background: url(../img/point.gif) no-repeat left;
+	width:  5px;
+	height: 5px;
+	float: left;
+	margin-right:5px;
+}
+
+
+/*--- enonce /solution ---*/
+
+
+.enonce {
+	margin-top:10px;
+	padding-top:5px;
+	border-top:solid 1px gray;
+}
+
+.enonce.titre, .solution.titre {
+	font-style:italic;
+	font-weight:bold;
+	margin-bottom:2px;
+}
+
+.solution {
+	margin-top:10px;
+	padding-top:5px;
+	border-top:solid 1px gray;
+}
+
+
+/*--- Texte ---*/
+.texte {
+	margin-top:5px;
+}
+
+.description-texte {
+	margin-top:5px;
+}
+
+.commentaire {
+	padding-top:5px;
+	font-style:normal;
+	}
+
+.commentaire-local {
+	margin-top:5px;
+	font-style:normal;
+}
+
+.texte p,
+.commentaire-local p,
+.commentaire p {
+	margin-top:3px;
+	margin-bottom:2px;
+}
+
+ul {
+	margin-top:5px;
+	margin-bottom:5px;
+	border: solid 0px;
+}
+
+ol {
+	margin-top:5px;
+	margin-bottom:5px;
+	border: solid 0px;
+}
+
+.rouge {
+	color:red;
+}
+
+li {
+ margin-left:-10px;
+}
+
+/* ---------------------------------------*/
+/*             rubriques                  */
+/* ---------------------------------------*/
+
+
+/*--- rubrique ---*/
+.rubrique {
+	margin-top:10px;
+}
+
+.important .rubrique {
+	margin-top:5px;
+	margin-left:20px;
+}
+
+/*--- contenuRubrique ---*/
+
+.contenuRubrique {
+	margin-left:17px;
+}
+
+
+/*--- titreRubrique ---*/
+
+.titreRubrique {
+	font-weight:bold;
+}
+
+.contenuRubrique .titreRubrique {
+	font-weight:bold;
+}
+
+.important .titreRubrique {
+	font-weight:normal;
+}
+
+/*--- custom css for printing pdf ---*/
+.logoRubrique {
+	background: url(../img/d_carrev.gif) no-repeat left;
+	width:  9px;
+	height: 9px;
+	float: left;
+	margin-right:5px;
+	margin-left:-5px !important;
+}
+
+img[src="img/iconeBiblio.gif"]{
+display:none !important;
+}
+
+img[src="img/aide.gif"]{
+display:none !important;
+}
+
+img[src="img/zoomPlus.gif"]{
+display:none !important;
+}
+
+img[src="img/zoomMoins.gif"]{
+display:none !important;
+}
+
+img[src="img/menuOff.gif"]{
+display:none !important;
+}
+
+img[src="img/iconeObl.gif"]{
+display:none !important;
+}
+
+
+
+.contenuRubrique .logoRubrique {
+	background: url(../img/d_carrej.gif) no-repeat left;
+	width:  9px;
+	height: 9px;
+	float: left;
+	margin-right:5px;
+}
+
+.contenuRubrique .contenuRubrique .logoRubrique {
+	background: url(../img/d_carreb.gif) no-repeat left;
+	width:  9px;
+	height: 9px;
+	float: left;
+	margin-right:5px;
+}
+
+.important .logoRubrique {
+	background: url(../img/d_carrej.gif) no-repeat left;
+	width:  9px;
+	height: 9px;
+	float: left;
+}
+
+
+/* ======================================= */
+/* ============== Accueil ================ */
+/* ======================================= */
+
+
+.listeCours .logoSession {
+	background: url(../img/d_carrej.gif) no-repeat left;
+	width:  9px;
+	height: 9px;
+	float: left;
+	margin-right:5px;
+	margin-left:20px;
+}
+
+.listeCours .titreSession {
+	font-weight:normal;
+}
+
+/* ======================================= */
+/* ======= résultat recherche ============ */
+/* ======================================= */
+
+#contenuResultatRecherche .logoSeance {
+	background: url(../img/d_carrev.gif) no-repeat left;
+	width:  9px;
+	height: 9px;
+	float: left;
+	margin-right:5px;
+	margin-left:0px;
+}
+
+#contenuResultatRecherche .libelleSeance {
+	font-weight:normal;
+	font-style:italic;
+}
+
+/* ======================================= */
+/* ============ Coordonnees ============== */
+/* ======================================= */
+
+.libelleBureau,
+.libelleCourriel,
+.libelleTelephone,
+.libelleDispo {
+	float:left;
+}
+
+
+.contenuBureau,
+.contenuCourriel,
+.contenuTelephone,
+.contenuDispo {
+	margin-left: 100px;
+}
+
+
+/* ======================================= */
+/* ============ Footer =================== */
+/* ======================================= */
+
+
+#footer	{
+	border-top: solid 1px #063871;
+	margin-top:20px;
+	padding-top:10px;
+}
+#footerslb	{
+
+	margin-left:12%;		
+}
+#footerslb2	{
+
+	margin-left:7%;		
+}
+
+.teximus {
+	float:right;
+	background: url(../img/LogoTeximus.gif) no-repeat left;
+	width:  87px;
+	height:24px;
+}
+
+
+/* ======================================= */
+/* ============Liste des séances ========= */
+/* ======================================= */
+
+#mainPageListeSeance {
+	margin-left:15%;
+	margin-right:10%;
+}
+
+
+#mainPageListeSeance #seances{
+	margin-top:10px;
+	font-weight: bold;
+	font-size:120%;
+}
+
+
+#listeSeances{
+	width:98%;
+}
+
+.headerListeSeance {
+	margin-top:20px;
+	font-size:120%;
+	border-top:solid 1px gray;
+	border-bottom:solid 1px gray;
+	border-left:solid 1px gray;
+	border-right:solid 1px gray;
+	font-weight: bold;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+.ligneSeance {
+	border-bottom:solid 1px gray;
+	border-left:solid 1px gray;
+	border-right:solid 1px gray;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+.noSeanceListe {
+	width:20%;
+	text-align:center;
+	font-weight: bold;
+	vertical-align:middle;
+	float:left;
+}
+
+.theme {
+	width:80%;
+	padding-left:10px;
+	border-left:solid 1px gray;
+	vertical-align:middle
+}
+
+.headerListeSeance .theme {
+	text-align:center;
+}
+
+
+/* ======================================= */
+/* =========== Page Séance =============== */
+/* ======================================= */
+
+#noSeance {
+	color:black;
+	font-size:125%;
+	font-weight:700;
+	margin-top:5px;
+	float: left;
+	padding-bottom:25px;
+	padding-right:2px;
+	display:block;
+}
+
+#titreSeance {
+	color:black;
+	font-size:125%;
+	font-weight:700;
+	margin-top:10px;
+	display:block;
+}
+
+#seances {
+	color:#063871;
+	float:left;
+}
+
+#noSeanceLiens {
+	display:block;
+}
+
+#seancesDansListeSeances {
+	font-size:125%;
+	font-weight:bold;
+	display:block;
+}
+
+
+/* =============================
+        Page travaux et examens
+   ============================*/
+
+
+#contenu14 .date {
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+/* =============================
+        Page Coordonnées
+   ============================*/
+
+.bureau {
+	margin-top:5px;
+}
+
+.telephone {
+	margin-top:5px;
+}
+	
+.courriel {
+	margin-top:5px;
+}
+
+.disponibilite {
+	margin-top:5px;
+}
+
+
+/* ================================
+        Page Documents imprimables
+   ===============================*/
+
+
+.detail{
+	font-size:80%
+}
+
+
+/* ================================
+        Divers
+   ===============================*/
+
+
+#niv {
+	font-size:8pt;
+	float:right;
+	display:block;
+}
+
+#login {
+	position:absolute;
+	top:5px;
+	left:10px;
+	width: 80px;
+	font-size:80%;
+}
+
+#message {
+	margin-top:15pt;
+	font-size:80%;
+	font-family:helvetica,arial,sans-serif;
+	font-weight:normal;
+}
+
+
+/* ================================
+        Référence
+   ===============================*/
+
+
+.isbn {
+	font-size:90%;
+	font-style:italic;
+}
+
+
+/* ================================
+        Page accueil
+   ===============================*/
+   
+
+.bonjour {
+	font-size:150%;
+	float:left;
+	font-weight:bold;
+}
+
+.nom {
+	font-size:150%;
+	font-weight:bold;
+	float:left;
+}
+
+.login {
+	margin-left:460px;
+	padding-bottom:5px;
+}
+
+#contenuAccueil {
+	padding-top:5px;
+}
+
+#contenuAccueil .titrePage {
+	margin-top:15px;
+	color:#063871;
+	font-size:140%;
+	font-weight:700;
+}
+	
+.codePlanCours {
+	margin-left:5px;
+	width:150px;
+	float:left;
+	text-align:right;
+}
+
+#contenuAccueil .codePlanCours {
+	margin-left:13px;
+}
+
+.listeCours {
+}
+
+.codeCours{
+	margin-left:0px;
+	width:70px;
+	float:left;
+	text-align:right;
+}
+
+.ssTitrePage {
+	font-weight: bold;
+	font-size: 120%; 
+	margin-top:10px;
+	margin-bottom:5px;
+}
+
+.cours {
+	margin-top:3px;
+}
+
+.libellePlanCours {
+}
+	
+	
+.professeur {
+	margin-left:5px;
+	font-style:italic;
+}
+
+
+.logoPCE { 
+	margin-top:3px;
+	background: url(../img/point.gif) no-repeat left;
+	width:  5px; 
+	height: 5px; 
+	float: left;
+	margin-right:5px;
+}
+
+.erreurIdentification {
+	float:left;
+	color:red;
+	padding-top:5px;
+	font-weight:normal;
+}
+	
+.erreurIdentificationNew {
+	color:red;
+}
+
+.erreurIdentificationPage {
+	position:absolute;
+	top:70px;
+	left:10px;
+	width: 80px;
+	font-size:80%;
+	margin-top:5px;
+	color:red;
+	font-weight:normal;
+}
+
+
+/* ================================
+        Annuaire 
+   ===============================*/
+
+
+#infos {
+	background:white;
+	float: right;
+	width:18%;
+	display:block;
+	padding-top: 0px;
+	padding-left: 20px;
+	
+	border-left: solid 1px black;
+	margin-bottom: 4px; 
+	font-size:90%;
+	margin-left:20px;
+}
+
+
+/* ================================
+        Encadrés 
+   ===============================*/
+
+.encadre-titre {
+	font-size:120%;
+	font-weight:bold;
+	margin-bottom:5px;
+}
+
+.encadre-icone {
+}
+
+.encadre-texte {
+	margin-left:0px;
+}
+
+#encadre {
+	background:white;
+	float: right;
+	width:20%;
+	display:block;
+	padding: 5px 5px 5px 8px;
+	border-left: solid 2px #063871;
+	border-bottom: solid 2px #063871;
+	border-top: solid 1px #003399;
+	border-right: solid 1px #003399;
+	margin-top:15px;
+	margin-bottom: 4px;
+	font-size:88%;
+}
