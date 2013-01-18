@@ -955,42 +955,6 @@ li {
 	font-weight:normal;
 }
 
-/*--- custom css for printing pdf ---*/
-.logoRubrique {
-	background: url(../img/d_carrev.gif) no-repeat left;
-	width:  9px;
-	height: 9px;
-	float: left;
-	margin-right:5px;
-	margin-left:-5px !important;
-}
-
-img[src="img/iconeBiblio.gif"]{
-display:none !important;
-}
-
-img[src="img/aide.gif"]{
-display:none !important;
-}
-
-img[src="img/zoomPlus.gif"]{
-display:none !important;
-}
-
-img[src="img/zoomMoins.gif"]{
-display:none !important;
-}
-
-img[src="img/menuOff.gif"]{
-display:none !important;
-}
-
-img[src="img/iconeObl.gif"]{
-display:none !important;
-}
-
-
-
 .contenuRubrique .logoRubrique {
 	background: url(../img/d_carrej.gif) no-repeat left;
 	width:  9px;
@@ -1434,4 +1398,39 @@ display:none !important;
 	margin-top:15px;
 	margin-bottom: 4px;
 	font-size:88%;
+}
+
+
+/*--- custom css for printing pdf ---*/
+.logoRubrique {
+	background: url(../img/d_carrev.gif) no-repeat left;
+	width:  9px;
+	height: 9px;
+	float: left;
+	margin-right:5px;
+	margin-left:-5px !important;
+}
+
+img[src="img/iconeBiblio.gif"]{
+display:none !important;
+}
+
+img[src="img/aide.gif"]{
+display:none !important;
+}
+
+img[src="img/zoomPlus.gif"]{
+display:none !important;
+}
+
+img[src="img/zoomMoins.gif"]{
+display:none !important;
+}
+
+img[src="img/menuOff.gif"]{
+display:none !important;
+}
+
+img[src="img/iconeObl.gif"]{
+display:none !important;
 }
