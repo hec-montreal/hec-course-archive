@@ -11,6 +11,13 @@
 	<artifactId>hec-course-archive-impl</artifactId>
 	<name>hec-course-archive-impl</name>
 	<packaging>jar</packaging>
+	<repositories>
+	    <repository>
+	      <id>local_libs</id>
+	      <url>file://${project.basedir}/lib</url>
+	    </repository>
+	 </repositories>
+	
 	<dependencies>
 
 		<dependency>
@@ -54,6 +61,32 @@
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
+		</dependency>
+		<!-- quartz -->
+		<dependency>
+			<groupId>org.opensymphony.quartz</groupId>
+			<artifactId>quartz</artifactId>
+			<version>1.6.6</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- pd4ml (java API to convert HTML to PDF) -->
+		<dependency>
+			<groupId>org</groupId>
+			<artifactId>pd4ml-core</artifactId>
+			<version>380</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org</groupId>
+			<artifactId>pd4ml-css2</artifactId>
+			<version>380</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org</groupId>
+			<artifactId>pd4ml-taglib</artifactId>
+			<version>380</version>
+			<type>jar</type>
 		</dependency>
 	</dependencies>
 	<build>
