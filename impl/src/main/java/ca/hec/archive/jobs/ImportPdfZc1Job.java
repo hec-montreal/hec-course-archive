@@ -137,15 +137,19 @@ public class ImportPdfZc1Job implements Job {
 	String driverName =
 		ServerConfigurationService
 			.getString("hec.zonecours.conn.portail.driver.name.test");
+	log.error("driverName: " + driverName);
 	String url =
 		ServerConfigurationService
 			.getString("hec.zonecours.conn.portail.url.test");
+	log.error("url: " + url);
 	String user =
 		ServerConfigurationService
 			.getString("hec.zonecours.conn.portail.user.test");
+	log.error("user: " + user);
 	String password =
 		ServerConfigurationService
 			.getString("hec.zonecours.conn.portail.password.test");
+	log.error("password: " + password);
 
 	Connection zc1con = null;
 
