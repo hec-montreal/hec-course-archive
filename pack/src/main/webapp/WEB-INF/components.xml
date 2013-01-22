@@ -26,6 +26,24 @@
 	<bean id="ca.hec.archive.logic.ProjectLogic"
     	class="ca.hec.archive.logic.ProjectLogicImpl"
     	init-method="init" />
+    	
+    	<!-- Quartz Job -->
+	<bean id="ca.hec.archive.jobs.ImportPdfZc1Job"
+		class="ca.hec.archive.jobs.ImportPdfZc1Job">
+	</bean>	
+	<bean id="ImportPdfZc1Job"
+       class="org.sakaiproject.component.app.scheduler.jobs.SpringJobBeanWrapper"
+       singleton="true" init-method="init">
+       <property name="beanId">
+          <value>ca.hec.archive.jobs.ImportPdfZc1Job</value>
+       </property>
+       <property name="jobName">
+          <value>importer les plans de cours ZC1 en HTML vers des PDF ZoneCours2</value>
+       </property>
+       <property name="schedulerManager">
+          <ref bean="org.sakaiproject.api.app.scheduler.SchedulerManager" />
+       </property>
+    </bean>
 	
 
 </beans>
