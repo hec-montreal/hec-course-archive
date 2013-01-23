@@ -15,12 +15,19 @@ import org.apache.commons.logging.LogFactory;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.sakaiproject.component.cover.ComponentManager;
+import org.sakaiproject.authz.api.AuthzGroupService;
 import org.sakaiproject.component.cover.ServerConfigurationService;
+import org.sakaiproject.content.api.ContentCollection;
 import org.sakaiproject.content.api.ContentCollectionEdit;
 import org.sakaiproject.content.api.ContentHostingService;
 import org.sakaiproject.content.api.ContentResourceEdit;
+import org.sakaiproject.event.api.EventTrackingService;
 import org.sakaiproject.event.api.NotificationService;
+import org.sakaiproject.event.api.UsageSessionService;
+import org.sakaiproject.exception.IdUsedException;
+import org.sakaiproject.tool.api.Session;
+import org.sakaiproject.tool.api.SessionManager;
+import org.sakaiproject.user.api.UserDirectoryService;
 import org.zefer.pd4ml.PD4Constants;
 import org.zefer.pd4ml.PD4ML;
 
@@ -40,32 +47,77 @@ public class ImportPdfZc1Job implements Job {
     protected String unitsValue = "mm";
     protected String proxyHost = "";
     protected int proxyPort = 0;
-    protected ContentHostingService contentHostingService;
     private static Log log = LogFactory.getLog(ImportPdfZc1Job.class);
 
     private static final String ZC1_REQUEST =
-	    "select PLANCOURS.KOID,PLANCOURS.SESSIONCOURS, PLANCOURS.PERIODE, PLANCOURS.CODECOURS,PLANCOURS.SECTIONCOURS,PLANCOURS.LANG from PLANCOURS where rownum < 2";
+	    "select PLANCOURS.KOID,PLANCOURS.SESSIONCOURS, PLANCOURS.PERIODE, PLANCOURS.CODECOURS,PLANCOURS.SECTIONCOURS,PLANCOURS.LANG from PLANCOURS where rownum < 100";
 
+    
+    // Fields and methods for spring injection
+    protected AuthzGroupService authzGroupService;
+    protected ContentHostingService contentHostingService;
+    protected EventTrackingService eventTrackingService;
+    protected SessionManager sessionManager;
+    protected UsageSessionService usageSessionService;
+    protected UserDirectoryService userDirectoryService;
+    
+    public void setAuthzGroupService(AuthzGroupService authzGroupService) {
+	this.authzGroupService = authzGroupService;
+    }
+
+    public void setContentHostingService(
+	    ContentHostingService contentHostingService) {
+	this.contentHostingService = contentHostingService;
+    }
+
+    public void setEventTrackingService(
+	    EventTrackingService eventTrackingService) {
+	this.eventTrackingService = eventTrackingService;
+    }
+
+    public void setSessionManager(SessionManager sessionManager) {
+	this.sessionManager = sessionManager;
+    }
+
+    public void setUsageSessionService(UsageSessionService usageSessionService) {
+	this.usageSessionService = usageSessionService;
+    }
+
+    public void setUserDirectoryService(
+	    UserDirectoryService userDirectoryService) {
+	this.userDirectoryService = userDirectoryService;
+    }
+    // ENDOF spring injection
+    
+    
+    
+    
+    
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
 
-	Connection connex = getZC1Connection();
+	
 	PreparedStatement ps = null;
 	ByteArrayOutputStream pdfStream = null;
-	contentHostingService =
-		(ContentHostingService) ComponentManager
-			.get(ContentHostingService.class);
 	ContentResourceEdit newResource = null;
-	ContentCollectionEdit newCollection = null;
+	ContentCollection newCollection = null;
+	Connection connex = null;
 
-	try {
+	
+	try { 
+	    
+	    connex = getZC1Connection();
+	    loginToSakai();
 	    ps = connex.prepareStatement(ZC1_REQUEST);
 	    URL customCssUrl = this.getClass().getResource("/zc1_custom_style.css");
 
 	    ResultSet rs = ps.executeQuery();
+	    int nbCoursConverti = 0;
 
 	    log.error("------------------------------   URLs PLANS de COURS  ---------------------------------------");
 
-	    while (rs.next()) {
+	    
+		while (rs.next()) {
+		try {
 
 		String koid = rs.getString(1);
 		String sessioncours = rs.getString(2);
@@ -80,7 +132,7 @@ public class ImportPdfZc1Job implements Job {
 		String courseId =
 			formatCourseId(codecours) + "." + sessioncours;
 
-		log.error(urlCoHTML);
+		
 
 		/********************** Creating PDF Stream from URL ********************/
 		pdfStream = new ByteArrayOutputStream();
@@ -98,37 +150,57 @@ public class ImportPdfZc1Job implements Job {
 
 		pd4ml.setHtmlWidth(userSpaceWidth);
 		pd4ml.disableHyperlinks();
-		pd4ml.enableDebugInfo();
 
 		pd4ml.addStyle(customCssUrl, true);
 		pd4ml.render(urlCoHTML, pdfStream);
 
 		/********************** Importing PDF Stream to Sakai Resources ********************/
-
-		newCollection =
-			contentHostingService.addCollection("/attachement/"
-				+ courseId + "/");
+		String collection_id = "/attachment/"	+ courseId + "." + sectioncours + "/OpenSyllabus/";
 		
-		contentHostingService.commitCollection(newCollection);
+		    try {
+			newCollection =
+				contentHostingService
+					.addCollection(collection_id);
+			contentHostingService.commitCollection((ContentCollectionEdit) newCollection);
+		}
 		
-		newCollection =
-			contentHostingService.addCollection("/attachement/"
-				+ courseId + "/OpenSyllabus/");
-		contentHostingService.commitCollection(newCollection);
+		catch (IdUsedException e) {
+		    log.error("Collection " + collection_id + " is already created");
+		    newCollection = (ContentCollection) contentHostingService.getCollection(collection_id);
+		}
+		    
+		    try {
+		    
 		newResource =
 			contentHostingService.addResource(
-				newCollection.getId(), courseId
-					+ ".00_public.pdf", ".pdf", 1);
+				newCollection.getId(), courseId + "." + sectioncours + "_public", ".pdf", 1);
 		newResource.setContent(pdfStream.toByteArray());
 		contentHostingService.commitResource(newResource,
 			NotificationService.NOTI_NONE);
+		
+		    }
+		    catch (Exception e) {
+			    log.error("Course pdf " + courseId + "." + sectioncours + " is already created");
+			}
+		
+		
+		nbCoursConverti++;
+		log.error("url ZC1: " + urlCoHTML);
+		log.error("url SDATA: " + "http://localhost:8080/sdata/c/attachment/" + courseId + "." + sectioncours + "/OpenSyllabus/" + courseId + "." + sectioncours + "_public.pdf");
+		log.error("************************** " + nbCoursConverti + " **********************");
+		
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		}
+	    } catch (Exception e) {
+		e.printStackTrace();
 	    }// end while
 	    log.error("----------------------------------------------------------------------------------");
-	    log.error("FIN DE LA JOB");
+	    log.error("FIN DE LA JOB");	    
+	    logoutFromSakai();
 
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
+	
 
     }
 
@@ -136,20 +208,16 @@ public class ImportPdfZc1Job implements Job {
 
 	String driverName =
 		ServerConfigurationService
-			.getString("hec.zonecours.conn.portail.driver.name.test");
-	log.error("driverName: " + driverName);
+			.getString("hec.zonecours.conn.portail.driver.name");
 	String url =
 		ServerConfigurationService
-			.getString("hec.zonecours.conn.portail.url.test");
-	log.error("url: " + url);
+			.getString("hec.zonecours.conn.portail.url");
 	String user =
 		ServerConfigurationService
-			.getString("hec.zonecours.conn.portail.user.test");
-	log.error("user: " + user);
+			.getString("hec.zonecours.conn.portail.user");
 	String password =
 		ServerConfigurationService
-			.getString("hec.zonecours.conn.portail.password.test");
-	log.error("password: " + password);
+			.getString("hec.zonecours.conn.portail.password");
 
 	Connection zc1con = null;
 
@@ -204,6 +272,33 @@ public class ImportPdfZc1Job implements Job {
 	formattedCourseId = cheminement + "-" + numero + "-" + annee;
 	return formattedCourseId;
 
+    }
+    
+    protected void loginToSakai() {
+	Session sakaiSession = sessionManager.getCurrentSession();
+	sakaiSession.setUserId("admin");
+	sakaiSession.setUserEid("admin");
+
+	// establish the user's session
+	usageSessionService.startSession("admin", "127.0.0.1",
+		"ImportPdfZc1Job");
+
+	// update the user's externally provided realm definitions
+	authzGroupService.refreshUser("admin");
+
+	// post the login event
+	eventTrackingService.post(eventTrackingService.newEvent(
+		UsageSessionService.EVENT_LOGIN, null, true));
+    }
+
+    /**
+     * Logs out of the sakai environment
+     */
+    protected void logoutFromSakai() {
+	// post the logout event
+	eventTrackingService.post(eventTrackingService.newEvent(
+		UsageSessionService.EVENT_LOGOUT, null, true));
+	usageSessionService.logout();
     }
 
 }
