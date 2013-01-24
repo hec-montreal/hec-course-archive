@@ -51,7 +51,7 @@ public class ImportPdfZc1Job implements Job {
     private static Log log = LogFactory.getLog(ImportPdfZc1Job.class);
 
     private static final String ZC1_REQUEST =
-	    "select PLANCOURS.KOID,PLANCOURS.SESSIONCOURS, PLANCOURS.PERIODE, PLANCOURS.CODECOURS,PLANCOURS.SECTIONCOURS,PLANCOURS.LANG from PLANCOURS where rownum < 1000 and SESSIONCOURS IS NOT NULL";
+	    "select PLANCOURS.KOID,PLANCOURS.SESSIONCOURS, PLANCOURS.PERIODE, PLANCOURS.CODECOURS,PLANCOURS.SECTIONCOURS,PLANCOURS.LANG from PLANCOURS where SESSIONCOURS IS NOT NULL";
 
     // Fields and methods for spring injection
     protected AuthzGroupService authzGroupService;
@@ -109,7 +109,7 @@ public class ImportPdfZc1Job implements Job {
 	    ResultSet rs = ps.executeQuery();
 	    int nbCoursConverti = 0;
 
-	    log.info("------------------------------   URLs PLANS de COURS  ---------------------------------------");
+	    log.error("------------------------------   URLs PLANS de COURS  ---------------------------------------");
 
 	    long start = System.currentTimeMillis();
 	    while (rs.next()) {
@@ -121,27 +121,31 @@ public class ImportPdfZc1Job implements Job {
 		    String codecours = rs.getString(4);
 		    String sectioncours = rs.getString(5);
 		    String lang = rs.getString(6);
+		    
+		    String suffixPeriode = "";
+		    
+		    //Si la periode est différente de 1 (pour les MBA on a P1/P2/P3/P4/P5/P6)
+		    if (!"1".equals(periode)){
+			suffixPeriode = "." + periode;
+		    }
 
 		    String urlCoHTML =
 			    "http://zonecours.hec.ca/af1CodexImp.jsp?instId="
 				    + koid + "&lang=" + lang;
 		    String courseId =
-			    formatCourseId(codecours) + "." + sessioncours;
+			    formatCourseId(codecours) + "." + sessioncours + suffixPeriode + "." + sectioncours;
 
 		    String collection_id =
-			    "/attachment/" + courseId + "." + sectioncours
-				    + "/OpenSyllabus/";
+			    "/attachment/" + courseId + "." + "/OpenSyllabus/";
 
 		    /********************** Check if resource already exists ********************/
 		    try {
 			contentHostingService
-				.getResource(collection_id + courseId + "."
-					+ sectioncours + "_public.pdf");
+				.getResource(collection_id + courseId  + "_public.pdf");
 			// if the previous function doesn't throw an exception
 			// it means the course pdf is already created (so we can
 			// go to the next iteration)
-			log.info("Course pdf " + courseId + "." + sectioncours
-				+ " is already created");
+			log.error("Course pdf " + courseId + " is already created");
 			continue;
 		    } catch (IdUnusedException e) {
 			// we use the catch in order to avoid the "continue"
@@ -188,8 +192,7 @@ public class ImportPdfZc1Job implements Job {
 
 		    newResource =
 			    contentHostingService.addResource(
-				    newCollection.getId(), courseId + "."
-					    + sectioncours + "_public", ".pdf",
+				    newCollection.getId(), courseId  + "_public", ".pdf",
 				    1);
 		    newResource.setContent(pdfStream.toByteArray());
 		    contentHostingService.commitResource(newResource,
@@ -198,8 +201,8 @@ public class ImportPdfZc1Job implements Job {
 		    log.info("url ZC1: " + urlCoHTML);
 		    log.info("url SDATA: "
 			    + "http://localhost:8080/sdata/c/attachment/"
-			    + courseId + "." + sectioncours + "/OpenSyllabus/"
-			    + courseId + "." + sectioncours + "_public.pdf");
+			    + courseId +  "/OpenSyllabus/"
+			    + courseId +  "_public.pdf");
 		    log.info("************************** " + nbCoursConverti
 			    + " **********************");
 
@@ -210,8 +213,8 @@ public class ImportPdfZc1Job implements Job {
 
 	    long end = System.currentTimeMillis();
 	    long time = (end - start) / 1000;
-	    log.info("----------------------------------------------------------------------------------");
-	    log.info("FIN DE LA JOB. CELA A PRIS " + time + " SECONDES POUR CONVERTIR " + nbCoursConverti + " PLANS DE COURS");
+	    log.error("----------------------------------------------------------------------------------");
+	    log.error("FIN DE LA JOB. CELA A PRIS " + time + " SECONDES POUR CONVERTIR " + nbCoursConverti + " PLANS DE COURS");
 	    logoutFromSakai();
 
 	} catch (Exception e) {
