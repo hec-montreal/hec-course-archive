@@ -24,6 +24,7 @@ import org.sakaiproject.content.api.ContentResourceEdit;
 import org.sakaiproject.event.api.EventTrackingService;
 import org.sakaiproject.event.api.NotificationService;
 import org.sakaiproject.event.api.UsageSessionService;
+import org.sakaiproject.exception.IdUnusedException;
 import org.sakaiproject.exception.IdUsedException;
 import org.sakaiproject.tool.api.Session;
 import org.sakaiproject.tool.api.SessionManager;
@@ -50,9 +51,8 @@ public class ImportPdfZc1Job implements Job {
     private static Log log = LogFactory.getLog(ImportPdfZc1Job.class);
 
     private static final String ZC1_REQUEST =
-	    "select PLANCOURS.KOID,PLANCOURS.SESSIONCOURS, PLANCOURS.PERIODE, PLANCOURS.CODECOURS,PLANCOURS.SECTIONCOURS,PLANCOURS.LANG from PLANCOURS where rownum < 100";
+	    "select PLANCOURS.KOID,PLANCOURS.SESSIONCOURS, PLANCOURS.PERIODE, PLANCOURS.CODECOURS,PLANCOURS.SECTIONCOURS,PLANCOURS.LANG from PLANCOURS where rownum < 1000 and SESSIONCOURS IS NOT NULL";
 
-    
     // Fields and methods for spring injection
     protected AuthzGroupService authzGroupService;
     protected ContentHostingService contentHostingService;
@@ -60,7 +60,7 @@ public class ImportPdfZc1Job implements Job {
     protected SessionManager sessionManager;
     protected UsageSessionService usageSessionService;
     protected UserDirectoryService userDirectoryService;
-    
+
     public void setAuthzGroupService(AuthzGroupService authzGroupService) {
 	this.authzGroupService = authzGroupService;
     }
@@ -87,120 +87,136 @@ public class ImportPdfZc1Job implements Job {
 	    UserDirectoryService userDirectoryService) {
 	this.userDirectoryService = userDirectoryService;
     }
+
     // ENDOF spring injection
-    
-    
-    
-    
-    
+
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
 
-	
 	PreparedStatement ps = null;
 	ByteArrayOutputStream pdfStream = null;
 	ContentResourceEdit newResource = null;
 	ContentCollection newCollection = null;
 	Connection connex = null;
 
-	
-	try { 
-	    
+	try {
+
 	    connex = getZC1Connection();
 	    loginToSakai();
 	    ps = connex.prepareStatement(ZC1_REQUEST);
-	    URL customCssUrl = this.getClass().getResource("/zc1_custom_style.css");
+	    URL customCssUrl =
+		    this.getClass().getResource("/zc1_custom_style.css");
 
 	    ResultSet rs = ps.executeQuery();
 	    int nbCoursConverti = 0;
 
-	    log.error("------------------------------   URLs PLANS de COURS  ---------------------------------------");
+	    log.info("------------------------------   URLs PLANS de COURS  ---------------------------------------");
 
-	    
-		while (rs.next()) {
+	    long start = System.currentTimeMillis();
+	    while (rs.next()) {
 		try {
 
-		String koid = rs.getString(1);
-		String sessioncours = rs.getString(2);
-		String periode = rs.getString(3);
-		String codecours = rs.getString(4);
-		String sectioncours = rs.getString(5);
-		String lang = rs.getString(6);
+		    String koid = rs.getString(1);
+		    String sessioncours = rs.getString(2);
+		    String periode = rs.getString(3);
+		    String codecours = rs.getString(4);
+		    String sectioncours = rs.getString(5);
+		    String lang = rs.getString(6);
 
-		String urlCoHTML =
-			"http://zonecours.hec.ca/af1CodexImp.jsp?instId="
-				+ koid + "&lang=" + lang;
-		String courseId =
-			formatCourseId(codecours) + "." + sessioncours;
+		    String urlCoHTML =
+			    "http://zonecours.hec.ca/af1CodexImp.jsp?instId="
+				    + koid + "&lang=" + lang;
+		    String courseId =
+			    formatCourseId(codecours) + "." + sessioncours;
 
-		
+		    String collection_id =
+			    "/attachment/" + courseId + "." + sectioncours
+				    + "/OpenSyllabus/";
 
-		/********************** Creating PDF Stream from URL ********************/
-		pdfStream = new ByteArrayOutputStream();
-		PD4ML pd4ml = new PD4ML();
-		pd4ml.setPageSize(landscapeValue ? pd4ml
-			.changePageOrientation(format) : format);
+		    /********************** Check if resource already exists ********************/
+		    try {
+			contentHostingService
+				.getResource(collection_id + courseId + "."
+					+ sectioncours + "_public.pdf");
+			// if the previous function doesn't throw an exception
+			// it means the course pdf is already created (so we can
+			// go to the next iteration)
+			log.info("Course pdf " + courseId + "." + sectioncours
+				+ " is already created");
+			continue;
+		    } catch (IdUnusedException e) {
+			// we use the catch in order to avoid the "continue"
+			// statement
+		    }
 
-		if (unitsValue.equals("mm")) {
-		    pd4ml.setPageInsetsMM(new Insets(topValue, leftValue,
-			    bottomValue, rightValue));
-		} else {
-		    pd4ml.setPageInsets(new Insets(topValue, leftValue,
-			    bottomValue, rightValue));
-		}
+		    /********************** Creating PDF Stream from URL ********************/
+		    pdfStream = new ByteArrayOutputStream();
+		    PD4ML pd4ml = new PD4ML();
+		    pd4ml.setPageSize(landscapeValue ? pd4ml
+			    .changePageOrientation(format) : format);
 
-		pd4ml.setHtmlWidth(userSpaceWidth);
-		pd4ml.disableHyperlinks();
+		    if (unitsValue.equals("mm")) {
+			pd4ml.setPageInsetsMM(new Insets(topValue, leftValue,
+				bottomValue, rightValue));
+		    } else {
+			pd4ml.setPageInsets(new Insets(topValue, leftValue,
+				bottomValue, rightValue));
+		    }
 
-		pd4ml.addStyle(customCssUrl, true);
-		pd4ml.render(urlCoHTML, pdfStream);
+		    pd4ml.setHtmlWidth(userSpaceWidth);
+		    pd4ml.disableHyperlinks();
 
-		/********************** Importing PDF Stream to Sakai Resources ********************/
-		String collection_id = "/attachment/"	+ courseId + "." + sectioncours + "/OpenSyllabus/";
-		
+		    pd4ml.addStyle(customCssUrl, true);
+		    pd4ml.render(urlCoHTML, pdfStream);
+
+		    /********************** Importing PDF Stream to Sakai Resources ********************/
+
 		    try {
 			newCollection =
 				contentHostingService
 					.addCollection(collection_id);
-			contentHostingService.commitCollection((ContentCollectionEdit) newCollection);
-		}
-		
-		catch (IdUsedException e) {
-		    log.error("Collection " + collection_id + " is already created");
-		    newCollection = (ContentCollection) contentHostingService.getCollection(collection_id);
-		}
-		    
-		    try {
-		    
-		newResource =
-			contentHostingService.addResource(
-				newCollection.getId(), courseId + "." + sectioncours + "_public", ".pdf", 1);
-		newResource.setContent(pdfStream.toByteArray());
-		contentHostingService.commitResource(newResource,
-			NotificationService.NOTI_NONE);
-		
+			contentHostingService
+				.commitCollection((ContentCollectionEdit) newCollection);
 		    }
-		    catch (Exception e) {
-			    log.error("Course pdf " + courseId + "." + sectioncours + " is already created");
-			}
-		
-		
-		nbCoursConverti++;
-		log.error("url ZC1: " + urlCoHTML);
-		log.error("url SDATA: " + "http://localhost:8080/sdata/c/attachment/" + courseId + "." + sectioncours + "/OpenSyllabus/" + courseId + "." + sectioncours + "_public.pdf");
-		log.error("************************** " + nbCoursConverti + " **********************");
-		
+
+		    catch (IdUsedException e) {
+			log.error("Collection " + collection_id
+				+ " is already created");
+			newCollection =
+				(ContentCollection) contentHostingService
+					.getCollection(collection_id);
+		    }
+
+		    newResource =
+			    contentHostingService.addResource(
+				    newCollection.getId(), courseId + "."
+					    + sectioncours + "_public", ".pdf",
+				    1);
+		    newResource.setContent(pdfStream.toByteArray());
+		    contentHostingService.commitResource(newResource,
+			    NotificationService.NOTI_NONE);
+		    nbCoursConverti++;
+		    log.info("url ZC1: " + urlCoHTML);
+		    log.info("url SDATA: "
+			    + "http://localhost:8080/sdata/c/attachment/"
+			    + courseId + "." + sectioncours + "/OpenSyllabus/"
+			    + courseId + "." + sectioncours + "_public.pdf");
+		    log.info("************************** " + nbCoursConverti
+			    + " **********************");
+
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
-		}
-	    } catch (Exception e) {
-		e.printStackTrace();
 	    }// end while
-	    log.error("----------------------------------------------------------------------------------");
-	    log.error("FIN DE LA JOB");	    
+
+	    long end = System.currentTimeMillis();
+	    long time = (end - start) / 1000;
+	    log.info("----------------------------------------------------------------------------------");
+	    log.info("FIN DE LA JOB. CELA A PRIS " + time + " SECONDES POUR CONVERTIR " + nbCoursConverti + " PLANS DE COURS");
 	    logoutFromSakai();
 
-	
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
 
     }
 
@@ -273,7 +289,7 @@ public class ImportPdfZc1Job implements Job {
 	return formattedCourseId;
 
     }
-    
+
     protected void loginToSakai() {
 	Session sakaiSession = sessionManager.getCurrentSession();
 	sakaiSession.setUserId("admin");
