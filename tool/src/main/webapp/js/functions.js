@@ -3,32 +3,29 @@
  */
 function bindSearch() {	
 	$('#search_form_button').click(function() {
-	
-			var courseId=$('#input_course_id').val();
-			var courseTitle=$('#input_course_title').val();
-			var courseInstructor=$('#input_course_teacher').val();
-			
-			oTable = $('#search_result_table').dataTable({
-			"bJQueryUI" : true,
-			"sAjaxSource" : 'search.json',		
-			"bAutoWidth": false,
-			"bPaginate": false,
-			"bInfo": false,
-			"bFilter": false,
-			"sDom": 'rt',
-			"bDestroy": true,
-			"fnServerParams": function ( aoData ) {				
-				aoData.push( { "name": "courseId", "value": courseId });
-				aoData.push( { "name": "courseTitle", "value": courseTitle });
-				aoData.push( { "name": "courseInstructor", "value": courseInstructor });
-			},
-			"aoColumns" : [
-			null, // course id
-			null // course title
-			]
-		});
-		$('#search_result_frame').show();
+		oTable.fnClearTable();
+
+	$.ajax({
+		url : 'search.json',
+		datatype : 'json',
+		success : function(searchResults) {	
+			oTable.fnAddData(searchResults.aaData);
+
+			// save search form and results in localStorage to make back button work
+			localStorage.setItem("searchForm", JSON.stringify([$('#input_course_id').val(), $('#input_course_title').val(), $('#input_course_teacher').val()]));
+			localStorage.setItem("searchResultsData", JSON.stringify(oTable.fnGetData()));
+		
+			window.location.hash = "search";
+		}});
 	});		
+}
+
+function bindResultLinks() {
+	// bind click listener for table row to populate form
+	$('#search_result_table tr').live("click", function() {
+		var courseId = oTable.fnGetData(this, 0);
+		window.location.href = "course.jsp?courseId="+courseId;
+	});
 }
 
 /**
@@ -39,9 +36,15 @@ function populateInstructorsSelectBox(){
 		url : 'instructors.json',
 		datatype : 'json',
 		success : function(listInstructors) {			
-				for ( var i = 0; i < listInstructors.data.length; i++) {
-					$('#input_course_teacher').append('<option>' + listInstructors.data[i] + '</option>');
-				}					
-				$('.chosen').chosen({allow_single_deselect: true});
+			for ( var i = 0; i < listInstructors.data.length; i++) {
+				$('#input_course_teacher').append('<option value="' + i + '">' + listInstructors.data[i] + '</option>');
+			}					
+			$('.chosen').chosen({allow_single_deselect: true});
+
+			if (window.location.hash === "#search") {
+				var searchForm = JSON.parse(localStorage.getItem("searchForm"));
+				$('#input_course_teacher').val(searchForm[2]).trigger("liszt:updated");
+			}
+
 		}});
 }
