@@ -109,7 +109,7 @@ public class ImportPdfZc1Job implements Job {
 	    ResultSet rs = ps.executeQuery();
 	    int nbCoursConverti = 0;
 
-	    log.error("------------------------------   URLs PLANS de COURS  ---------------------------------------");
+	    log.error("------------------------------   IMPORT DES PLANS de COURS PDF ZC1 ---------------------------------------");
 
 	    long start = System.currentTimeMillis();
 	    while (rs.next()) {

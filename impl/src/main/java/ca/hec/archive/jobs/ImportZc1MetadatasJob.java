@@ -29,7 +29,7 @@ public class ImportZc1MetadatasJob implements Job {
     private static Log log = LogFactory.getLog(ImportZc1MetadatasJob.class);
 
     private static final String ZC1_REQUEST =
-	    "select PLANCOURS.PROFESSEUR, PLANCOURS.SESSIONCOURS, PLANCOURS.PERIODE, PLANCOURS.CODECOURS,PLANCOURS.SECTIONCOURS from PLANCOURS where SESSIONCOURS IS NOT NULL and rownum < 10";
+	    "select PLANCOURS.PROFESSEUR, PLANCOURS.SESSIONCOURS, PLANCOURS.PERIODE, PLANCOURS.CODECOURS,PLANCOURS.SECTIONCOURS from PLANCOURS where SESSIONCOURS IS NOT NULL";
 
     @Getter
     @Setter
@@ -50,9 +50,9 @@ public class ImportZc1MetadatasJob implements Job {
 	    ps = connex.prepareStatement(ZC1_REQUEST);
 
 	    ResultSet rs = ps.executeQuery();
-	    int nbCoursConverti = 0;
+	    int nbMetadatasCoursImportees = 0;
 
-	    log.error("------------------------------   DONNEES ZC1  ---------------------------------------");
+	    log.error("------------------------------   IMPORT DES METADATAS ZC1  ---------------------------------------");
 
 	    long start = System.currentTimeMillis();
 	    while (rs.next()) {
@@ -78,7 +78,8 @@ public class ImportZc1MetadatasJob implements Job {
 			archiveDao.saveArchiveCourseSection(acs);
 			
 			log.error("saved course " + courseId);
-			log.error("****************************************************");
+			nbMetadatasCoursImportees++;
+			log.error("********************* " + nbMetadatasCoursImportees + " *******************************");
 		    
 		} catch (Exception e) {
 		    e.printStackTrace();
@@ -88,7 +89,7 @@ public class ImportZc1MetadatasJob implements Job {
 	    long end = System.currentTimeMillis();
 	    long time = (end - start) / 1000;
 	    log.error("----------------------------------------------------------------------------------");
-	    log.error("FIN DE LA JOB. CELA A PRIS " + time + " SECONDES POUR CONVERTIR " + nbCoursConverti + " PLANS DE COURS");
+	    log.error("FIN DE LA JOB. CELA A PRIS " + time + " SECONDES POUR IMPORTER LES METADATAS DE " + nbMetadatasCoursImportees + " PLANS DE COURS");
 
 	} catch (Exception e) {
 	    e.printStackTrace();
