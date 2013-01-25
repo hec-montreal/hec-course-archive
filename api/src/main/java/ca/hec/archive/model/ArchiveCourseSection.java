@@ -1,11 +1,13 @@
 package ca.hec.archive.model;
 
-import ca.hec.cdm.model.CatalogDescription;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import ca.hec.cdm.model.CatalogDescription;
 
 @Data
+@NoArgsConstructor
 @RequiredArgsConstructor
 public class ArchiveCourseSection {
 
@@ -15,4 +17,6 @@ public class ArchiveCourseSection {
 	private String period;
 	private String instructor;
 	@NonNull private CatalogDescription catalogDescription;
+	
+	
 }

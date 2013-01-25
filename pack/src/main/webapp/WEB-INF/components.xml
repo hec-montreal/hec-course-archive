@@ -27,7 +27,9 @@
     	class="ca.hec.archive.logic.ProjectLogicImpl"
     	init-method="init" />
     	
-    	<!-- Quartz Job -->
+    <!-- Quartz Job -->
+    
+    <!-- ImportPdfZc1Job -->
 	<bean id="ca.hec.archive.jobs.ImportPdfZc1Job"
 		class="ca.hec.archive.jobs.ImportPdfZc1Job">
 		<property name="authzGroupService" ref="org.sakaiproject.authz.api.AuthzGroupService" />
@@ -49,6 +51,26 @@
        </property>
        <property name="jobName">
           <value>importer les plans de cours ZC1 en HTML vers des PDF ZoneCours2</value>
+       </property>
+       <property name="schedulerManager">
+          <ref bean="org.sakaiproject.api.app.scheduler.SchedulerManager" />
+       </property>
+    </bean>
+    
+    <!-- ImportZc1MetadatasJob -->
+    <bean id="ca.hec.archive.jobs.ImportZc1MetadatasJob"
+		class="ca.hec.archive.jobs.ImportZc1MetadatasJob">
+		<property name="archiveDao" ref="ca.hec.archive.dao.ArchiveDao" />
+		<property name="catalogDescriptionDao" ref="ca.hec.cdm.api.CatalogDescriptionDao" />		
+	</bean>	
+	<bean id="ImportZc1MetadatasJob"
+       class="org.sakaiproject.component.app.scheduler.jobs.SpringJobBeanWrapper"
+       singleton="true" init-method="init">
+       <property name="beanId">
+          <value>ca.hec.archive.jobs.ImportZc1MetadatasJob</value>
+       </property>
+       <property name="jobName">
+          <value>importer les metadatas de ZC1 vers ZoneCours2</value>
        </property>
        <property name="schedulerManager">
           <ref bean="org.sakaiproject.api.app.scheduler.SchedulerManager" />
