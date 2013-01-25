@@ -136,7 +136,7 @@ public class ImportPdfZc1Job implements Job {
 			    formatCourseId(codecours) + "." + sessioncours + suffixPeriode + "." + sectioncours;
 
 		    String collection_id =
-			    "/attachment/" + courseId + "." + "/OpenSyllabus/";
+			    "/attachment/" + courseId + "/OpenSyllabus/";
 
 		    /********************** Check if resource already exists ********************/
 		    try {
@@ -146,6 +146,7 @@ public class ImportPdfZc1Job implements Job {
 			// it means the course pdf is already created (so we can
 			// go to the next iteration)
 			log.error("Course pdf " + courseId + " is already created");
+			log.error("****************************************************");
 			continue;
 		    } catch (IdUnusedException e) {
 			// we use the catch in order to avoid the "continue"
@@ -198,12 +199,12 @@ public class ImportPdfZc1Job implements Job {
 		    contentHostingService.commitResource(newResource,
 			    NotificationService.NOTI_NONE);
 		    nbCoursConverti++;
-		    log.info("url ZC1: " + urlCoHTML);
-		    log.info("url SDATA: "
-			    + "http://localhost:8080/sdata/c/attachment/"
+		    log.error("url ZC1: " + urlCoHTML);
+		    log.error("url SDATA: "
+			    + "https://zonecours2.hec.ca/sdata/c/attachment/"
 			    + courseId +  "/OpenSyllabus/"
 			    + courseId +  "_public.pdf");
-		    log.info("************************** " + nbCoursConverti
+		    log.error("************************** " + nbCoursConverti
 			    + " **********************");
 
 		} catch (Exception e) {
