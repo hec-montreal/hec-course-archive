@@ -39,12 +39,13 @@ function populateInstructorsSelectBox(){
 			for ( var i = 0; i < listInstructors.data.length; i++) {
 				$('#input_course_teacher').append('<option value="' + i + '">' + listInstructors.data[i] + '</option>');
 			}					
-			$('.chosen').chosen({allow_single_deselect: true});
 
 			if (window.location.hash === "#search") {
 				var searchForm = JSON.parse(localStorage.getItem("searchForm"));
-				$('#input_course_teacher').val(searchForm[2]).trigger("liszt:updated");
+				$('#input_course_teacher').val(searchForm[2]);
 			}
-
+			
+			//update the list
+			$('#input_course_teacher').trigger("liszt:updated");
 		}});
 }

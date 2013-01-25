@@ -19,7 +19,9 @@ $(document).ready(function() {
 			null // course title
 		]
 	});
-	
+
+	//initialise the fancy select for instructor
+	$('.chosen').chosen({allow_single_deselect: true});
 	populateInstructorsSelectBox();
 	
 	// if the url has a search hash, the user must be coming back (so populate search form and data table)
