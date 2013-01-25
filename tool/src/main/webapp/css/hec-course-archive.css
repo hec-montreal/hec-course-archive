@@ -155,6 +155,19 @@ select.chosen + div{
 	border-collapse:collapse;
 }
 
+#course_outline_table  tbody tr{
+	cursor:pointer;
+}
+
+#course_outline_table  tr:hover{
+	background-color:#9C9195;
+	color:white;
+}
+
+#course_outline_table  tr:hover > .pdf_icon_col {
+	opacity:1;
+}
+
 #course_outlines h2 , #course_description_div h2 {
 	width: 100%;
 	text-align:center;
@@ -167,6 +180,7 @@ select.chosen + div{
 #course_outline_table .pdf_icon_col {
 	padding-right: 0;
 	width: 20px;
+	opacity:0.5;
 }
 
 #department, #header_department {
@@ -200,6 +214,7 @@ select.chosen + div{
 	border-collapse:collapse;
 	width:100%
 }
+
 
 .right {
 	text-align: right;
