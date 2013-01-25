@@ -155,13 +155,10 @@ select.chosen + div{
 	border-collapse:collapse;
 }
 
-#course_outline_table  tbody tr{
-	cursor:pointer;
-}
-
-#course_outline_table  tr:hover{
+#course_outline_table  tr:not([role="columnheader"]):hover{
 	background-color:#9C9195;
 	color:white;
+	cursor:pointer;
 }
 
 #course_outline_table  tr:hover > .pdf_icon_col {
