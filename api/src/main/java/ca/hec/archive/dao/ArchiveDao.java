@@ -39,4 +39,7 @@ public interface ArchiveDao {
     
     /** Return the list of instructors **/
     public List<String> getListIstructors();
+
+    public List<ArchiveCourseSection> getListCourseSection(String course_id,
+	    String title, String instructor);
 }

@@ -25,10 +25,10 @@ import java.util.List;
 import lombok.Setter;
 import ca.hec.archive.api.HecCourseArchiveService;
 import ca.hec.archive.dao.ArchiveDao;
+import ca.hec.archive.model.ArchiveCourseSection;
 
+public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 
-public class HecCourseArchiveServiceImpl implements HecCourseArchiveService{
-    
     @Setter
     private ArchiveDao archiveDao;
 
@@ -36,5 +36,9 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService{
 	return archiveDao.getListIstructors();
     }
 
-}
+    public List<ArchiveCourseSection> getListCourseSection(String course_id,
+	    String title, String instructor) {
+	return archiveDao.getListCourseSection(course_id, title, instructor);
+    }
 
+}

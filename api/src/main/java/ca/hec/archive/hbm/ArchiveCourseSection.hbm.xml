@@ -16,6 +16,6 @@
 		<property name="period" type="string" column="PERIOD" length="10" not-null="false"/>
 		<property name="instructor" type="string" column="INSTRUCTOR" length="255" not-null="false"/>
 		<many-to-one name="catalogDescription" class="ca.hec.cdm.model.CatalogDescription" 
-			column="CATALOG_DESCRIPTION_ID" not-null="true" cascade="all" />
+			column="CATALOG_DESCRIPTION_ID" lazy="false" not-null="true" cascade="all" />
      </class>
 </hibernate-mapping>

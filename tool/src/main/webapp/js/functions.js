@@ -4,10 +4,13 @@
 function bindSearch() {	
 	$('#search_form_button').click(function() {
 		oTable.fnClearTable();
+		var indexSelectedInstructor = +$('#input_course_teacher').val() + +1
+		var teacherSelector = '#input_course_teacher_chzn_o_' + indexSelectedInstructor;
 
 	$.ajax({
 		url : 'search.json',
 		datatype : 'json',
+		data : 'courseId=' + $('#input_course_id').val() + '&courseTitle=' + $('#input_course_title').val() + '&courseInstructor=' + $(teacherSelector).text(),		
 		success : function(searchResults) {	
 			oTable.fnAddData(searchResults.aaData);
 

@@ -11,16 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.Setter;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import ca.hec.cdm.model.CatalogDescription;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import ca.hec.archive.api.HecCourseArchiveService;
 import ca.hec.archive.logic.SakaiProxy;
 import ca.hec.archive.model.ArchiveCourseSection;
+import ca.hec.cdm.model.CatalogDescription;
 
 @Controller
 public class HecCourseArchiveController {
@@ -123,34 +122,7 @@ public class HecCourseArchiveController {
 	    String title = request.getParameter("courseTitle");
 	    String instructor = request.getParameter("courseInstructor");
 	    
-	    List<ArchiveCourseSection> sections = new ArrayList<ArchiveCourseSection>();
-
-	    //pretend search ************************************
-		CatalogDescription cd = new CatalogDescription();
-		cd.setCourseId("1-404-96");
-		cd.setTitle("Sociologie de l'entreprise");
-		sections.add(new ArchiveCourseSection("E2011", "A01", cd));
-
-		CatalogDescription cd2 = new CatalogDescription();
-		cd2.setCourseId("2-302-12");
-		cd2.setTitle("Recrutement et sélection des ressources humaines");
-		sections.add(new ArchiveCourseSection("E2012", "B01", cd2));
-
-		CatalogDescription cd3 = new CatalogDescription();
-		cd3.setCourseId("3-005-05");
-		cd3.setTitle("Cours-projet : préparation aux compétitions académiques");
-		sections.add(new ArchiveCourseSection("E2011", "A01", cd3));
-
-		CatalogDescription cd4 = new CatalogDescription();
-		cd4.setCourseId("3-225-11");
-		cd4.setTitle("Éthique et encadrement règlementaire du commerce des valeurs mobilières");
-		sections.add(new ArchiveCourseSection("E2011", "A01", cd4));
-
-		CatalogDescription cd5 = new CatalogDescription();
-		cd5.setCourseId("3-915-85");
-		cd5.setTitle("Impôts et gestion");
-		sections.add(new ArchiveCourseSection("E2011", "A01", cd5));
-	    // end pretend search **********************
+	    List<ArchiveCourseSection> sections = hecCourseArchiveService.getListCourseSection(course_id, title, instructor);
 	    
 	    Map<String, Object> map = new HashMap<String,Object>();
 	    

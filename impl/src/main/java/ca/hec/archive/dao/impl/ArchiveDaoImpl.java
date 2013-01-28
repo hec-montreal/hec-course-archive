@@ -1,14 +1,19 @@
 package ca.hec.archive.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import ca.hec.archive.dao.ArchiveDao;
 import ca.hec.archive.model.ArchiveCourseSection;
+import ca.hec.cdm.model.CatalogDescription;
 
 public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 
@@ -54,6 +59,35 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	    }
 	}
 	return listInstructors;
+    }
+
+    public List<ArchiveCourseSection> getListCourseSection(String course_id,
+	    String title, String instructor) {
+	
+	List<ArchiveCourseSection> listSections = new ArrayList<ArchiveCourseSection>();
+	
+	DetachedCriteria dc =
+		DetachedCriteria.forClass(ArchiveCourseSection.class);
+	if (course_id != null){
+	    dc.add(Restrictions.ilike(
+		    "catalogDescription.courseId", course_id + "%")); 
+	}
+	
+	if (title != null){
+	    dc.add(Restrictions.ilike(
+		    "catalogDescription.title", "%" + course_id + "%")); 
+	}
+	
+	if (instructor != null){
+	    dc.add(Restrictions.ilike(
+		    "instructor", "%" + instructor + "%")); 
+	}
+	
+	for (Object o : getHibernateTemplate().findByCriteria(dc)) {
+	    listSections.add((ArchiveCourseSection) o);
+	}	
+
+	return listSections;
     }
 
 }
