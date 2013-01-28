@@ -41,4 +41,19 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	return sections;
     }
 
+    public List<String> getListIstructors() {
+	List<String> listInstructors = new ArrayList<String>();
+	for (Object o : getHibernateTemplate().find("select instructor from ArchiveCourseSection"))
+	{
+	    String[] listInstructorsCurrentRow = ((String)o).split("&");
+	    for (int i=0;i < listInstructorsCurrentRow.length;i++){
+		String inst = listInstructorsCurrentRow[i].trim();
+		if (!listInstructors.contains(inst)){
+		    listInstructors.add(inst);
+		}
+	    }
+	}
+	return listInstructors;
+    }
+
 }

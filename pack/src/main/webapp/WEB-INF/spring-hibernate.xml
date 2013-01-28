@@ -15,6 +15,13 @@
 		</property>
 	</bean>
 	
+	<!--  create a HecCourseArchiveService bean, give it the dao for archive table -->
+	<bean id="ca.hec.archive.api.HecCourseArchiveService"
+			class="ca.hec.archive.impl.HecCourseArchiveServiceImpl"
+			singleton="true">
+ 		<property name="archiveDao" ref="ca.hec.archive.dao.ArchiveDao" />
+	</bean>
+	
 	<!--  create a target bean using the Dao implementation -->
 	<bean id="ca.hec.archive.ArchiveDaoTarget" class="ca.hec.archive.dao.impl.ArchiveDaoImpl" singleton="true">
 		<property name="sessionFactory" ref="org.sakaiproject.springframework.orm.hibernate.GlobalSessionFactory" />

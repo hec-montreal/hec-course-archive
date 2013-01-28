@@ -13,10 +13,12 @@ import lombok.Setter;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import ca.hec.cdm.model.CatalogDescription;
 
+import ca.hec.archive.api.HecCourseArchiveService;
 import ca.hec.archive.logic.SakaiProxy;
 import ca.hec.archive.model.ArchiveCourseSection;
 
@@ -32,6 +34,10 @@ public class HecCourseArchiveController {
 	@Setter
 	@Getter
 	private SakaiProxy sakaiProxy = null;
+	
+	 @Setter
+	 @Autowired
+	 private HecCourseArchiveService hecCourseArchiveService;
 	
 	public ModelAndView handleRequest(HttpServletRequest arg0,
 			HttpServletResponse arg1) throws Exception {
@@ -165,38 +171,7 @@ public class HecCourseArchiveController {
 	public ModelAndView handleListInstructors(HttpServletRequest request,
 		HttpServletResponse response) throws Exception {
 	    
-	    List<String> instructors = new ArrayList<String>();
-	    //fake instructors list ************************************
-	    instructors.add("Abraham, Yves-Marie");
-	    instructors.add("Aktouf, Omar");
-	    instructors.add("Allain, Élodie");
-	    instructors.add("Allali, Brahim");
-	    instructors.add("Ananou, Claude");
-	    instructors.add("Arcand, Sébastien");
-	    instructors.add("Aubé, Caroline");
-	    instructors.add("Aubert, Benoit A.");
-	    instructors.add("Babin, Gilbert");
-	    instructors.add("Bahn, Olivier");
-	    instructors.add("Balloffet, Pierre");
-	    instructors.add("Bareil, Céline");
-	    instructors.add("Barès, Franck");
-	    instructors.add("Barin Cruz, Luciano");
-	    instructors.add("Barki, Henri");
-	    instructors.add("Barnea, Amir");
-	    instructors.add("Bauwens, Luc");
-	    instructors.add("Beauchamp, Charlotte");
-	    instructors.add("Beaudoin, Claude");
-	    instructors.add("Béchard, Jean-Pierre");
-	    instructors.add("Bédard, Renée");
-	    instructors.add("Bélanger, Carol");
-	    instructors.add("Bélanger-Martin, Luc");
-	    instructors.add("Bellavance, François");
-	    instructors.add("Belzile, Germain");
-	    instructors.add("Ben Ameur, Hatem");
-	    instructors.add("Bitektine, Alexandre B.");
-	    instructors.add("Boisvert, Hugues");
-	    instructors.add("Bouakez, Hafedh");
-	    // end fake instructors list  **********************
+	    List<String> instructors = hecCourseArchiveService.getListInstructors();
 	    
 	    Map<String, Object> map = new HashMap<String,Object>();
 	    

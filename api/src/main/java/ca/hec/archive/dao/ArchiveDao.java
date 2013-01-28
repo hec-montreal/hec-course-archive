@@ -35,4 +35,8 @@ public interface ArchiveDao {
      * @throws DatabaseException
      */
     public List<ArchiveCourseSection> getArchiveCourseSections();
+    
+    
+    /** Return the list of instructors **/
+    public List<String> getListIstructors();
 }
