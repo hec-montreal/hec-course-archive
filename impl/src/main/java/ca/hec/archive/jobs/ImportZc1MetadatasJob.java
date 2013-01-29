@@ -18,6 +18,7 @@ import org.sakaiproject.component.cover.ServerConfigurationService;
 
 import ca.hec.archive.dao.ArchiveDao;
 import ca.hec.archive.model.ArchiveCourseSection;
+import ca.hec.archive.util.ArchiveUtils;
 import ca.hec.cdm.api.CatalogDescriptionDao;
 import ca.hec.cdm.model.CatalogDescription;
 
@@ -64,7 +65,7 @@ public class ImportZc1MetadatasJob implements Job {
 		    String codecours = rs.getString(4);
 		    String sectioncours = rs.getString(5);
 		    
-		    String courseId = formatCourseId(codecours);
+		    String courseId = ArchiveUtils.formatCourseId(codecours);
 
 		    /********************** Check if resource already exists ********************/
 			CatalogDescription catalogDescription = catalogDescriptionDao.getCatalogDescription(courseId);			
@@ -127,43 +128,5 @@ public class ImportZc1MetadatasJob implements Job {
 	return zc1con;
     }
 
-    private String formatCourseId(String courseId) {
-	String cheminement;
-	String numero;
-	String annee;
-	String formattedCourseId;
-
-	if (courseId.length() == 6) {
-	    cheminement = courseId.substring(0, 1);
-	    numero = courseId.substring(1, 4);
-	    annee = courseId.substring(4);
-	}
-
-	else if (courseId.length() == 7) {
-	    if (courseId.endsWith("A") || courseId.endsWith("E")
-		    || courseId.endsWith("R")) {
-		cheminement = courseId.substring(0, 1);
-		numero = courseId.substring(1, 4);
-		annee = courseId.substring(4);
-	    } else {
-		cheminement = courseId.substring(0, 2);
-		numero = courseId.substring(2, 5);
-		annee = courseId.substring(5);
-	    }
-	}
-
-	else if (courseId.length() == 8) {
-	    cheminement = courseId.substring(0, 2);
-	    numero = courseId.substring(2, 5);
-	    annee = courseId.substring(5);
-	}
-
-	else {
-	    return courseId;
-	}
-
-	formattedCourseId = cheminement + "-" + numero + "-" + annee;
-	return formattedCourseId;
-
-    }
+    
 }
