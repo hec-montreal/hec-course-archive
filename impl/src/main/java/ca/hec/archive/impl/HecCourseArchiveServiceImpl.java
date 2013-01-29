@@ -26,6 +26,7 @@ import lombok.Setter;
 import ca.hec.archive.api.HecCourseArchiveService;
 import ca.hec.archive.dao.ArchiveDao;
 import ca.hec.archive.model.ArchiveCourseSection;
+import ca.hec.cdm.model.CatalogDescription;
 
 public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 
@@ -36,9 +37,13 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 	return archiveDao.getListIstructors();
     }
 
-    public List<ArchiveCourseSection> getListCourseSection(String course_id,
+    public List<ArchiveCourseSection> getListCourseSection(String course_id) {
+	return archiveDao.getListCourseSection(course_id);
+    }
+
+    public List<CatalogDescription> getListCatalogDescription(String course_id,
 	    String title, String instructor) {
-	return archiveDao.getListCourseSection(course_id, title, instructor);
+	return archiveDao.getListCatalogDescription(course_id, title, instructor);
     }
 
 }

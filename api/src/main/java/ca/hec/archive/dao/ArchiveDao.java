@@ -5,6 +5,7 @@ import java.util.List;
 import ca.hec.archive.model.ArchiveCourseSection;
 //import ca.hec.cdm.exception.DatabaseException;
 //import ca.hec.cdm.exception.StaleDataException;
+import ca.hec.cdm.model.CatalogDescription;
 
 /**
  * This is the interface for the Dao for our Catalog Description tool, it
@@ -21,25 +22,14 @@ public interface ArchiveDao {
      * save the course section to the database
      * 
      * @param acs - the course section to save
-     * @throws StaleDataException
-     * @throws DatabaseException
      */
     public void saveArchiveCourseSection(ArchiveCourseSection acs);
-//	    throws StaleDataException, DatabaseException;
-
-    /**
-     * save the catalog description to the database
-     * 
-     * @param cd - the catalog description to save
-     * @throws StaleDataException
-     * @throws DatabaseException
-     */
-    public List<ArchiveCourseSection> getArchiveCourseSections();
-    
     
     /** Return the list of instructors **/
     public List<String> getListIstructors();
 
-    public List<ArchiveCourseSection> getListCourseSection(String course_id,
+    public List<ArchiveCourseSection> getListCourseSection(String course_id);
+
+    public List<CatalogDescription> getListCatalogDescription(String course_id,
 	    String title, String instructor);
 }

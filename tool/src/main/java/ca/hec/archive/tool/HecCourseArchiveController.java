@@ -118,19 +118,19 @@ public class HecCourseArchiveController {
 		HttpServletResponse response) throws Exception {
 		    
 	    //search parameters
-	    String course_id = request.getParameter("courseId");
-	    String title = request.getParameter("courseTitle");
+	    String course_id = request.getParameter("courseId").trim();
+	    String title = request.getParameter("courseTitle").trim();
 	    String instructor = request.getParameter("courseInstructor");
 	    
-	    List<ArchiveCourseSection> sections = hecCourseArchiveService.getListCourseSection(course_id, title, instructor);
+	    List<CatalogDescription> catalogDescriptions = hecCourseArchiveService.getListCatalogDescription(course_id, title, instructor);
 	    
 	    Map<String, Object> map = new HashMap<String,Object>();
 	    
 	    List<Object> data = new ArrayList<Object>();
-	    for (ArchiveCourseSection acs : sections) {
+	    for (CatalogDescription cd : catalogDescriptions) {
 		List<String> array = new ArrayList<String>();
-		array.add(acs.getCatalogDescription().getCourseId());
-		array.add(acs.getCatalogDescription().getTitle());
+		array.add(cd.getCourseId());
+		array.add(cd.getTitle());
 		data.add(array);
 	    }
 	    
