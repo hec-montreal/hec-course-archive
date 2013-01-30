@@ -59,7 +59,7 @@ public class ImportZc1MetadatasJob implements Job {
 	    while (rs.next()) {
 		try {
 
-		    String instructors = rs.getString(1);
+		    String instructors = rs.getString(1).replace(",", ", ");
 		    String sessioncours = rs.getString(2);
 		    String periode = rs.getString(3);
 		    String codecours = rs.getString(4);
