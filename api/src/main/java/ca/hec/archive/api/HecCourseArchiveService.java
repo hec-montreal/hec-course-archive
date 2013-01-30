@@ -10,7 +10,7 @@ public interface HecCourseArchiveService {
     
     public List<String> getListInstructors();
 
-    public List<ArchiveCourseSection> getListCourseSection(String course_id);
+    public List<ArchiveCourseSection> getSectionsByCourseId(String course_id);
 
     public List<CatalogDescription> getListCatalogDescription(String course_id,
 	    String title, String instructor);

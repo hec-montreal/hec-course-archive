@@ -11,6 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -124,8 +125,25 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	}
     }
 
-    public List<ArchiveCourseSection> getListCourseSection(String course_id) {
-	return null;
+    public List<ArchiveCourseSection> getSectionsByCourseId(String course_id) {
+	List<ArchiveCourseSection> sections = new ArrayList<ArchiveCourseSection>();
+	
+	DetachedCriteria dc =
+		DetachedCriteria.forClass(ArchiveCourseSection.class);
+	
+	if (course_id != null && !course_id.isEmpty()) {
+	    dc.createCriteria("catalogDescription").add(Restrictions.eq("courseId", course_id));
+	}
+	
+	dc.addOrder(Order.desc("year"));
+	dc.addOrder(Order.asc("session_letter"));
+	dc.addOrder(Order.asc("section"));
+
+	for (Object o : getHibernateTemplate().findByCriteria(dc)) {
+	    sections.add(((ArchiveCourseSection) o));
+	}
+	
+	return sections;
     }
 
 }

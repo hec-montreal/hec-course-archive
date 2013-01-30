@@ -53,62 +53,36 @@ public class HecCourseArchiveController {
 	public ModelAndView handleCourseRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 	    
-	    List<ArchiveCourseSection> sections = null;
-	    
-	    //pretend to load the sections  ***************************************
-	    sections = new ArrayList<ArchiveCourseSection>();
-	    
-	    CatalogDescription cd = new CatalogDescription();
-	    cd.setTitle("Finance");
-	    cd.setCourseId("2-200-96");
-	    cd.setDescription("Le cours de finance vise essentiellement à initier l'étudiant à la finance corporative. L'accent est donc mis sur l'apprentissage des outils de base en finance ainsi que sur la compréhension des concepts les plus importants de ce domaine. Plus précisément, le cours a pour objectif de familiariser l'étudiant aux sujets suivants : les fondements de l'évaluation, la décision d'investissement, le coût du capital et du financement des entreprises ainsi que les aspects pratiques du financement des entreprises.");
-	    cd.setDepartment("Finance");
-	    cd.setCareer("Baccalauréat en administration des affaires (B.A.A.)");
-	    cd.setCredits((float) 3);
-	    cd.setRequirements("Préalable(s) : 1-612-96 / Pour version anglaise voir 2-200-97A");
+	    String course_id = request.getParameter("courseId");
+	    String pdf_url = null;
 
-		//create several section
-		ArchiveCourseSection acs0 = new ArchiveCourseSection("Hiver 2013", "A01", cd);
-		acs0.setInstructor("Tarte,Jean-Philippe");
-		sections.add(acs0);
-		ArchiveCourseSection acs1 = new ArchiveCourseSection("Hiver 2013", "C01", cd);
-		acs1.setInstructor("Tremblay,Pierre-Marc");
-		sections.add(acs1);
-		ArchiveCourseSection acs2 = new ArchiveCourseSection("Hiver 2012", "A02", cd);
-		acs2.setInstructor("Tremblay,Pierre-Marc");
-		sections.add(acs2);
-		ArchiveCourseSection acs3 = new ArchiveCourseSection("Hiver 2012", "B02", cd);
-		acs3.setInstructor("Allard,Marie-Hélène & Bouchard,Philippe");
-		sections.add(acs3);
-		ArchiveCourseSection acs4 = new ArchiveCourseSection("Hiver 2012", "C01", cd);
-		acs4.setInstructor("Tremblay,Pierre-Marc & Bouchard,Philippe");
-		sections.add(acs4);
-		ArchiveCourseSection acs5 = new ArchiveCourseSection("Hiver 2012", "D03", cd);
-		acs5.setInstructor("Valéry,Pascale");
-		sections.add(acs5);
-		ArchiveCourseSection acs6 = new ArchiveCourseSection("Hiver 2011", "C02", cd);
-		acs6.setInstructor("Amvella Motaze,Serge Patrick");
-		sections.add(acs6);
-	    // ********************************************************************
-	    
+	    List<ArchiveCourseSection> sections = 
+		    hecCourseArchiveService.getSectionsByCourseId(course_id);
+
 	    Map<String, Object> map = new HashMap<String,Object>();
-	    map.put("courseId", cd.getCourseId());
-	    map.put("title", cd.getTitle());
-	    map.put("description", cd.getDescription());
-	    map.put("department", cd.getDepartment());
-	    map.put("career", cd.getCareer());
-	    map.put("credits", cd.getCredits());
-	    map.put("requirements", cd.getRequirements());
 	    
-	    List<Map<String, Object>> section_details = new ArrayList<Map<String, Object>>();
+	    List<Map<String, Object>> sections_details = new ArrayList<Map<String, Object>>();
 	    for (ArchiveCourseSection acs : sections) {
 		Map<String, Object> section = new HashMap<String, Object>();
 		section.put("session", acs.getSession());
 		section.put("section", acs.getSection());
 		section.put("instructor", acs.getInstructor());
-		section_details.add(section);
+		
+		// generate pdf url, maybe should be in utils?
+		String site_id = 
+			acs.getCatalogDescription().getCourseId() + "." + acs.getSession();
+
+		if (acs.getPeriod() != null && acs.getPeriod() != "" && !acs.getPeriod().equals("1")) {
+		    site_id += "." + acs.getPeriod();
+		}
+		site_id += "." + acs.getSection();
+		pdf_url = "/sdata/c/attachment/" + site_id + "/OpenSyllabus/" + site_id + "_public.pdf";
+		// end pdf url
+		
+		section.put("pdf_url", pdf_url);
+		sections_details.add(section);
 	    }
-	    map.put("sections", section_details);
+	    map.put("data", sections_details);
 	    
 	    return new ModelAndView("jsonView", map);
 	}

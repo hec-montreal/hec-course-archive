@@ -64,7 +64,6 @@
 			<artifactId>hec-course-archive-api</artifactId>
 		</dependency>
 
-		<!--  TODO:  cvo - just for testing, remove --> 
 		<dependency>
 			<groupId>ca.hec.cdm</groupId>
 			<artifactId>cdm-api</artifactId>			

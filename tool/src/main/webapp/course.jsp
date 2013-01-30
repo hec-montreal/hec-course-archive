@@ -24,7 +24,7 @@
 
 <div id="course_description_div" class="content">
 <h2><c:out value="${msgs.description_label}"/></h2>
-<div id="description_text"></div>
+<div id="description_text"></div><br/>
 
 <table id="course_details_table">
 <tr class="ui-state-default" role="columnheader">
@@ -45,11 +45,11 @@
 
 <script  type="text/javascript">
 var courseId = getUrlParam("courseId");
+var instructor = getUrlParam("instructor");
 
 $(document).ready(function() {
 	$.ajax({
-		url : 'course.json',
-		data : 'courseId=' + courseId,
+		url : '/direct/catalogDescription/'+courseId+'.json',
 		datatype : 'json',
 		success : function(course) {
 			$('#heading').html(course.courseId + " - " + course.title);
@@ -57,18 +57,32 @@ $(document).ready(function() {
 			$('#department').html(course.department);
 			$('#career').html(course.career);
 			$('#credits').html(course.credits);
-			$('#requirements').html(course.requirements);
-			
+			$('#requirements').html(course.requirements);			
+		},
+		error : function(xhr, ajaxOptions, thrownError) {
+		// maybe have one global error message, like portail
+//			$('#ajaxMessage').html(server_error_message);
+//			$('#ajaxReturn').addClass("error");
+		}
+	});
+	
+	$.ajax({
+		url : 'course.json',
+		data : 'courseId=' + courseId,
+		datatype : 'json',
+		success : function(sections) {
 			var currentSession = null;
-			for (var i = 0; i < course.sections.length; i++) {
-				if (course.sections[i].session !== currentSession) {
-					currentSession = course.sections[i].session;
+			// the list must be ordered by session, then section, else this will not display them correctly
+			for (var i = 0; i < sections.data.length; i++) {
+				if (sections.data[i].session !== currentSession) {
+					currentSession = sections.data[i].session;
 					$('#course_outline_table').append("<tr class=\"ui-state-default\" role=\"columnheader\"><th colspan='3'>"+currentSession+"</th></tr>");
 				}
-				$('#course_outline_table').append("<tr><td>"+course.sections[i].section+"</td><td>"+course.sections[i].instructor+"</td><td class='pdf_icon_col'><a href='#'><img src='/library/image/silk/page_white_acrobat.png'></img></a></td></tr>");
+				$('#course_outline_table').append("<tr><td>"+sections.data[i].section+"</td><td>"+sections.data[i].instructor+"</td><td class='pdf_icon_col'><a href='"+sections.data[i].pdf_url+"' target='_blank'><img src='/library/image/silk/page_white_acrobat.png'></img></a></td></tr>");
 			}			
 		},
 		error : function(xhr, ajaxOptions, thrownError) {
+		// maybe have one global error message, like portail
 //			$('#ajaxMessage').html(server_error_message);
 //			$('#ajaxReturn').addClass("error");
 		}

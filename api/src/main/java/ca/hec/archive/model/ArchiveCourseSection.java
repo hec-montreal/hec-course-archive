@@ -18,5 +18,8 @@ public class ArchiveCourseSection {
 	private String instructor;
 	@NonNull private CatalogDescription catalogDescription;
 	
-	
+	// these are defined ONLY for sorting the results in ArchiveDaoImpl
+	private Character session_letter;
+	private String year;
+		
 }
