@@ -1,5 +1,6 @@
 package ca.hec.archive.tool;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -93,7 +94,7 @@ public class HecCourseArchiveController {
 		    
 	    //search parameters
 	    String course_id = request.getParameter("courseId").trim();
-	    String title = request.getParameter("courseTitle").trim();
+	    String title = URLDecoder.decode(request.getParameter("courseTitle").trim(), "UTF-8");
 	    String instructor = request.getParameter("courseInstructor");
 	    
 	    List<CatalogDescription> catalogDescriptions = hecCourseArchiveService.getListCatalogDescription(course_id, title, instructor);
