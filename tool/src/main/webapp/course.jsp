@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<div id="courseView">
+<div id="courseView" class="portletBody">
 <div class="right">
 <a href="#" onClick="history.back();return false;"><c:out value="${msgs.back_button_label}"/></a>
 </div>
@@ -67,7 +67,7 @@ $(document).ready(function() {
 	});
 	
 	$.ajax({
-		url : 'course.json',
+		url : 'course_sections.json',
 		data : 'courseId=' + courseId,
 		datatype : 'json',
 		success : function(sections) {
@@ -79,7 +79,8 @@ $(document).ready(function() {
 					$('#course_outline_table').append("<tr class=\"ui-state-default\" role=\"columnheader\"><th colspan='3'>"+currentSession+"</th></tr>");
 				}
 				$('#course_outline_table').append("<tr><td>"+sections.data[i].section+"</td><td>"+sections.data[i].instructor+"</td><td class='pdf_icon_col'><a href='"+sections.data[i].pdf_url+"' target='_blank'><img src='/library/image/silk/page_white_acrobat.png'></img></a></td></tr>");
-			}			
+			}
+			resizeIframe();
 		},
 		error : function(xhr, ajaxOptions, thrownError) {
 		// maybe have one global error message, like portail
@@ -96,5 +97,6 @@ function getUrlParam(name){
       return decodeURIComponent(name[1]);
 }
 </script>
+<script  type="text/javascript" src="js/functions.js"></script>
 </body>
 </html>

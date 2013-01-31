@@ -1,10 +1,10 @@
-var frame = parent.document.getElementById(window.name);
-$(frame).css('height', 1000);
 
 /**
  * Script that is executed when the page is loaded
  */
 $(document).ready(function() {
+	resizeIframe(475); //default value for sakai tools
+	
 	$('#search_form_button').button();					
 
 	oTable = $('#search_result_table').dataTable({

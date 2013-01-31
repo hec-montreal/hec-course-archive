@@ -50,7 +50,7 @@ public class HecCourseArchiveController {
 	}
 
 	
-	@RequestMapping(value = "/course.json")
+	@RequestMapping(value = "/course_sections.json")
 	public ModelAndView handleCourseRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 	    

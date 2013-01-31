@@ -21,6 +21,7 @@ function bindSearch() {
 			localStorage.setItem("searchResultsData", JSON.stringify(oTable.fnGetData()));
 		
 			window.location.hash = "search";
+			resizeIframe();
 		}});
 	});		
 }
@@ -53,4 +54,13 @@ function populateInstructorsSelectBox(){
 			//update the list
 			$('#input_course_teacher').trigger("liszt:updated");
 		}});
+}
+
+function resizeIframe(height) {
+	if (!height) {
+		height = $('.portletBody').outerHeight();
+	}
+	console.log('resize: ' + height);
+	var frame = parent.document.getElementById(window.name);
+	$(frame).css('height', height);
 }
