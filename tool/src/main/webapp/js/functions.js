@@ -60,7 +60,6 @@ function resizeIframe(height) {
 	if (!height) {
 		height = $('.portletBody').outerHeight();
 	}
-	console.log('resize: ' + height);
 	var frame = parent.document.getElementById(window.name);
 	$(frame).css('height', height);
 }
