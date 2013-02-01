@@ -2,9 +2,7 @@
 /**
  * Script that is executed when the page is loaded
  */
-$(document).ready(function() {
-	resizeIframe();
-	
+$(document).ready(function() {	
 	$('#search_form_button').button();					
 
 	oTable = $('#search_result_table').dataTable({
@@ -36,4 +34,5 @@ $(document).ready(function() {
 
 	bindSearch();
 	bindResultLinks();
+	resizeIframe();
 });
