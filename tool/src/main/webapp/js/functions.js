@@ -12,7 +12,7 @@ function bindSearch() {
 	$.ajax({
 		url : 'search.json',
 		datatype : 'json',
-		data : 'courseId=' + $('#input_course_id').val() + '&courseTitle=' + encodeURIComponent($('#input_course_title').val()) + '&courseInstructor=' + instructorSelected,		
+		data : 'courseId=' + $('#input_course_id').val() + '&courseTitle=' + encodeURIComponent($('#input_course_title').val()) + '&courseInstructor=' + encodeURIComponent(instructorSelected),		
 		success : function(searchResults) {	
 			oTable.fnAddData(searchResults.aaData);
 

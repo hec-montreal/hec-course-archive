@@ -95,7 +95,7 @@ public class HecCourseArchiveController {
 	    //search parameters
 	    String course_id = request.getParameter("courseId").trim();
 	    String title = URLDecoder.decode(request.getParameter("courseTitle").trim(), "UTF-8");
-	    String instructor = request.getParameter("courseInstructor");
+	    String instructor = URLDecoder.decode(request.getParameter("courseInstructor"), "UTF-8");
 	    
 	    List<CatalogDescription> catalogDescriptions = hecCourseArchiveService.getListCatalogDescription(course_id, title, instructor);
 	    
