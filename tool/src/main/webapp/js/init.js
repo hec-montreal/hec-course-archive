@@ -3,7 +3,7 @@
  * Script that is executed when the page is loaded
  */
 $(document).ready(function() {
-	resizeIframe(475); //default value for sakai tools
+	resizeIframe();
 	
 	$('#search_form_button').button();					
 

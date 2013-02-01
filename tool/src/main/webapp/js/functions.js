@@ -57,9 +57,12 @@ function populateInstructorsSelectBox(){
 }
 
 function resizeIframe(height) {
-	if (!height) {
+	if (!height && $('.portletBody').outerHeight() > 475) {
 		height = $('.portletBody').outerHeight();
+	} else {
+		height = 475; // this is the default height for a sakai tool
 	}
+	
 	var frame = parent.document.getElementById(window.name);
 	$(frame).css('height', height);
 }
