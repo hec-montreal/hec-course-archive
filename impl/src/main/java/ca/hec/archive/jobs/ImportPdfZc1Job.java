@@ -51,7 +51,7 @@ public class ImportPdfZc1Job implements Job {
     private static Log log = LogFactory.getLog(ImportPdfZc1Job.class);
 
     private static final String ZC1_REQUEST =
-	    "select PLANCOURS.KOID,PLANCOURS.SESSIONCOURS, PLANCOURS.PERIODE, PLANCOURS.CODECOURS,PLANCOURS.SECTIONCOURS,PLANCOURS.LANG from PLANCOURS where SESSIONCOURS IS NOT NULL AND KOID = 'A2006-1-836219'";
+	    "select PLANCOURS.KOID,PLANCOURS.SESSIONCOURS, PLANCOURS.PERIODE, PLANCOURS.CODECOURS,PLANCOURS.SECTIONCOURS,PLANCOURS.LANG from PLANCOURS where SESSIONCOURS IS NOT NULL";
 
     // Fields and methods for spring injection
     protected AuthzGroupService authzGroupService;
