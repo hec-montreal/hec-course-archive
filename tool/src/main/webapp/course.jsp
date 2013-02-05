@@ -52,10 +52,15 @@ $(document).ready(function() {
 		url : '/direct/catalogDescription/'+courseId+'.json',
 		datatype : 'json',
 		success : function(course) {
+			var JSONdepartmentGroupDescription = JSON.parse(localStorage.getItem("departmentDescriptionsMap"));
+			var JSONcareerGroupDescription = JSON.parse(localStorage.getItem("careerDescriptionsMap"));
+			var departmentGroupDescription = JSONdepartmentGroupDescription[course.departmentGroup];
+			var careerGroupDescription = JSONcareerGroupDescription[course.careerGroup];
+			
 			$('#heading').html(course.courseId + " - " + course.title);
 			$('#description_text').html(course.description);
-			$('#department').html(course.department);
-			$('#career').html(course.career);
+			$('#department').html(departmentGroupDescription);
+			$('#career').html(careerGroupDescription);
 			$('#credits').html(course.credits);
 			$('#requirements').html(course.requirements);			
 		},
@@ -66,7 +71,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	$.ajax({
+$.ajax({
 		url : 'course_sections.json',
 		data : 'courseId=' + courseId,
 		datatype : 'json',
@@ -78,9 +83,12 @@ $(document).ready(function() {
 					currentSession = sections.data[i].session;
 					$('#course_outline_table').append("<tr class=\"ui-state-default\" role=\"columnheader\"><th colspan='3'>"+currentSession+"</th></tr>");
 				}
-				$('#course_outline_table').append("<tr><td>"+sections.data[i].section+"</td><td>"+sections.data[i].instructor+"</td><td class='pdf_icon_col'><a href='"+sections.data[i].pdf_url+"' target='_blank'><img src='/library/image/silk/page_white_acrobat.png'></img></a></td></tr>");
+				$('#course_outline_table').append("<tr data-pdf-url='" + sections.data[i].pdf_url + "'><td>"+sections.data[i].section+"</td><td>"+sections.data[i].instructor+"</td><td class='pdf_icon_col'><img src='/library/image/silk/page_white_acrobat.png'></img></td></tr>");
 			}
 			resizeIframe();
+			$('#course_outline_table tr').click(function() {
+			window.open($(this).attr('data-pdf-url'));
+		});
 		},
 		error : function(xhr, ajaxOptions, thrownError) {
 		// maybe have one global error message, like portail

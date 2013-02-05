@@ -166,6 +166,7 @@ public class HecCourseArchiveController {
 	Map<String, Object> model = new HashMap<String, Object>();
 
 	model.put("data", msgsBundle);
+	model.put("locale", msgs.getLocale().toString());
 
 	return new ModelAndView("jsonView", model);
     }

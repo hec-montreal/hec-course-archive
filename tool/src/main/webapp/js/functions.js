@@ -108,3 +108,40 @@ function resizeIframe(height) {
 	var frame = parent.document.getElementById(window.name);
 	$(frame).css('height', height);
 }
+
+function initializeGroupDescriptions() {
+
+	// used to keep the language specific descriptions of the
+	// careers/departments for display later
+	var careerDescriptionsMap = {};
+	var departmentDescriptionsMap = {};
+
+	$
+			.ajax({
+				url : '/direct/portalManager/getCareers/'
+						+ localStorage.getItem("locale") + '.json',
+				datatype : 'json',
+				success : function(listItems) {
+					for ( var i = 0; i < listItems.portalManager_collection.length; i++) {
+						careerDescriptionsMap[listItems.portalManager_collection[i].itemGroup] = listItems.portalManager_collection[i].description;
+					}
+					localStorage.setItem("careerDescriptionsMap", JSON
+							.stringify(careerDescriptionsMap));
+
+				}
+			});
+
+	$
+			.ajax({
+				url : '/direct/portalManager/getDepartments/'
+						+ localStorage.getItem("locale") + '.json',
+				datatype : 'json',
+				success : function(listItems) {
+					for ( var j = 0; j < listItems.portalManager_collection.length; j++) {
+						departmentDescriptionsMap[listItems.portalManager_collection[j].itemGroup] = listItems.portalManager_collection[j].description;
+					}
+					localStorage.setItem("departmentDescriptionsMap", JSON
+							.stringify(departmentDescriptionsMap));
+				}
+			});
+}

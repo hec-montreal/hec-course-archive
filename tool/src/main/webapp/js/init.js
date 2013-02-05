@@ -11,6 +11,8 @@ $(document).ready(function() {
 		async : false,
 		success : function(bundle) {
 			messageBundle = bundle.data;
+			localStorage.setItem("locale", bundle.locale);
+			
 			
 			oTable = $('#search_result_table').dataTable({
 				"bJQueryUI" : true,
@@ -40,11 +42,14 @@ $(document).ready(function() {
 				$('#input_course_title').val(searchForm[1]);
 				// instructor dropdown is re-populated in populateInstructorsSelectBox() callback 
 			}
+			else{
+				$('#search_result_frame').hide();
+			}
 
 			bindSearch();
 			bindResultLinks();
 			resizeIframe();	
-			$('#search_result_frame').hide();
+			initializeGroupDescriptions();				
 		}
 		});
 });
