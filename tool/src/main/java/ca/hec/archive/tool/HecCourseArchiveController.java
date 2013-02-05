@@ -172,7 +172,7 @@ public class HecCourseArchiveController {
 	if ("".equals(locale)){
 	    locale = "en";
 	}
-	model.put("locale", msgs.getLocale().toString());
+	model.put("locale", locale);
 
 	return new ModelAndView("jsonView", model);
     }
