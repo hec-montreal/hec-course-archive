@@ -142,6 +142,7 @@ public class HecCourseArchiveController {
 	    HttpServletResponse response) throws Exception {
 
 	List<String> instructors = hecCourseArchiveService.getListInstructors();
+	java.util.Collections.sort(instructors);
 
 	Map<String, Object> map = new HashMap<String, Object>();
 
