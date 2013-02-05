@@ -166,6 +166,12 @@ public class HecCourseArchiveController {
 	Map<String, Object> model = new HashMap<String, Object>();
 
 	model.put("data", msgsBundle);
+	
+	String locale= msgs.getLocale().toString();
+	//because "en" is the default locale, sakai return "" when user preferences are in English
+	if ("".equals(locale)){
+	    locale = "en";
+	}
 	model.put("locale", msgs.getLocale().toString());
 
 	return new ModelAndView("jsonView", model);
