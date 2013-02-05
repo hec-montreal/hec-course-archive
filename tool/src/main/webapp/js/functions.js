@@ -3,28 +3,36 @@
  */
 function bindSearch() {	
 	$('#search_form_button').click(function() {
+		$('#search_result_frame').show();
 		oTable.fnClearTable();
 		var instructorSelected = '';
 		if (!$('#input_course_teacher_chzn > a').hasClass('chzn-default')){
 			instructorSelected = $('#input_course_teacher_chzn > a > span').text() ;
 		}
 
-	$.ajax({
-		url : 'search.json',
-		datatype : 'json',
-		data : 'courseId=' + $('#input_course_id').val() + '&courseTitle=' + encodeURIComponent($('#input_course_title').val()) + '&courseInstructor=' + encodeURIComponent(instructorSelected),		
-		success : function(searchResults) {	
-			oTable.fnAddData(searchResults.aaData);
-
-			// save search form and results in localStorage to make back button work
-			localStorage.setItem("searchForm", JSON.stringify([$('#input_course_id').val(), $('#input_course_title').val(), $('#input_course_teacher').val()]));
-			localStorage.setItem("searchResultsData", JSON.stringify(oTable.fnGetData()));
+		$('<td id=\"loader-container" valign="top" colspan="2"><span data-bundle-key=\"message_loading\">' + messageBundle["msg_loading"] + '</span><div class=\"icon-loader\"></div></td>').insertAfter('.dataTables_empty');
+		$('.dataTables_empty').hide();	
+			
 		
-			window.location.hash = "search";
-			resizeIframe();
-		}});
-	});		
-}
+		$.ajax({
+			url : 'search.json',
+			datatype : 'json',
+			data : 'courseId=' + $('#input_course_id').val() + '&courseTitle=' + encodeURIComponent($('#input_course_title').val()) + '&courseInstructor=' + encodeURIComponent(instructorSelected),		
+			success : function(searchResults) {	
+				oTable.fnAddData(searchResults.aaData);
+
+				// save search form and results in localStorage to make back button work
+				localStorage.setItem("searchForm", JSON.stringify([$('#input_course_id').val(), $('#input_course_title').val(), $('#input_course_teacher').val()]));
+				localStorage.setItem("searchResultsData", JSON.stringify(oTable.fnGetData()));
+			
+				window.location.hash = "search";
+				resizeIframe();			
+				$('.dataTables_empty').show();
+				$('#loader-container').hide();
+			}});
+		});		
+	}
+
 
 function bindResultLinks() {
 	// bind click listener for table row to populate form

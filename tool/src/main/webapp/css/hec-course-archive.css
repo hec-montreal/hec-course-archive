@@ -121,10 +121,19 @@ select.chosen + div{
 #search_result_table tr.even{
  background-color: #F5F0F2;}
 
-#search_result_table tr:hover{ 
-	background-color:#9C9195;
-	color:white;
-	cursor:pointer;
+.icon-loader {
+	background-image: url(../images/ajax-loader.gif);
+	width: 16px !important;
+	height: 11px;
+	margin-left: 10px;
+	display: inline-block;
+}
+
+#loader-container{
+	background-position: 0 0;
+	width: 100% !important;
+	height: 11px;
+	margin-left: 10px;
 }
 
 /***************************************************************************************************/
