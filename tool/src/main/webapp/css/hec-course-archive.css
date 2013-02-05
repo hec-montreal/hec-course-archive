@@ -15,23 +15,13 @@
 }
 
 #search_form_table tr td:nth-child(1){
-	width:30%;
+	width:40%;
 	padding:4px;
 }
 
 #search_form_table tr td:nth-child(2){
-	width:30%;
+	width:60%;
 	padding:4px;
-}
-
-#search_form_table tr td:nth-child(3){
-	width:40%;
-	padding:4px;
-	font-style: italic;
-	font-size: 1em;
-	line-height:12px;
-	opacity:0.5;
-	text-align:left;
 }
 
 .search_form_label{
