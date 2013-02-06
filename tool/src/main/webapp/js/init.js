@@ -49,7 +49,7 @@ $(document).ready(function() {
 			bindSearch();
 			bindResultLinks();
 			resizeIframe();	
-			initializeGroupDescriptions();				
+			initializeGroupDescriptions();	
 		}
 		});
 });

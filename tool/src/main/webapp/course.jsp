@@ -82,9 +82,16 @@ $.ajax({
 				if (sections.data[i].session !== currentSession) {
 					currentSession = sections.data[i].session;
 					$('#course_outline_table').append("<tr class=\"ui-state-default\" role=\"columnheader\"><th colspan='3'>"+currentSession+"</th></tr>");
-				}
-				$('#course_outline_table').append("<tr data-pdf-url='" + sections.data[i].pdf_url + "'><td>"+sections.data[i].section+"</td><td>"+sections.data[i].instructor+"</td><td class='pdf_icon_col'><img src='/library/image/silk/page_white_acrobat.png'></img></td></tr>");
+				}				
+			
+			//if the instructor we select in the search is teaching the session, we highlight this section
+				var classInstructor = '';
+				if (localStorage.getItem("instructorSelected") !== "" && sections.data[i].instructor.indexOf(localStorage.getItem("instructorSelected")) !== -1) {
+					classInstructor = " class='selectedInstructor' ";
+				}				
+				$('#course_outline_table').append("<tr" + classInstructor + " data-pdf-url='" + sections.data[i].pdf_url + "'><td>"+sections.data[i].section+"</td><td>"+sections.data[i].instructor+"</td><td class='pdf_icon_col'><img src='/library/image/silk/page_white_acrobat.png'></img></td></tr>");
 			}
+			
 			resizeIframe();
 			$('#course_outline_table tr').click(function() {
 			window.open($(this).attr('data-pdf-url'));

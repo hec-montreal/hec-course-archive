@@ -30,7 +30,7 @@
 
 .search_form_input{
 	float:left;
-	width:150px;
+	width:220px;
 }
 
 .search_form_help{
@@ -215,6 +215,11 @@ select.chosen + div{
 	border:1px solid rgba(0, 0, 0, .1);
 	border-collapse:collapse;
 	width:100%
+}
+
+.selectedInstructor {
+	background-color:#9C9195;
+	color:white;
 }
 
 

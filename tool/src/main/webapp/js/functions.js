@@ -52,6 +52,7 @@ function launchSearch() {
 							$('#input_course_teacher').val() ]));
 					localStorage.setItem("searchResultsData", JSON
 							.stringify(oTable.fnGetData()));
+					localStorage.setItem("instructorSelected",instructorSelected);
 
 					window.location.hash = "search";
 					resizeIframe();
