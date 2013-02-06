@@ -48,28 +48,7 @@ var courseId = getUrlParam("courseId");
 var instructor = getUrlParam("instructor");
 
 $(document).ready(function() {
-	$.ajax({
-		url : '/direct/catalogDescription/'+courseId+'.json',
-		datatype : 'json',
-		success : function(course) {
-			var JSONdepartmentGroupDescription = JSON.parse(localStorage.getItem("departmentDescriptionsMap"));
-			var JSONcareerGroupDescription = JSON.parse(localStorage.getItem("careerDescriptionsMap"));
-			var departmentGroupDescription = JSONdepartmentGroupDescription[course.departmentGroup];
-			var careerGroupDescription = JSONcareerGroupDescription[course.careerGroup];
-			
-			$('#heading').html(course.courseId + " - " + course.title);
-			$('#description_text').html(course.description);
-			$('#department').html(departmentGroupDescription);
-			$('#career').html(careerGroupDescription);
-			$('#credits').html(course.credits);
-			$('#requirements').html(course.requirements);			
-		},
-		error : function(xhr, ajaxOptions, thrownError) {
-		// maybe have one global error message, like portail
-//			$('#ajaxMessage').html(server_error_message);
-//			$('#ajaxReturn').addClass("error");
-		}
-	});
+	
 	
 $.ajax({
 		url : 'course_sections.json',
@@ -92,15 +71,40 @@ $.ajax({
 				$('#course_outline_table').append("<tr" + classInstructor + " data-pdf-url='" + sections.data[i].pdf_url + "'><td>"+sections.data[i].section+"</td><td>"+sections.data[i].instructor+"</td><td class='pdf_icon_col'><img src='/library/image/silk/page_white_acrobat.png'></img></td></tr>");
 			}
 			
-			resizeIframe();
+			
 			$('#course_outline_table tr').click(function() {
 			window.open($(this).attr('data-pdf-url'));
 		});
-		},
+		
+		$.ajax({
+			url : '/direct/catalogDescription/'+courseId+'.json',
+			datatype : 'json',
+			success : function(course) {
+				var JSONdepartmentGroupDescription = JSON.parse(localStorage.getItem("departmentDescriptionsMap"));
+				var JSONcareerGroupDescription = JSON.parse(localStorage.getItem("careerDescriptionsMap"));
+				var departmentGroupDescription = JSONdepartmentGroupDescription[course.departmentGroup];
+				var careerGroupDescription = JSONcareerGroupDescription[course.careerGroup];
+			
+				$('#heading').html(course.courseId + " - " + course.title);
+				$('#description_text').html(course.description);
+				$('#department').html(departmentGroupDescription);
+				$('#career').html(careerGroupDescription);
+				$('#credits').html(course.credits);
+				$('#requirements').html(course.requirements);	
+				resizeIframe();		
+			}, //end sucess for getting catalog descriptions
+			error : function(xhr, ajaxOptions, thrownError) {
+			// maybe have one global error message, like portail
+			//$('#ajaxMessage').html(server_error_message);
+			//$('#ajaxReturn').addClass("error");
+			}
+		});
+	},//end sucess for getting sections
+		
 		error : function(xhr, ajaxOptions, thrownError) {
 		// maybe have one global error message, like portail
-//			$('#ajaxMessage').html(server_error_message);
-//			$('#ajaxReturn').addClass("error");
+		//$('#ajaxMessage').html(server_error_message);
+		//$('#ajaxReturn').addClass("error");
 		}
 	});
 });
