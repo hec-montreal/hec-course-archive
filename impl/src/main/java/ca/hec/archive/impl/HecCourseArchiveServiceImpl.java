@@ -1,8 +1,13 @@
 package ca.hec.archive.impl;
 
+import java.io.IOException;
 import java.util.List;
 
 import lombok.Setter;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import ca.hec.archive.api.HecCourseArchiveService;
 import ca.hec.archive.dao.ArchiveDao;
 import ca.hec.archive.model.ArchiveCourseSection;
@@ -12,6 +17,8 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 
     @Setter
     private ArchiveDao archiveDao;
+    
+    private static Log log = LogFactory.getLog(HecCourseArchiveServiceImpl.class);
 
     public List<String> getListInstructors() {
 	return archiveDao.getListIstructors();
@@ -24,6 +31,10 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
     public List<CatalogDescription> getListCatalogDescription(String course_id,
 	    String title, String instructor) {
 	return archiveDao.getListCatalogDescription(course_id, title, instructor);
+    }
+    
+    public void saveCourseMetadataToArchive(String serializedCO) {
+	log.error("serializedCO: " + serializedCO);
     }
 
 }

@@ -14,6 +14,8 @@ public interface HecCourseArchiveService {
 
     public List<CatalogDescription> getListCatalogDescription(String course_id,
 	    String title, String instructor);
+    
+    public void saveCourseMetadataToArchive(String serializedCO);
 
 }
 
