@@ -21,7 +21,7 @@ function launchSearch() {
 	$('#search_result_frame').show();
 	oTable.fnClearTable();
 	var instructorSelected = '';
-	if (!$('#input_course_teacher_chzn > a').hasClass('chzn-default')) {
+	if (!$('.select2-choice').hasClass('select2-default')) {
 		instructorSelected = $('.select2-choice span').text();
 	}
 
@@ -145,4 +145,16 @@ function initializeGroupDescriptions() {
 							.stringify(departmentDescriptionsMap));
 				}
 			});
+}
+
+function initializeInputClearing() {
+$('.ui-icon-delete').hide();
+	$('.ui-icon-delete').click(function(){
+        $(this).parent().find("input").val("");
+        $(this).hide();
+		});
+	
+	 $("input").focus(function(){
+	  $(this).parent().find(".ui-icon-delete").show();
+		});
 }

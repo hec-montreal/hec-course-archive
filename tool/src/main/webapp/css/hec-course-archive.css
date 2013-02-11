@@ -43,6 +43,25 @@
 	float:left;
 }
 
+			
+.ui-icon-delete{
+    display: block;
+	position: relative;
+	top: 6px;
+	left:210px;
+	width: 12px;
+	height: 12px;
+	font-size: 1px;
+	background: url('../images/select2.png') right top no-repeat;
+	cursor: pointer;
+	text-decoration: none;
+	border: 0;
+	outline: 0;
+}
+		
+		
+		
+
 
 #search_form_button_container{
 	margin-top:10px;

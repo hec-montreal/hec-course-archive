@@ -61,6 +61,7 @@ $(document).ready(function() {
 			bindResultLinks();
 			resizeIframe();	
 			initializeGroupDescriptions();	
+			initializeInputClearing();
 		}
-		});
+	});
 });
