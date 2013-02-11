@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Bind action to execute when we click on the Search button
  */
 function bindSearch() {
@@ -22,7 +22,7 @@ function launchSearch() {
 	oTable.fnClearTable();
 	var instructorSelected = '';
 	if (!$('#input_course_teacher_chzn > a').hasClass('chzn-default')) {
-		instructorSelected = $('#input_course_teacher_chzn > a > span').text();
+		instructorSelected = $('.select2-choice span').text();
 	}
 
 	$(
@@ -90,7 +90,7 @@ function populateInstructorsSelectBox() {
 					if (window.location.hash === "#search") {
 						var searchForm = JSON.parse(localStorage
 								.getItem("searchForm"));
-						$('#input_course_teacher').val(searchForm[2]);
+						$('#input_course_teacher').val(searchForm[2]).trigger("change");
 					}
 
 					// update the list

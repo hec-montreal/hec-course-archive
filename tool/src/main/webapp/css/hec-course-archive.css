@@ -37,14 +37,12 @@
 	float:right;
 }
 
-select.chosen{
+#s2id_input_course_teacher{
 	width:226px;
-}
-
-select.chosen + div{
 	display: block;
 	float:left;
 }
+
 
 #search_form_button_container{
 	margin-top:10px;

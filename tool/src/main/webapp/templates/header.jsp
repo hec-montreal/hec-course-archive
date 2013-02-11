@@ -8,12 +8,12 @@
 	<script src="/library/js/headscripts.js" language="JavaScript" type="text/javascript"></script>
 	<link href="css/hec-course-archive.css" rel="stylesheet">
 	<link href="plugins/jquery-ui-1.9.2.custom/css/smoothness/jquery-ui-1.9.2.custom.css" rel="stylesheet"> 
-	<link rel="stylesheet" href="plugins/chosen/chosen.css" />
+	<link rel="stylesheet" href="plugins/select2/select2.css" />
 	
 	<script src="plugins/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="plugins/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.min.js"></script>	
 	<script type="text/javascript" src="plugins/dataTables-1.9.4/media/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="plugins/chosen/chosen.jquery.min.js"></script>
+	<script type="text/javascript" src="plugins/select2/select2.min.js"></script>
 
     
 

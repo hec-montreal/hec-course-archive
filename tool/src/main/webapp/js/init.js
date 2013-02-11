@@ -30,7 +30,18 @@ $(document).ready(function() {
 				    }});
 
 			//initialise the fancy select for instructor
-			$('.chosen').chosen({allow_single_deselect: true});
+			$('.chosen').select2({
+				  matcher: function(term, text) { 
+					var wordsList = term.split(' ');
+					for ( var i = 0; i < wordsList.length; i++) {
+						if  (text.toUpperCase().indexOf(wordsList[i].toUpperCase())== -1 ){
+							return 0;
+						}						
+					}
+					return 1;
+				},
+				allowClear: true
+			});
 			populateInstructorsSelectBox();
 			
 			// if the url has a search hash, the user must be coming back (so populate search form and data table)
