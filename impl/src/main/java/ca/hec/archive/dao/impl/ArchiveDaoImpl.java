@@ -77,8 +77,8 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 		if (!stopWordList.isStopword(titleWord)) { // we don't add
 							   // stopWords to the
 							   // search
-		    searchCourseIdDisjunction.add(Restrictions.ilike("title",
-			    "%" + titleWord + "%"));
+		    
+		    searchCourseIdDisjunction.add(Restrictions.sqlRestriction("convert(lower(title), 'US7ASCII') like convert(lower('%" + titleWord + "%'), 'US7ASCII')"));
 		}
 		dcCatalogDescription.add(searchCourseIdDisjunction);
 	    }
