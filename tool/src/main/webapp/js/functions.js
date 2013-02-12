@@ -154,7 +154,7 @@ $('.ui-icon-delete').hide();
         $(this).hide();
 		});
 	
-	 $("input").focus(function(){
+	 $("input").change(function(){
 	  $(this).parent().find(".ui-icon-delete").show();
 		});
 }
