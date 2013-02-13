@@ -46,5 +46,5 @@ public interface ArchiveDao {
      * @return a list of ArchiveCourseSection
      */
     public List<CatalogDescription> getListCatalogDescription(String course_id,
-	    String title, String instructor);
+	    String title, String instructor, String courseCareerGroup, String courseLanguage);
 }

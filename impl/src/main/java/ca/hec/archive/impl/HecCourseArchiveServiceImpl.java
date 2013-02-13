@@ -29,8 +29,8 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
     }
     
     public List<CatalogDescription> getListCatalogDescription(String course_id,
-	    String title, String instructor) {
-	return archiveDao.getListCatalogDescription(course_id, title, instructor);
+	    String title, String instructor, String courseCareerGroup, String courseLanguage) {
+	return archiveDao.getListCatalogDescription(course_id, title, instructor, courseCareerGroup, courseLanguage);
     }
     
     public void saveCourseMetadataToArchive(String serializedCO) {

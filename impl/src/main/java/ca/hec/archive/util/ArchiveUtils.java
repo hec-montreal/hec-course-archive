@@ -25,6 +25,23 @@ package ca.hec.archive.util;
  */
 public class ArchiveUtils {
     
+    //return correspondence between locale and language description storage in catalog description table
+    public static String getCorrespondenceLocaleLanguage(String locale) {
+	if ("en".equals(locale)){
+	    return "ANGLAIS";
+	}
+	
+	if ("es".equals(locale)){
+	    return "ESPAGNOL";
+	}
+	
+	if ("fr".equals(locale)){
+	    return "FRANÇAIS";
+	}
+	
+	return "";
+    }
+    
     public static String formatCourseId(String courseId) {
 	String cheminement;
 	String numero;

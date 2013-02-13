@@ -13,7 +13,7 @@ public interface HecCourseArchiveService {
     public List<ArchiveCourseSection> getSectionsByCourseId(String course_id);
 
     public List<CatalogDescription> getListCatalogDescription(String course_id,
-	    String title, String instructor);
+	    String title, String instructor, String courseCareerGroup, String courseLanguage);
     
     public void saveCourseMetadataToArchive(String serializedCO);
 

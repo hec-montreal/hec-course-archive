@@ -55,7 +55,7 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
     }
 
     public List<CatalogDescription> getListCatalogDescription(String course_id,
-	    String titleWords, String instructor) {
+	    String titleWords, String instructor, String courseCareerGroup, String courseLanguage) {
 
 	List<CatalogDescription> listCatalogDescriptions =
 		new ArrayList<CatalogDescription>();
@@ -99,8 +99,21 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	    }
 
 	    /***************************** INSTRUCTOR CRITERIA ****************************************************************************/
-	    if (instructor != null) {
+	    if (instructor != null && !instructor.isEmpty()) {
 		dc.add(Restrictions.ilike("instructor", "%" + instructor + "%"));
+	    }
+	    
+	    /***************************** CAREER CRITERIA ****************************************************************************/
+	    if (courseCareerGroup != null && !courseCareerGroup.isEmpty()) {
+		
+		List<String> listPossibleValues =
+			    Arrays.asList(courseCareerGroup.split(" "));
+		dcCatalogDescription.add(Restrictions.in("career", listPossibleValues));
+	    }
+	    
+	    /***************************** LANGUAGE CRITERIA ****************************************************************************/
+	    if (courseLanguage != null && !courseLanguage.isEmpty()) {
+		dcCatalogDescription.add(Restrictions.eq("language", courseLanguage));
 	    }
 
 	    
