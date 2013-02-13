@@ -30,7 +30,7 @@
 
 .search_form_input{
 	float:left;
-	width:220px;
+	width:250px;
 }
 
 .search_form_help{
@@ -38,9 +38,13 @@
 }
 
 #s2id_input_course_teacher, #s2id_input_course_career, #s2id_input_course_lang{
-	width:226px;
+	width:256px;
 	display: block;
 	float:left;
+}
+
+.select2-container .select2-choice span {
+	width:200px;
 }
 
 			
@@ -48,7 +52,7 @@
     display: block;
 	position: relative;
 	top: 6px;
-	left:210px;
+	left:237px;
 	width: 12px;
 	height: 12px;
 	font-size: 1px;

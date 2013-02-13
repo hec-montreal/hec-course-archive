@@ -5,7 +5,7 @@
 	<table id="search_form_table">
 	  <tr>
 		<td><span class="search_form_label"><c:out value="${msgs.course_id_label}"/>:</span></td>
-		<td><input id="input_course_id" class="search_form_input" type="text" name="fname" placeholder="<c:out value="${msgs.course_id_placeholder}" />" title="<c:out value="${msgs.course_id_placeholder}" />"><span class="ui-icon-delete"></span></td>
+		<td><input id="input_course_id" class="search_form_input" type="text" name="fname" placeholder="<c:out value="${msgs.course_id_placeholder}" />" title="<c:out value="${msgs.course_id_title}" />"><span class="ui-icon-delete"></span></td>
 		</tr>
 	  <tr>
 		<td><span class="search_form_label"><c:out value="${msgs.course_title_label}"/>:</span></td>

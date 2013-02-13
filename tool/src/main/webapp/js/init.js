@@ -40,7 +40,8 @@ $(document).ready(function() {
 					}
 					return 1;
 				},
-				allowClear: true
+				allowClear: true,
+				minimumResultsForSearch: 15
 			});
 			
 			// if the url has a search hash, the user must be coming back (so populate search form and data table)
