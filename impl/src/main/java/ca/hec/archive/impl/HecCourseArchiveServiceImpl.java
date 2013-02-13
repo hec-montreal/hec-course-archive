@@ -185,7 +185,7 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 	    
 	for (User instructor : userDirectoryService.getUsersByEids(enrollmentSet.getOfficialInstructors())) {
 	    if (instructors.length() > 0)
-		instructors.concat(" & ");
+		instructors +=  " & ";
 	    
 	    instructors += instructor.getLastName() + ", " + instructor.getFirstName();
 	}
