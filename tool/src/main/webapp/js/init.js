@@ -42,7 +42,6 @@ $(document).ready(function() {
 				},
 				allowClear: true
 			});
-			populateInstructorsSelectBox();
 			
 			// if the url has a search hash, the user must be coming back (so populate search form and data table)
 			if (window.location.hash === "#search") {
@@ -51,7 +50,8 @@ $(document).ready(function() {
 				
 				$('#input_course_id').val(searchForm[0]);
 				$('#input_course_title').val(searchForm[1]);
-				// instructor dropdown is re-populated in populateInstructorsSelectBox() callback 
+				// instructor dropdown is re-populated in populateInstructorsSelectBox() callback
+				$('#input_course_lang').val(searchForm[4]).trigger("change");
 			}
 			else{
 				$('#search_result_frame').hide();
@@ -60,7 +60,8 @@ $(document).ready(function() {
 			bindSearch();
 			bindResultLinks();
 			resizeIframe();	
-			initializeGroupDescriptions();	
+			initializeGroupDescriptions();				
+			populateInstructorsSelectBox();
 			initializeInputClearing();
 		}
 	});

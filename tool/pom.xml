@@ -59,6 +59,12 @@
 		</dependency>
 
 		<!-- project dependencies -->
+		
+		<dependency>
+			<groupId>ca.hec</groupId>
+			<artifactId>hec-course-archive-impl</artifactId>
+			<scope>compile</scope>
+		</dependency>
 		<dependency>
 			<groupId>ca.hec</groupId>
 			<artifactId>hec-course-archive-api</artifactId>
@@ -66,8 +72,7 @@
 
 		<dependency>
 			<groupId>ca.hec.cdm</groupId>
-			<artifactId>cdm-api</artifactId>			
-			<version>1.0-SNAPSHOT</version>
+			<artifactId>cdm-api</artifactId>	
 		</dependency>
 		
         <!-- we are running a webapp in a servlet container so we need the servlet API -->

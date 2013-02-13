@@ -37,7 +37,7 @@
 	float:right;
 }
 
-#s2id_input_course_teacher{
+#s2id_input_course_teacher, #s2id_input_course_career, #s2id_input_course_lang{
 	width:226px;
 	display: block;
 	float:left;

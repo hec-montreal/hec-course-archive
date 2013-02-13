@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ca.hec.archive.api.HecCourseArchiveService;
 import ca.hec.archive.logic.SakaiProxy;
 import ca.hec.archive.model.ArchiveCourseSection;
+import ca.hec.archive.util.ArchiveUtils;
 import ca.hec.cdm.model.CatalogDescription;
 
 @Controller
@@ -117,10 +118,12 @@ public class HecCourseArchiveController {
 	String instructor =
 		URLDecoder.decode(request.getParameter("courseInstructor"),
 			"UTF-8");
+	String courseCareerGroup = request.getParameter("courseCareerGroup");
+	String courseLanguage = ArchiveUtils.getCorrespondenceLocaleLanguage(request.getParameter("courseLanguage"));
 
 	List<CatalogDescription> catalogDescriptions =
 		hecCourseArchiveService.getListCatalogDescription(course_id,
-			title, instructor);
+			title, instructor, courseCareerGroup, courseLanguage);
 
 	Map<String, Object> map = new HashMap<String, Object>();
 

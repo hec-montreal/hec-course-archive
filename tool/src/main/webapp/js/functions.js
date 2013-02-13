@@ -21,8 +21,8 @@ function launchSearch() {
 	$('#search_result_frame').show();
 	oTable.fnClearTable();
 	var instructorSelected = '';
-	if (!$('.select2-choice').hasClass('select2-default')) {
-		instructorSelected = $('.select2-choice span').text();
+	if (!$('#s2id_input_course_teacher a.select2-choice').hasClass('select2-default')) {
+		instructorSelected = $('#s2id_input_course_teacher a.select2-choice span').text();
 	}
 
 	$(
@@ -40,7 +40,11 @@ function launchSearch() {
 						+ '&courseTitle='
 						+ encodeURIComponent($('#input_course_title').val())
 						+ '&courseInstructor='
-						+ encodeURIComponent(instructorSelected),
+						+ encodeURIComponent(instructorSelected)
+						+ '&courseCareerGroup='
+						+ $('#input_course_career').val()
+						+ '&courseLanguage='
+						+ $('#input_course_lang').val(),
 				success : function(searchResults) {
 					oTable.fnAddData(searchResults.aaData);
 
@@ -49,7 +53,9 @@ function launchSearch() {
 					localStorage.setItem("searchForm", JSON.stringify([
 							$('#input_course_id').val(),
 							$('#input_course_title').val(),
-							$('#input_course_teacher').val() ]));
+							$('#input_course_teacher').val(),
+							$('#input_course_career').val(),
+							$('#input_course_lang').val() ]));
 					localStorage.setItem("searchResultsData", JSON
 							.stringify(oTable.fnGetData()));
 					localStorage.setItem("instructorSelected",instructorSelected);
@@ -125,7 +131,18 @@ function initializeGroupDescriptions() {
 				success : function(listItems) {
 					for ( var i = 0; i < listItems.portalManager_collection.length; i++) {
 						careerDescriptionsMap[listItems.portalManager_collection[i].itemGroup] = listItems.portalManager_collection[i].description;
+						$('#input_course_career')
+						.append(
+								'<option value="' + listItems.portalManager_collection[i].itemGroup + '">'
+										+ listItems.portalManager_collection[i].description
+										+ '</option>');
 					}
+					if (window.location.hash === "#search") {
+						var searchForm = JSON.parse(localStorage
+								.getItem("searchForm"));
+						$('#input_course_career').val(searchForm[3]).trigger("change");
+					}
+					
 					localStorage.setItem("careerDescriptionsMap", JSON
 							.stringify(careerDescriptionsMap));
 

@@ -18,6 +18,25 @@
 				<option value></option>
 			</select></td>
 		</tr>
+		<tr>
+		<td><span class="search_form_label"><c:out value="${msgs.course_career_label}"/>:</span></td>
+		<td>
+			<select  id="input_course_career" data-placeholder="<c:out value="${msgs.course_career_select_placeholder}" />" class="chosen">
+				<option value></option>
+			</select>
+		</td>
+		</tr>
+		<tr>
+		<td><span class="search_form_label"><c:out value="${msgs.course_lang_label}"/>:</span></td>
+		<td>
+			<select  id="input_course_lang" data-placeholder="<c:out value="${msgs.course_lang_select_placeholder}" />" class="chosen">
+				<option value></option>
+				<option value="fr"><c:out value="${msgs.course_lang_select_value_fr}" /></option>
+				<option value="en"><c:out value="${msgs.course_lang_select_value_en}" /></option>
+				<option value="es"><c:out value="${msgs.course_lang_select_value_es}" /></option>
+			</select>
+		</td>
+		</tr>
 	  <tr>
 		<td></td>
 		<td><div id="search_form_button_container"><span id="search_form_button">Recherche</span></div></td>
