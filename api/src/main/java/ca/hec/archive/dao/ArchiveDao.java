@@ -47,4 +47,17 @@ public interface ArchiveDao {
      */
     public List<CatalogDescription> getListCatalogDescription(String course_id,
 	    String title, String instructor, String courseCareerGroup, String courseLanguage);
+
+    /**
+     * Get an ArchiveCourseSection for the given courseId, session, section and period
+     * 
+     * @param courseId - the Canonical course Id (with hyphens)
+     * @param session - the course's session
+     * @param section - the course's section
+     * @param period - the course's period, defaults to "1" if it is null or empty
+     * 
+     * @return a list of ArchiveCourseSection
+     */
+    public ArchiveCourseSection getArchiveCourseSection(String courseId, 
+	    String session, String section, String period);
 }

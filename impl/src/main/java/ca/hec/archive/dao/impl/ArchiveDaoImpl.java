@@ -159,4 +159,31 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	return sections;
     }
 
+    public ArchiveCourseSection getArchiveCourseSection(String courseId, String session, String section, String period) {
+	DetachedCriteria dc =
+		DetachedCriteria.forClass(ArchiveCourseSection.class);
+	
+	if (courseId == null || courseId.isEmpty() ||
+		session == null || session.isEmpty() ||
+		section == null || section.isEmpty()) {
+	    return null;
+	}
+	
+	if (period == null || period.isEmpty()) {
+	    period = "1";
+	}
+	
+	dc.createCriteria("catalogDescription").add(Restrictions.eq("courseId", courseId));
+	dc.add(Restrictions.eq("session", session));
+	dc.add(Restrictions.eq("section", section));
+	dc.add(Restrictions.eq("period", period));
+	
+	List<ArchiveCourseSection> results = getHibernateTemplate().findByCriteria(dc);	    
+	if (results.size() == 1) {
+	    return results.get(0);
+	}
+	
+	return null;
+    }
+
 }
