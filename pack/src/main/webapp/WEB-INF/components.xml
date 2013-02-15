@@ -42,6 +42,8 @@
 			ref="org.sakaiproject.event.api.UsageSessionService" />
 		<property name="userDirectoryService"
 			ref="org.sakaiproject.user.api.UserDirectoryService" />
+		<property name="osylSecurityService"
+			ref="org.sakaiquebec.opensyllabus.common.api.OsylSecurityService" />
 	</bean>	
 	<bean id="ImportPdfZc1Job"
        class="org.sakaiproject.component.app.scheduler.jobs.SpringJobBeanWrapper"

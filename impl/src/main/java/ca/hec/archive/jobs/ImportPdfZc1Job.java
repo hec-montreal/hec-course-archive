@@ -29,6 +29,8 @@ import org.sakaiproject.exception.IdUsedException;
 import org.sakaiproject.tool.api.Session;
 import org.sakaiproject.tool.api.SessionManager;
 import org.sakaiproject.user.api.UserDirectoryService;
+import org.sakaiquebec.opensyllabus.common.api.OsylSecurityService;
+import org.sakaiquebec.opensyllabus.shared.api.SecurityInterface;
 import org.zefer.pd4ml.PD4Constants;
 import org.zefer.pd4ml.PD4ML;
 
@@ -51,7 +53,7 @@ public class ImportPdfZc1Job implements Job {
     private static Log log = LogFactory.getLog(ImportPdfZc1Job.class);
 
     private static final String ZC1_REQUEST =
-	    "select PLANCOURS.KOID,PLANCOURS.SESSIONCOURS, PLANCOURS.PERIODE, PLANCOURS.CODECOURS,PLANCOURS.SECTIONCOURS,PLANCOURS.LANG from PLANCOURS where SESSIONCOURS IS NOT NULL";
+	    "select PLANCOURS.KOID,PLANCOURS.SESSIONCOURS, PLANCOURS.PERIODE, PLANCOURS.CODECOURS,PLANCOURS.SECTIONCOURS,PLANCOURS.LANG from PLANCOURS where SESSIONCOURS IS NOT NULL and KOID='A2010-1-2465257'";
 
     // Fields and methods for spring injection
     protected AuthzGroupService authzGroupService;
@@ -60,6 +62,7 @@ public class ImportPdfZc1Job implements Job {
     protected SessionManager sessionManager;
     protected UsageSessionService usageSessionService;
     protected UserDirectoryService userDirectoryService;
+    protected OsylSecurityService  osylSecurityService;
 
     public void setAuthzGroupService(AuthzGroupService authzGroupService) {
 	this.authzGroupService = authzGroupService;
@@ -86,6 +89,11 @@ public class ImportPdfZc1Job implements Job {
     public void setUserDirectoryService(
 	    UserDirectoryService userDirectoryService) {
 	this.userDirectoryService = userDirectoryService;
+    }
+    
+    public void setOsylSecurityService(
+	    OsylSecurityService osylSecurityService) {
+	this.osylSecurityService = osylSecurityService;
     }
 
     // ENDOF spring injection
@@ -188,7 +196,9 @@ public class ImportPdfZc1Job implements Job {
 				+ " is already created");
 			newCollection =
 				(ContentCollection) contentHostingService
-					.getCollection(collection_id);
+				.getCollection(collection_id);
+			osylSecurityService.applyPermissions(newResource.getId(),
+				SecurityInterface.ACCESS_PUBLIC);
 		    }
 
 		    newResource =
