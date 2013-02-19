@@ -3,10 +3,6 @@
 	<tool id="sakai.hec-course-archive" 
 		title="HEC Course Archive" 
 		description="Tool for searching in the archive of all HEC course outlines in PDF form">
-		
-		<!-- TODO CVO remove these so the tool cannot be added to course and project sites by users! -->
-		<category name="course" />
-      	<category name="project" />		
     </tool>
 </registration>
 

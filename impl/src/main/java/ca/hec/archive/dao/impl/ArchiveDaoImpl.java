@@ -1,5 +1,10 @@
 package ca.hec.archive.dao.impl;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +19,7 @@ import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.sakaiproject.component.cover.ServerConfigurationService;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import ca.hec.archive.dao.ArchiveDao;
@@ -186,4 +192,59 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	return null;
     }
 
+    /**
+     * format the instructors as a string for the HEC_COURSE_ARCHIVE table
+     * 
+     * @param courseSection The section
+     * @return A string of instructors, formatted.
+     * @throws SQLException 
+     */
+    public String getInstructors(String courseId, String sessionEid, String section, String period) 
+	    throws SQLException {
+	String instructors = "";
+
+	Connection peopleSoftConnection = null;
+	PreparedStatement ps = null;
+
+	try {
+	    String driverName = ServerConfigurationService
+		    .getString("hec.peoplesoft.conn.portail.driver.name");
+	    String url = ServerConfigurationService
+		    .getString("hec.peoplesoft.conn.portail.url");
+	    String user = ServerConfigurationService
+		    .getString("hec.peoplesoft.conn.portail.user");
+	    String password = ServerConfigurationService
+		    .getString("hec.peoplesoft.conn.portail.password");
+
+	    Class.forName(driverName);
+	    peopleSoftConnection = DriverManager.getConnection(url, user, password);
+
+	    String request = null;
+	    ResultSet rset = null;
+
+	    request = "SELECT DISTINCT name FROM ps_n_nature_emploi T1, ps_n_crsection_vw T2 WHERE T1.emplid= T2.emplid AND catalog_nbr=? AND strm=? AND session_code=? AND class_section=?";
+
+	    ps = peopleSoftConnection.prepareStatement(request);
+	    ps.setString(1, courseId);
+	    ps.setString(2, sessionEid);
+	    ps.setString(3, period);
+	    ps.setString(4, section);
+	    rset = ps.executeQuery();
+
+	    while (rset.next()) {
+		if (!instructors.equals(""))
+		    instructors += " & ";
+		instructors += rset.getString(1).replace(",", ", ");
+	    }
+	} catch (SQLException e) {
+	    throw e;
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    if (peopleSoftConnection != null)
+		peopleSoftConnection.close();
+	}
+
+	return instructors;
+    }
 }

@@ -23,7 +23,6 @@
 		<property name="authzGroupService" ref="org.sakaiproject.authz.api.AuthzGroupService" />
 		<property name="cmService" ref="org.sakaiproject.coursemanagement.api.CourseManagementService" />
 		<property name="catalogDescriptionService" ref="ca.hec.cdm.api.CatalogDescriptionService" />
-		<property name="userDirectoryService" ref="org.sakaiproject.user.api.UserDirectoryService" />
 	</bean>
 	
 	<!--  create a target bean using the Dao implementation -->

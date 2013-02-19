@@ -5,7 +5,6 @@ import java.util.List;
 
 import lombok.Setter;
 
-import org.apache.commons.lang.WordUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -21,10 +20,7 @@ import org.sakaiproject.authz.api.AuthzGroupService;
 import org.sakaiproject.coursemanagement.api.AcademicSession;
 import org.sakaiproject.coursemanagement.api.CourseManagementService;
 import org.sakaiproject.coursemanagement.api.CourseOffering;
-import org.sakaiproject.coursemanagement.api.EnrollmentSet;
 import org.sakaiproject.coursemanagement.api.Section;
-import org.sakaiproject.user.api.User;
-import org.sakaiproject.user.api.UserDirectoryService;
 
 import org.sakaiquebec.opensyllabus.shared.model.COSerialized;
 
@@ -38,8 +34,6 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
     private CourseManagementService cmService;
     @Setter
     private CatalogDescriptionService catalogDescriptionService;
-    @Setter
-    private UserDirectoryService userDirectoryService;
 
     private static final String SITE_PREFIX = "/site/";
     private static final String SITE_SHAREABLE = "00";
@@ -77,14 +71,6 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 			+ " it's details will not be saved to HEC_COURSE_ARCHIVE.");
 		return;
 	    }
-	    /* Do we care?
-	    if (provider.matches(".*[Dd][Ff][1-9]")) {
-		log.info("The course outline "
-			+ published.getSiteId()
-			+ " will not be transferred to ZoneCours public because it is a deferred section.");
-		return false;
-	    }
-	    */
 	    if (provider.endsWith(SITE_SHAREABLE)){
 		log.info("The course outline " + serializedCO.getSiteId()
 			+ " will not be transferred to HEC_COURSE_ARCHIVE because it is a dummy section references the sharable site.");
@@ -102,9 +88,7 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 	    
 	    sectionToSave = archiveDao.getArchiveCourseSection(courseId, session, section, period);
 	    
-	    if (sectionToSave != null) {
-		sectionToSave.setInstructor(getInstructors(cmSection));
-	    } else {
+	    if (sectionToSave == null) {
 		CatalogDescription catalogDescription = 
 			catalogDescriptionService.getCatalogDescription(courseId);			
 		
@@ -113,9 +97,16 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 		sectionToSave.setSection(section);
 		sectionToSave.setSession(session);
 		sectionToSave.setPeriod(period);
-		sectionToSave.setInstructor(getInstructors(cmSection));
 		sectionToSave.setCatalogDescription(catalogDescription);			
 	    }
+	    
+	    // always set the instructors string
+	    sectionToSave.setInstructor(
+		    archiveDao.getInstructors(
+			    courseOffering.getCanonicalCourseEid(),
+			    cmSession.getEid().substring(0, 4),
+			    section,
+			    period));
 	   
 	    // save or update
 	    archiveDao.saveArchiveCourseSection(sectionToSave);
@@ -171,26 +162,5 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 	String sectionEid = section.getEid();
 	String sectionId = sectionEid.substring(sectionEid.length()-3);
 	return sectionId;
-    }
-
-    /**
-     * format the instructors as a string for the HEC_COURSE_ARCHIVE table
-     * 
-     * @param courseSection The section
-     * @return A string of instructors, formatted.
-     */
-    private String getInstructors(Section courseSection) {
-	String instructors = "";
-	EnrollmentSet enrollmentSet = cmService.getEnrollmentSet(courseSection.getEid());
-	    
-	for (User instructor : userDirectoryService.getUsersByEids(enrollmentSet.getOfficialInstructors())) {
-	    if (instructors.length() > 0)
-		instructors +=  " & ";
-	    
-	    instructors += instructor.getLastName() + ", " + instructor.getFirstName();
-	}
-
-	//capitalize first letter of each name, and after '-'
-	return WordUtils.capitalizeFully(instructors, new char[] {' ', '-'});
     }
 }

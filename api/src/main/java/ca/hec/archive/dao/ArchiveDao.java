@@ -1,5 +1,6 @@
 package ca.hec.archive.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import ca.hec.archive.model.ArchiveCourseSection;
@@ -60,4 +61,17 @@ public interface ArchiveDao {
      */
     public ArchiveCourseSection getArchiveCourseSection(String courseId, 
 	    String session, String section, String period);
+
+    /**
+     * Get an ampersand separated list of instructors in the "Last Name, First Name" format
+     * 
+     * @param courseId - the Canonical course Id (with hyphens)
+     * @param session - the course's session
+     * @param section - the course's section
+     * @param period - the course's period, defaults to "1" if it is null or empty
+     * 
+     * @return a list of ArchiveCourseSection
+     */
+    public String getInstructors(String courseId, String sessionEid, String section, String period) 
+	    throws SQLException;
 }
