@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ca.hec.archive.api.HecCourseArchiveService;
-import ca.hec.archive.logic.SakaiProxy;
 import ca.hec.archive.model.ArchiveCourseSection;
 import ca.hec.archive.util.ArchiveUtils;
 import ca.hec.cdm.model.CatalogDescription;
@@ -36,10 +35,6 @@ public class HecCourseArchiveController {
      * @author Curtis van Osch (curtis.van-osch@hec.ca)
      */
     @Setter
-    @Getter
-    private SakaiProxy sakaiProxy = null;
-
-    @Setter
     @Autowired
     private HecCourseArchiveService hecCourseArchiveService;
 
@@ -51,16 +46,6 @@ public class HecCourseArchiveController {
     @PostConstruct
     public void init() {
 	msgs = new ResourceLoader("archives");
-    }
-
-    public ModelAndView handleRequest(HttpServletRequest arg0,
-	    HttpServletResponse arg1) throws Exception {
-
-	Map<String, Object> map = new HashMap<String, Object>();
-	map.put("currentSiteId", sakaiProxy.getCurrentSiteId());
-	map.put("userDisplayName", sakaiProxy.getCurrentUserDisplayName());
-
-	return new ModelAndView("index", map);
     }
 
     @RequestMapping(value = "/course_sections.json")
