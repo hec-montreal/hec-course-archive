@@ -17,7 +17,6 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.sakaiproject.authz.api.AuthzGroupService;
 import org.sakaiproject.component.cover.ServerConfigurationService;
-import org.sakaiproject.content.api.ContentCollection;
 import org.sakaiproject.content.api.ContentCollectionEdit;
 import org.sakaiproject.content.api.ContentHostingService;
 import org.sakaiproject.content.api.ContentResourceEdit;
@@ -30,7 +29,6 @@ import org.sakaiproject.tool.api.Session;
 import org.sakaiproject.tool.api.SessionManager;
 import org.sakaiproject.user.api.UserDirectoryService;
 import org.sakaiquebec.opensyllabus.common.api.OsylSecurityService;
-import org.sakaiquebec.opensyllabus.shared.api.SecurityInterface;
 import org.zefer.pd4ml.PD4Constants;
 import org.zefer.pd4ml.PD4ML;
 
@@ -53,7 +51,7 @@ public class ImportPdfZc1Job implements Job {
     private static Log log = LogFactory.getLog(ImportPdfZc1Job.class);
 
     private static final String ZC1_REQUEST =
-	    "select PLANCOURS.KOID,PLANCOURS.SESSIONCOURS, PLANCOURS.PERIODE, PLANCOURS.CODECOURS,PLANCOURS.SECTIONCOURS,PLANCOURS.LANG from PLANCOURS where SESSIONCOURS IS NOT NULL and KOID='A2010-1-2465257'";
+	    "select PLANCOURS.KOID,PLANCOURS.SESSIONCOURS, PLANCOURS.PERIODE, PLANCOURS.CODECOURS,PLANCOURS.SECTIONCOURS,PLANCOURS.LANG from PLANCOURS where SESSIONCOURS IS NOT NULL and KOID='A2010-1-2441604'";
 
     // Fields and methods for spring injection
     protected AuthzGroupService authzGroupService;
@@ -103,7 +101,8 @@ public class ImportPdfZc1Job implements Job {
 	PreparedStatement ps = null;
 	ByteArrayOutputStream pdfStream = null;
 	ContentResourceEdit newResource = null;
-	ContentCollection newCollection = null;
+	ContentCollectionEdit newCollection = null;
+	ContentCollectionEdit newCollectionParent = null;
 	Connection connex = null;
 
 	try {
@@ -145,6 +144,9 @@ public class ImportPdfZc1Job implements Job {
 
 		    String collection_id =
 			    "/attachment/" + courseId + "/OpenSyllabus/";
+		    
+		    String collection_parent_id =
+			    "/attachment/" + courseId + "/";
 
 		    /********************** Check if resource already exists ********************/
 		    try {
@@ -188,17 +190,21 @@ public class ImportPdfZc1Job implements Job {
 				contentHostingService
 					.addCollection(collection_id);
 			contentHostingService
-				.commitCollection((ContentCollectionEdit) newCollection);
+				.commitCollection(newCollection);
 		    }
 
 		    catch (IdUsedException e) {
 			log.error("Collection " + collection_id
 				+ " is already created");
 			newCollection =
-				(ContentCollection) contentHostingService
-				.getCollection(collection_id);
-			osylSecurityService.applyPermissions(newResource.getId(),
-				SecurityInterface.ACCESS_PUBLIC);
+				 contentHostingService.editCollection(collection_id);
+			newCollection.setPublicAccess();
+			contentHostingService.commitCollection(newCollection);
+			
+			newCollectionParent =
+				 contentHostingService.editCollection(collection_parent_id);
+			newCollectionParent.setPublicAccess();
+			contentHostingService.commitCollection(newCollectionParent);
 		    }
 
 		    newResource =
@@ -206,6 +212,7 @@ public class ImportPdfZc1Job implements Job {
 				    newCollection.getId(), courseId  + "_public", ".pdf",
 				    1);
 		    newResource.setContent(pdfStream.toByteArray());
+		    newResource.setPublicAccess();
 		    contentHostingService.commitResource(newResource,
 			    NotificationService.NOTI_NONE);
 		    nbCoursConverti++;

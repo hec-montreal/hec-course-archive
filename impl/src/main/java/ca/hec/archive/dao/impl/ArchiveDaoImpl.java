@@ -74,9 +74,7 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	try {
 
 	    /***************************** TITLE CRITERIA ****************************************************************************/
-	    // We create a disjunction because we want to return course sections
-	    // that have one or severall of the keywords in the title
-	    Disjunction searchCourseIdDisjunction = Restrictions.disjunction();
+	    
 
 	    List<String> listTitleWords = Arrays.asList(titleWords.split(" "));
 	    for (String titleWord : listTitleWords) {
@@ -84,9 +82,8 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 							   // stopWords to the
 							   // search
 		    
-		    searchCourseIdDisjunction.add(Restrictions.sqlRestriction("convert(lower(title), 'US7ASCII') like convert(lower('%" + titleWord + "%'), 'US7ASCII')"));
+		    dcCatalogDescription.add(Restrictions.sqlRestriction("convert(lower(title), 'US7ASCII') like convert(lower('%" + titleWord + "%'), 'US7ASCII')"));
 		}
-		dcCatalogDescription.add(searchCourseIdDisjunction);
 	    }
 
 	    /***************************** COURSE ID CRITERIA ****************************************************************************/
