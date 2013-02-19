@@ -141,6 +141,14 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	}
     }
 
+    public void deleteArchiveCourseSection(ArchiveCourseSection acs) {
+	try {
+	    getHibernateTemplate().delete(acs);
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
+    }
+
     public List<ArchiveCourseSection> getSectionsByCourseId(String course_id) {
 	List<ArchiveCourseSection> sections = new ArrayList<ArchiveCourseSection>();
 	

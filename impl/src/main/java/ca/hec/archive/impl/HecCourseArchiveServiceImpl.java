@@ -117,6 +117,21 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 	    e.printStackTrace();
 	}
     }
+    
+    public void deleteArchiveCourseSection(String site_id) {
+	ArchiveCourseSection acs = null;
+	String site_info[] = site_id.split("\\.");
+	
+	if (site_info.length == 3) {
+	    acs = archiveDao.getArchiveCourseSection(site_info[0], site_info[1], site_info[2], "1");
+	} else if (site_info.length == 4 && !site_info[3].equals(SITE_SHAREABLE)) {
+	    acs = archiveDao.getArchiveCourseSection(site_info[0], site_info[1], site_info[2], site_info[3]);
+	}
+	
+	if (acs != null) {
+	    archiveDao.deleteArchiveCourseSection(acs);
+	}
+    }
 
     /**
      * Gets the name of the session

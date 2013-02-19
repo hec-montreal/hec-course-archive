@@ -24,6 +24,13 @@ public interface ArchiveDao {
      */
     public void saveArchiveCourseSection(ArchiveCourseSection acs);
     
+    /**
+     * delete the course section from the database
+     * 
+     * @param acs - the course section to delete
+     */
+    public void deleteArchiveCourseSection(ArchiveCourseSection acs);
+    
     /** Return the list of instructors **/
     public List<String> getListIstructors();
 

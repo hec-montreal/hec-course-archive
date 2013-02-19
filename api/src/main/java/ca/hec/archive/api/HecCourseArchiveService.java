@@ -19,5 +19,6 @@ public interface HecCourseArchiveService {
     
     public void saveCourseMetadataToArchive(COSerialized serializedCO);
 
+    public void deleteArchiveCourseSection(String site_id);
 }
 
