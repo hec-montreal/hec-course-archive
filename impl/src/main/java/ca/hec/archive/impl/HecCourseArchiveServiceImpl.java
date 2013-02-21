@@ -7,22 +7,20 @@ import lombok.Setter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import ca.hec.archive.api.HecCourseArchiveService;
-import ca.hec.archive.dao.ArchiveDao;
-import ca.hec.archive.model.ArchiveCourseSection;
-import ca.hec.archive.util.ArchiveUtils;
-import ca.hec.cdm.api.CatalogDescriptionService;
-import ca.hec.cdm.model.CatalogDescription;
-
 import org.sakaiproject.authz.api.AuthzGroup;
 import org.sakaiproject.authz.api.AuthzGroupService;
 import org.sakaiproject.coursemanagement.api.AcademicSession;
 import org.sakaiproject.coursemanagement.api.CourseManagementService;
 import org.sakaiproject.coursemanagement.api.CourseOffering;
 import org.sakaiproject.coursemanagement.api.Section;
-
 import org.sakaiquebec.opensyllabus.shared.model.COSerialized;
+
+import ca.hec.archive.api.HecCourseArchiveService;
+import ca.hec.archive.dao.ArchiveDao;
+import ca.hec.archive.model.ArchiveCourseSection;
+import ca.hec.cdm.api.CatalogDescriptionService;
+import ca.hec.cdm.model.CatalogDescription;
+import ca.hec.commons.utils.FormatUtils;
 
 public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 
@@ -81,7 +79,7 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 	    CourseOffering courseOffering = cmService.getCourseOffering(cmSection.getCourseOfferingEid());
 	    AcademicSession cmSession = courseOffering.getAcademicSession();
 	    
-	    String courseId = ArchiveUtils.formatCourseId(courseOffering.getCanonicalCourseEid());
+	    String courseId = FormatUtils.formatCourseId(courseOffering.getCanonicalCourseEid());
 	    String section = getSection(cmSection);
 	    String session = getSession(cmSession);
 	    String period = getPeriod(cmSession);

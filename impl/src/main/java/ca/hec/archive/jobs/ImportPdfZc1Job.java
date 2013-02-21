@@ -32,6 +32,8 @@ import org.sakaiquebec.opensyllabus.common.api.OsylSecurityService;
 import org.zefer.pd4ml.PD4Constants;
 import org.zefer.pd4ml.PD4ML;
 
+import ca.hec.commons.utils.FormatUtils;
+
 /**
  * A one-time job to import the course outlines from ZC1 HTML format to ZC2 PDF
  * format
@@ -140,7 +142,7 @@ public class ImportPdfZc1Job implements Job {
 			    "http://zonecours.hec.ca/af1CodexImp.jsp?instId="
 				    + koid + "&lang=" + lang;
 		    String courseId =
-			    formatCourseId(codecours) + "." + sessioncours + suffixPeriode + "." + sectioncours;
+			    FormatUtils.formatCourseId(codecours) + "." + sessioncours + suffixPeriode + "." + sectioncours;
 
 		    String collection_id =
 			    "/attachment/" + courseId + "/OpenSyllabus/";
@@ -269,46 +271,6 @@ public class ImportPdfZc1Job implements Job {
 	}
 
 	return zc1con;
-    }
-
-    private String formatCourseId(String courseId) {
-	String cheminement;
-	String numero;
-	String annee;
-	String formattedCourseId;
-
-	if (courseId.length() == 6) {
-	    cheminement = courseId.substring(0, 1);
-	    numero = courseId.substring(1, 4);
-	    annee = courseId.substring(4);
-	}
-
-	else if (courseId.length() == 7) {
-	    if (courseId.endsWith("A") || courseId.endsWith("E")
-		    || courseId.endsWith("R")) {
-		cheminement = courseId.substring(0, 1);
-		numero = courseId.substring(1, 4);
-		annee = courseId.substring(4);
-	    } else {
-		cheminement = courseId.substring(0, 2);
-		numero = courseId.substring(2, 5);
-		annee = courseId.substring(5);
-	    }
-	}
-
-	else if (courseId.length() == 8) {
-	    cheminement = courseId.substring(0, 2);
-	    numero = courseId.substring(2, 5);
-	    annee = courseId.substring(5);
-	}
-
-	else {
-	    return courseId;
-	}
-
-	formattedCourseId = cheminement + "-" + numero + "-" + annee;
-	return formattedCourseId;
-
     }
 
     protected void loginToSakai() {

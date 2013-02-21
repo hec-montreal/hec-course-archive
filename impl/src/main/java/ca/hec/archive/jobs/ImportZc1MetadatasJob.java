@@ -18,9 +18,9 @@ import org.sakaiproject.component.cover.ServerConfigurationService;
 
 import ca.hec.archive.dao.ArchiveDao;
 import ca.hec.archive.model.ArchiveCourseSection;
-import ca.hec.archive.util.ArchiveUtils;
 import ca.hec.cdm.api.CatalogDescriptionDao;
 import ca.hec.cdm.model.CatalogDescription;
+import ca.hec.commons.utils.FormatUtils;
 
 /**
  * A one-time job to import the course outlines from ZC1 HTML format to ZC2 PDF
@@ -65,7 +65,7 @@ public class ImportZc1MetadatasJob implements Job {
 		    String codecours = rs.getString(4);
 		    String sectioncours = rs.getString(5);
 		    
-		    String courseId = ArchiveUtils.formatCourseId(codecours);
+		    String courseId = FormatUtils.formatCourseId(codecours);
 
 		    /********************** Check if resource already exists ********************/
 			CatalogDescription catalogDescription = catalogDescriptionDao.getCatalogDescription(courseId);			

@@ -15,7 +15,6 @@ import lombok.Setter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -24,9 +23,9 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import ca.hec.archive.dao.ArchiveDao;
 import ca.hec.archive.model.ArchiveCourseSection;
-import ca.hec.archive.util.ArchiveUtils;
 import ca.hec.cdm.model.CatalogDescription;
 import ca.hec.cdm.util.Stopwords;
+import ca.hec.commons.utils.FormatUtils;
 
 public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 
@@ -93,7 +92,7 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 		if (!course_id.contains("-") && course_id.length() >= 6
 			&& course_id.length() <= 8) {
 		    dcCatalogDescription.add(Restrictions.ilike("courseId",
-			    ArchiveUtils.formatCourseId(course_id) + "%"));
+			    FormatUtils.formatCourseId(course_id) + "%"));
 		} else {
 		    dcCatalogDescription.add(Restrictions.ilike("courseId",
 			    course_id + "%"));
