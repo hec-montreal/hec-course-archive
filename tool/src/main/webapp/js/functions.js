@@ -86,19 +86,13 @@ function populateInstructorsSelectBox() {
 				datatype : 'json',
 				success : function(listInstructors) {
 					for ( var i = 0; i < listInstructors.data.length; i++) {
-						$('#input_course_teacher')
-								.append(
-										'<option value="' + i + '">'
-												+ listInstructors.data[i]
-												+ '</option>');
+						$('#input_course_teacher').append(
+							'<option value="' + i + '">'
+								+ listInstructors.data[i]
+								+ '</option>');
 					}
 
-					if (window.location.hash === "#search") {
-						var searchForm = JSON.parse(localStorage
-								.getItem("searchForm"));
-						$('#input_course_teacher').val(searchForm[2]).trigger("change");
-					}
-
+					localStorage.setItem("instructorsList", JSON.stringify(listInstructors.data));
 					// update the list
 					$('#input_course_teacher').trigger("liszt:updated");
 				}
