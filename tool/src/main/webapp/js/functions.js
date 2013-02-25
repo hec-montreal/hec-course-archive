@@ -159,13 +159,21 @@ function initializeGroupDescriptions() {
 }
 
 function initializeInputClearing() {
-$('.ui-icon-delete').hide();
+	$('.ui-icon-delete').hide();
+
+	// set the clear cross at the end of the non empty input fields
+	if ($('#input_course_id').val()){
+		$('#input_course_id').parent().find(".ui-icon-delete").show();
+	}
+	if ($('#input_course_title').val()){
+		$('#input_course_title').parent().find(".ui-icon-delete").show();
+	}
 	$('.ui-icon-delete').click(function(){
         $(this).parent().find("input").val("");
         $(this).hide();
 		});
 	
 	 $("input").change(function(){
-	  $(this).parent().find(".ui-icon-delete").show();
+		$(this).parent().find(".ui-icon-delete").show();
 		});
 }
