@@ -96,15 +96,22 @@ public class HecCourseArchiveController {
 	    HttpServletResponse response) throws Exception {
 
 	// search parameters
-	String course_id = request.getParameter("courseId").trim();
-	String title =
-		URLDecoder.decode(request.getParameter("courseTitle").trim(),
-			"UTF-8");
+	String course_id = request.getParameter("courseId");
+	if (course_id != null) {
+	    course_id = course_id.replace("%", "").trim();
+	}
+	String title = request.getParameter("courseTitle");
+	if (title != null) {
+	    title = URLDecoder.decode(title.replace("%", "").trim(), "UTF-8");
+	}
+
 	String instructor =
 		URLDecoder.decode(request.getParameter("courseInstructor"),
 			"UTF-8");
 	String courseCareerGroup = request.getParameter("courseCareerGroup");
-	String courseLanguage = ArchiveUtils.getCorrespondenceLocaleLanguage(request.getParameter("courseLanguage"));
+	String courseLanguage =
+		ArchiveUtils.getCorrespondenceLocaleLanguage(request
+			.getParameter("courseLanguage"));
 
 	List<CatalogDescription> catalogDescriptions =
 		hecCourseArchiveService.getListCatalogDescription(course_id,
@@ -154,10 +161,11 @@ public class HecCourseArchiveController {
 	Map<String, Object> model = new HashMap<String, Object>();
 
 	model.put("data", msgsBundle);
-	
-	String locale= msgs.getLocale().toString();
-	//because "en" is the default locale, sakai return "" when user preferences are in English
-	if ("".equals(locale)){
+
+	String locale = msgs.getLocale().toString();
+	// because "en" is the default locale, sakai return "" when user
+	// preferences are in English
+	if ("".equals(locale)) {
 	    locale = "en";
 	}
 	model.put("locale", locale);

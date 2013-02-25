@@ -12,6 +12,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -80,8 +81,8 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 		if (!stopWordList.isStopword(titleWord)) { // we don't add
 							   // stopWords to the
 							   // search
-		    
-		    dcCatalogDescription.add(Restrictions.sqlRestriction("convert(lower(title), 'US7ASCII') like convert(lower('%" + titleWord + "%'), 'US7ASCII')"));
+		    String escapedTitleWord = StringEscapeUtils.escapeJava(titleWord);
+		    dcCatalogDescription.add(Restrictions.sqlRestriction("convert(lower(title), 'US7ASCII') like convert(lower('%" + escapedTitleWord + "%'), 'US7ASCII')"));
 		}
 	    }
 
@@ -89,13 +90,15 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	    if (course_id != null && !course_id.isEmpty()) {
 		// If the user type a course id without dash, we format it
 		// before the search
+		 String escapedCourseId = StringEscapeUtils.escapeJava(course_id);
+		
 		if (!course_id.contains("-") && course_id.length() >= 6
 			&& course_id.length() <= 8) {
 		    dcCatalogDescription.add(Restrictions.ilike("courseId",
-			    FormatUtils.formatCourseId(course_id) + "%"));
+			    FormatUtils.formatCourseId(escapedCourseId) + "%"));
 		} else {
 		    dcCatalogDescription.add(Restrictions.ilike("courseId",
-			    course_id + "%"));
+			    escapedCourseId + "%"));
 		}
 
 	    }
