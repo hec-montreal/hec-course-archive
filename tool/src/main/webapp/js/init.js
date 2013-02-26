@@ -86,6 +86,7 @@ $(document).ready(function() {
  * Afficher un message d'erreur si un des appels ajax plante
  */ 
 $('#search_form_frame').ajaxError(function(event, request, settings) {
-	if (request.status != 404 && request.status != 403)
+	if (request.status != 404 && request.status != 403 && request.status != 0)
 		$(this).html('<div id="error"><h3>Il y a un problème avec le serveur. Veuillez réessayer plus tard.</h3><h3>We are experiencing technical difficulties. Please try again later.</h3></div>');
+		$('#search_result_frame').hide();
 });

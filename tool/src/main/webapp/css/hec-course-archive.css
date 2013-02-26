@@ -247,3 +247,16 @@
 .right {
 	text-align: right;
 }
+
+/**************************************
+ *******  Ajax Failure error div ******
+ **************************************/
+#error {
+	border: 1px solid red;
+	color: red;
+	padding: 3em;
+	text-align: center;
+	
+	position: relative;
+	top: 200px;
+}
