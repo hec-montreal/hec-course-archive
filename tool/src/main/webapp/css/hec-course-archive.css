@@ -252,8 +252,7 @@
  *******  Ajax Failure error div ******
  **************************************/
 #error {
-	border: 1px solid red;
-	color: red;
+	color: red  !important;
 	padding: 3em;
 	text-align: center;
 	
