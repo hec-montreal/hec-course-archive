@@ -41,7 +41,10 @@ $(document).ready(function() {
 					return 1;
 				},
 				allowClear: true,
-				minimumResultsForSearch: 15
+				minimumResultsForSearch: 15,
+				formatNoMatches: function(term) { 
+					return messageBundle["no_match_for_instructor"] + " " + term;
+						}	
 			});
 			
 			// if the url has a search hash, the user must be coming back (so populate search form and data table)
