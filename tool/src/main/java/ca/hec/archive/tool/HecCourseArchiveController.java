@@ -42,6 +42,7 @@ public class HecCourseArchiveController {
 
     private static Log log = LogFactory
 	    .getLog(HecCourseArchiveController.class);
+    private static String key_no_instructor = "no_instructor";
 
     @PostConstruct
     public void init() {
@@ -66,7 +67,13 @@ public class HecCourseArchiveController {
 	    Map<String, Object> section = new HashMap<String, Object>();
 	    section.put("session", acs.getSession());
 	    section.put("section", acs.getSection());
-	    section.put("instructor", acs.getInstructor());
+	    if (acs.getInstructor() == null){
+		section.put("instructor", msgs.get(key_no_instructor));
+	    }else{
+		section.put("instructor", acs.getInstructor());
+	    }
+	    
+	    
 
 	    // generate pdf url, maybe should be in utils?
 	    String site_id =

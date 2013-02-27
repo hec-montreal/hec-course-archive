@@ -35,11 +35,11 @@ public class ImportZc1MetadatasJob implements Job {
     @Getter
     @Setter
     private ArchiveDao archiveDao;
-    
+
     @Getter
     @Setter
     private CatalogDescriptionDao catalogDescriptionDao;
-    
+
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
 
 	PreparedStatement ps = null;
@@ -58,30 +58,43 @@ public class ImportZc1MetadatasJob implements Job {
 	    long start = System.currentTimeMillis();
 	    while (rs.next()) {
 		try {
-
-		    String instructors = rs.getString(1).replace(",", ", ");
 		    String sessioncours = rs.getString(2);
 		    String periode = rs.getString(3);
 		    String codecours = rs.getString(4);
 		    String sectioncours = rs.getString(5);
-		    
+
 		    String courseId = FormatUtils.formatCourseId(codecours);
 
+		    String instructors = rs.getString(1);
+		    if (instructors != null) {
+			instructors = instructors.replace(",", ", ");
+		    } else {
+			log.error("No instructor for course: " + courseId);
+		    }
+
 		    /********************** Check if resource already exists ********************/
-			CatalogDescription catalogDescription = catalogDescriptionDao.getCatalogDescription(courseId);			
+		    CatalogDescription catalogDescription =
+			    catalogDescriptionDao
+				    .getCatalogDescription(courseId);
+		    if (catalogDescription == null) {
+			log.error("No description found for course: "
+				+ courseId);
+		    } else {
 			ArchiveCourseSection acs = new ArchiveCourseSection();
 			acs.setSection(sectioncours);
 			acs.setSession(sessioncours);
 			acs.setPeriod(periode);
 			acs.setInstructor(instructors);
 			acs.setCatalogDescription(catalogDescription);
-			
+
 			archiveDao.saveArchiveCourseSection(acs);
-			
+
 			log.error("saved course " + courseId);
 			nbMetadatasCoursImportees++;
-			log.error("********************* " + nbMetadatasCoursImportees + " *******************************");
-		    
+			log.error("********************* "
+				+ nbMetadatasCoursImportees
+				+ " *******************************");
+		    }
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
@@ -90,7 +103,9 @@ public class ImportZc1MetadatasJob implements Job {
 	    long end = System.currentTimeMillis();
 	    long time = (end - start) / 1000;
 	    log.error("----------------------------------------------------------------------------------");
-	    log.error("FIN DE LA JOB. CELA A PRIS " + time + " SECONDES POUR IMPORTER LES METADATAS DE " + nbMetadatasCoursImportees + " PLANS DE COURS");
+	    log.error("FIN DE LA JOB. CELA A PRIS " + time
+		    + " SECONDES POUR IMPORTER LES METADATAS DE "
+		    + nbMetadatasCoursImportees + " PLANS DE COURS");
 
 	} catch (Exception e) {
 	    e.printStackTrace();
@@ -128,5 +143,4 @@ public class ImportZc1MetadatasJob implements Job {
 	return zc1con;
     }
 
-    
 }
