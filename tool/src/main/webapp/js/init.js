@@ -67,15 +67,19 @@ $(document).ready(function() {
 				$('#input_course_title').val(searchForm[1]);
 				$('#input_course_teacher').val(searchForm[2]).trigger("change");
 				$('#input_course_lang').val(searchForm[4]).trigger("change");
+
+				// resize the iframe, then set the scrollbar to what it was
+				resizeIframe();			
+				$(window.parent.document).scrollTop(localStorage.getItem("windowScrollPos"));
 			}
 			else{
 				$('#search_result_frame').hide();
 				populateInstructorsSelectBox();
+				resizeIframe();	
 			}
 
 			bindSearch();
 			bindResultLinks();
-			resizeIframe();	
 			initializeGroupDescriptions();				
 			initializeInputClearing();
 		}

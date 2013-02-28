@@ -40,8 +40,7 @@ function launchSearch() {
 	$('#input_course_id').val(course_id);
 	
 
-	$
-			.ajax({
+	$.ajax({
 				url : 'search.json',
 				datatype : 'json',
 				data : 'courseId=' + $('#input_course_id').val()
@@ -80,6 +79,7 @@ function bindResultLinks() {
 	// bind click listener for table row to populate form
 	$('#search_result_table tr').live("click", function() {
 		var courseId = oTable.fnGetData(this, 0);
+		localStorage.setItem("windowScrollPos", $(window.parent.document).scrollTop());
 		window.location.href = "course.jsp?courseId=" + courseId;
 	});
 }

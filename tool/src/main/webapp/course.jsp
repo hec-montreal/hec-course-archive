@@ -14,7 +14,7 @@
 	<script type="text/javascript" src="plugins/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.min.js"></script>	
 
 </head>
-<body>
+<body onLoad="window.parent.scroll(0, 0);">
 <div id="courseView" class="portletBody">
 <div class="right">
 <a href="#" onClick="history.back();return false;"><c:out value="${msgs.back_button_label}"/></a>
@@ -63,7 +63,7 @@ $.ajax({
 					$('#course_outline_table').append("<tr class=\"ui-state-default\" role=\"columnheader\"><th colspan='3'>"+currentSession+"</th></tr>");
 				}				
 			
-			//if the instructor we select in the search is teaching the session, we highlight this section
+				//if the instructor we select in the search is teaching the session, we highlight this section
 				var classInstructor = '';
 				if (localStorage.getItem("instructorSelected") !== "" && sections.data[i].instructor.indexOf(localStorage.getItem("instructorSelected")) !== -1) {
 					classInstructor = " class='selectedInstructor' ";
@@ -71,10 +71,9 @@ $.ajax({
 				$('#course_outline_table').append("<tr" + classInstructor + " data-pdf-url='" + sections.data[i].pdf_url + "'><td>"+sections.data[i].section+"</td><td>"+sections.data[i].instructor+"</td><td class='pdf_icon_col'><img src='/library/image/silk/page_white_acrobat.png'></img></td></tr>");
 			}
 			
-			
 			$('#course_outline_table tr').click(function() {
-			window.open($(this).attr('data-pdf-url'));
-		});
+				window.open($(this).attr('data-pdf-url'));
+			});
 		
 		$.ajax({
 			url : '/direct/catalogDescription/'+courseId+'.json',
@@ -92,20 +91,9 @@ $.ajax({
 				$('#credits').html(course.credits);
 				$('#requirements').html(course.requirements);	
 				resizeIframe();		
-			}, //end sucess for getting catalog descriptions
-			error : function(xhr, ajaxOptions, thrownError) {
-			// maybe have one global error message, like portail
-			//$('#ajaxMessage').html(server_error_message);
-			//$('#ajaxReturn').addClass("error");
-			}
+			} //end sucess for getting catalog descriptions
 		});
-	},//end sucess for getting sections
-		
-		error : function(xhr, ajaxOptions, thrownError) {
-		// maybe have one global error message, like portail
-		//$('#ajaxMessage').html(server_error_message);
-		//$('#ajaxReturn').addClass("error");
-		}
+	} //end sucess for getting sections		
 	});
 });
 
