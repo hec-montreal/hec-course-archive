@@ -105,11 +105,11 @@ public class HecCourseArchiveController {
 	// search parameters
 	String course_id = request.getParameter("courseId");
 	if (course_id != null) {
-	    course_id = course_id.replace("%", "").trim();
+	    course_id = course_id.trim();
 	}
 	String title = request.getParameter("courseTitle");
 	if (title != null) {
-	    title = URLDecoder.decode(title.replace("%", "").trim(), "UTF-8");
+	    title = URLDecoder.decode(title.trim(), "UTF-8");
 	}
 
 	String instructor =

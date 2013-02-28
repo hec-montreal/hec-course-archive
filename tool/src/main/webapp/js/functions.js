@@ -31,6 +31,14 @@ function launchSearch() {
 					+ '</span><div class=\"icon-loader\"></div></td>')
 			.insertAfter('.dataTables_empty');
 	$('.dataTables_empty').hide();
+	
+	// We escape % character that causes encoding problem
+	var course_title = $('#input_course_title').val().replace("%","");
+	$('#input_course_title').val(course_title);
+	
+	var course_id = $('#input_course_id').val().replace("%","");
+	$('#input_course_id').val(course_id);
+	
 
 	$
 			.ajax({
