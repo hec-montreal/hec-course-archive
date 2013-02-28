@@ -1,4 +1,4 @@
-﻿package ca.hec.archive.tool;
+package ca.hec.archive.tool;
 
 import java.net.URLDecoder;
 import java.util.ArrayList;
