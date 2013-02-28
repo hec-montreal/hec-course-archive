@@ -1,4 +1,4 @@
-package ca.hec.archive.tool;
+﻿package ca.hec.archive.tool;
 
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -103,14 +103,10 @@ public class HecCourseArchiveController {
 	    HttpServletResponse response) throws Exception {
 
 	// search parameters
-	String course_id = request.getParameter("courseId");
-	if (course_id != null) {
-	    course_id = course_id.trim();
-	}
-	String title = request.getParameter("courseTitle");
-	if (title != null) {
-	    title = URLDecoder.decode(title.trim(), "UTF-8");
-	}
+	String course_id = request.getParameter("courseId").trim();
+	String title =
+		URLDecoder.decode(request.getParameter("courseTitle").trim(),
+			"UTF-8");
 
 	String instructor =
 		URLDecoder.decode(request.getParameter("courseInstructor"),

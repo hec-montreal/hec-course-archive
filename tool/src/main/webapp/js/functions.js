@@ -33,10 +33,10 @@ function launchSearch() {
 	$('.dataTables_empty').hide();
 	
 	// We escape % character that causes encoding problem
-	var course_title = $('#input_course_title').val().replace("%","");
+	var course_title = $('#input_course_title').val().replace(/\%/g,"");
 	$('#input_course_title').val(course_title);
 	
-	var course_id = $('#input_course_id').val().replace("%","");
+	var course_id = $('#input_course_id').val().replace(/\%/g,"");
 	$('#input_course_id').val(course_id);
 	
 
