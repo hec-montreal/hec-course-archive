@@ -102,6 +102,7 @@ public class HecCourseArchiveController {
     public ModelAndView handleSearch(HttpServletRequest request,
 	    HttpServletResponse response) throws Exception {
 
+	
 	// search parameters
 	String course_id = request.getParameter("courseId").trim();
 	String title =
