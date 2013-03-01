@@ -12,9 +12,9 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -44,18 +44,30 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	List<String> listInstructors = new ArrayList<String>();
 	for (Object o : getHibernateTemplate().find(
 		"select instructor from ArchiveCourseSection")) {
-	    try {
-		String[] listInstructorsCurrentRow = ((String) o).split("&");
-		for (int i = 0; i < listInstructorsCurrentRow.length; i++) {
-		    String inst = listInstructorsCurrentRow[i].trim();
-		    if (!listInstructors.contains(inst)) {
-			listInstructors.add(inst);
+	    
+	    if (o != null){
+		try {
+			if (((String) o).contains("&")){
+			    String[] listInstructorsCurrentRow = ((String) o).split("&");
+				for (int i = 0; i < listInstructorsCurrentRow.length; i++) {
+				    String inst = listInstructorsCurrentRow[i].trim();
+				    if (!listInstructors.contains(inst)) {
+					listInstructors.add(inst);
+				    }
+				}
+			}
+			else{
+			    String inst = ((String) o).trim();
+			    if (!listInstructors.contains(inst)) {
+				listInstructors.add(inst);
+			    }
+			}
+			
+		    } catch (Exception e) {
+			log.error("Exception while retrieving instructor " + o
+				+ " . Exception is: " + e);
 		    }
-		}
-	    } catch (Exception e) {
-		log.error("Exception while retrieving instructor " + o
-			+ " . Exception is: " + e);
-	    }
+	    }	    
 	}
 	return listInstructors;
     }
@@ -81,8 +93,7 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 		if (!stopWordList.isStopword(titleWord)) { // we don't add
 							   // stopWords to the
 							   // search
-		    String escapedTitleWord = StringEscapeUtils.escapeJava(titleWord);
-		    dcCatalogDescription.add(Restrictions.sqlRestriction("convert(lower(title), 'US7ASCII') like convert(lower('%" + escapedTitleWord + "%'), 'US7ASCII')"));
+		    dcCatalogDescription.add(Restrictions.sqlRestriction("convert(lower({alias}.title), 'US7ASCII') like convert(lower(?), 'US7ASCII')","%" + titleWord + "%",Hibernate.STRING));
 		}
 	    }
 
@@ -90,15 +101,14 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	    if (course_id != null && !course_id.isEmpty()) {
 		// If the user type a course id without dash, we format it
 		// before the search
-		 String escapedCourseId = StringEscapeUtils.escapeJava(course_id);
 		
 		if (!course_id.contains("-") && course_id.length() >= 6
 			&& course_id.length() <= 8) {
 		    dcCatalogDescription.add(Restrictions.ilike("courseId",
-			    FormatUtils.formatCourseId(escapedCourseId) + "%"));
+			    FormatUtils.formatCourseId(course_id) + "%"));
 		} else {
 		    dcCatalogDescription.add(Restrictions.ilike("courseId",
-			    escapedCourseId + "%"));
+			    course_id + "%"));
 		}
 
 	    }
