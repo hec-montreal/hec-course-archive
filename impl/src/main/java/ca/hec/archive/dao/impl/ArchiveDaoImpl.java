@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -216,7 +217,7 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
      * @return A string of instructors, formatted.
      * @throws SQLException 
      */
-    public String getInstructors(String courseId, String sessionEid, String section, String period) 
+    public String getInstructors(Set<String> instructorIds) 
 	    throws SQLException {
 	String instructors = "";
 
@@ -236,30 +237,29 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	    Class.forName(driverName);
 	    peopleSoftConnection = DriverManager.getConnection(url, user, password);
 
-	    String request = null;
-	    ResultSet rset = null;
+	    for (String id : instructorIds) {
+	    	String request = null;
+	    	ResultSet rset = null;
 
-	    request = "SELECT DISTINCT name FROM ps_n_nature_emploi T1, ps_n_crsection_vw T2 WHERE T1.emplid= T2.emplid AND catalog_nbr=? AND strm=? AND session_code=? AND class_section=?";
+	    	request = "SELECT DISTINCT name FROM ps_n_nature_emploi WHERE emplid = ?";
+	    
+	    	ps = peopleSoftConnection.prepareStatement(request);
+	    	ps.setString(1, id);
+	    	rset = ps.executeQuery();
 
-	    ps = peopleSoftConnection.prepareStatement(request);
-	    ps.setString(1, courseId);
-	    ps.setString(2, sessionEid);
-	    ps.setString(3, period);
-	    ps.setString(4, section);
-	    rset = ps.executeQuery();
-
-	    while (rset.next()) {
-		if (!instructors.equals(""))
-		    instructors += " & ";
-		instructors += rset.getString(1).replace(",", ", ");
-	    }
+	    	while (rset.next()) {
+	    		if (!instructors.equals(""))
+	    			instructors += " & ";
+	    		instructors += rset.getString(1).replace(",", ", ");
+	    	}
+	    }	
 	} catch (SQLException e) {
 	    throw e;
 	} catch (Exception e) {
 	    e.printStackTrace();
 	} finally {
 	    if (peopleSoftConnection != null)
-		peopleSoftConnection.close();
+	    	peopleSoftConnection.close();
 	}
 
 	return instructors;

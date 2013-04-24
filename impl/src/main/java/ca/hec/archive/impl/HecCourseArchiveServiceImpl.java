@@ -100,16 +100,12 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 	    
 	    // always set the instructors string
 	    sectionToSave.setInstructor(
-		    archiveDao.getInstructors(
-			    courseOffering.getCanonicalCourseEid(),
-			    cmSession.getEid().substring(0, 4),
-			    section,
-			    period));
+		    archiveDao.getInstructors(cmSection.getEnrollmentSet().getOfficialInstructors()));
 	   
 	    // save or update
 	    archiveDao.saveArchiveCourseSection(sectionToSave);
 	    
-	    log.error("saved metadata to archive for course " + serializedCO.getCoId());
+	    log.debug("saved metadata to archive for course " + serializedCO.getCoId());
 	} catch (Exception e) {
 	    log.error("saveCourseMetadataToArchive(): " + e);
 	    e.printStackTrace();
