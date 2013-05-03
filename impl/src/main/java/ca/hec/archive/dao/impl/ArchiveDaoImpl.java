@@ -20,6 +20,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.engine.SessionFactoryImplementor;
 import org.sakaiproject.component.cover.ServerConfigurationService;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -217,51 +218,43 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
      * @return A string of instructors, formatted.
      * @throws SQLException 
      */
-    public String getInstructors(Set<String> instructorIds) 
+	public String getInstructors(Set<String> instructorIds) 
 	    throws SQLException {
-	String instructors = "";
+    	String instructors = "";
 
-	Connection peopleSoftConnection = null;
-	PreparedStatement ps = null;
+    	Connection connection = null;
+    	PreparedStatement ps = null;
+    	SessionFactoryImplementor sfi = null;
 
-	try {
-	    String driverName = ServerConfigurationService
-		    .getString("hec.peoplesoft.conn.portail.driver.name");
-	    String url = ServerConfigurationService
-		    .getString("hec.peoplesoft.conn.portail.url");
-	    String user = ServerConfigurationService
-		    .getString("hec.peoplesoft.conn.portail.user");
-	    String password = ServerConfigurationService
-		    .getString("hec.peoplesoft.conn.portail.password");
+    	try {
 
-	    Class.forName(driverName);
-	    peopleSoftConnection = DriverManager.getConnection(url, user, password);
+    		sfi = (SessionFactoryImplementor)getHibernateTemplate().getSessionFactory();
+    		connection = sfi.getConnectionProvider().getConnection();
+    		
+    		for (String id : instructorIds) {
+    			String request = null;
+    			ResultSet rset = null;
 
-	    for (String id : instructorIds) {
-	    	String request = null;
-	    	ResultSet rset = null;
-
-	    	request = "SELECT DISTINCT name FROM ps_n_nature_emploi WHERE emplid = ?";
+    			request = "SELECT DISTINCT name FROM psftcont.zonecours2_ps_n_nature_emploi WHERE emplid = ?";
 	    
-	    	ps = peopleSoftConnection.prepareStatement(request);
-	    	ps.setString(1, id);
-	    	rset = ps.executeQuery();
+    			ps = connection.prepareStatement(request);
+    			ps.setString(1, id);
+    			rset = ps.executeQuery();
 
-	    	while (rset.next()) {
-	    		if (!instructors.equals(""))
-	    			instructors += " & ";
-	    		instructors += rset.getString(1).replace(",", ", ");
-	    	}
-	    }	
-	} catch (SQLException e) {
-	    throw e;
-	} catch (Exception e) {
-	    e.printStackTrace();
-	} finally {
-	    if (peopleSoftConnection != null)
-	    	peopleSoftConnection.close();
-	}
-
-	return instructors;
+    			while (rset.next()) {
+    				if (!instructors.equals(""))
+    					instructors += " & ";
+    				instructors += rset.getString(1).replace(",", ", ");
+    			}
+    		}	
+    	} catch (SQLException e) {
+    		throw e;
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		if (sfi != null && connection != null) 
+    			sfi.getConnectionProvider().closeConnection(connection);
+    	}
+    	return instructors;
     }
 }
