@@ -8,7 +8,7 @@
 	<!--  create a HecCourseArchiveService bean, give it the dao for archive table -->
 	<bean id="ca.hec.archive.api.HecCourseArchiveService"
 			class="ca.hec.archive.impl.HecCourseArchiveServiceImpl"
-			singleton="true">
+			>
  		<property name="archiveDao" ref="ca.hec.archive.dao.ArchiveDao" />
 		<property name="authzGroupService" ref="org.sakaiproject.authz.api.AuthzGroupService" />
 		<property name="cmService" ref="org.sakaiproject.coursemanagement.api.CourseManagementService" />
@@ -35,7 +35,7 @@
 	</bean>	
 	<bean id="ImportPdfZc1Job"
        class="org.sakaiproject.component.app.scheduler.jobs.SpringJobBeanWrapper"
-       singleton="true" init-method="init">
+        init-method="init">
        <property name="beanId">
           <value>ca.hec.archive.jobs.ImportPdfZc1Job</value>
        </property>
@@ -55,7 +55,7 @@
 	</bean>	
 	<bean id="ImportZc1MetadatasJob"
        class="org.sakaiproject.component.app.scheduler.jobs.SpringJobBeanWrapper"
-       singleton="true" init-method="init">
+        init-method="init">
        <property name="beanId">
           <value>ca.hec.archive.jobs.ImportZc1MetadatasJob</value>
        </property>
