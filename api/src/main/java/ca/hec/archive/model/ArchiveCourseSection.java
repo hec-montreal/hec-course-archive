@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import ca.hec.cdm.model.CatalogDescription;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @NoArgsConstructor

@@ -33,6 +33,7 @@ import org.zefer.pd4ml.PD4Constants;
 import org.zefer.pd4ml.PD4ML;
 
 import ca.hec.commons.utils.FormatUtils;
+import ca.hec.archive.model.ArchiveCourseSection;
 
 /**
  * A one-time job to import the course outlines from ZC1 HTML format to ZC2 PDF
