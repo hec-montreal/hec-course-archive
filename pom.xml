@@ -3,16 +3,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ca.hec</groupId>
 	<artifactId>hec-course-archive</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>HEC Course Archive</name>
 	<description>Tool for searching in the archive of all HEC course outlines in PDF form</description>
 
 	<parent>
-    	<artifactId>base</artifactId>
+    	<artifactId>master</artifactId>
     	<groupId>org.sakaiproject</groupId>
     	<version>11-SNAPSHOT</version>
-    	<relativePath>../pom.xml</relativePath>
+    	<relativePath>../master/pom.xml</relativePath>
   	</parent>
 
 	<dependencyManagement>
@@ -22,21 +22,21 @@
 			<dependency>
 				<groupId>ca.hec</groupId>
 				<artifactId>hec-course-archive-api</artifactId>
-				<version>1.0-SNAPSHOT</version>
+				<version>1.1-SNAPSHOT</version>
 				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>ca.hec</groupId>
 				<artifactId>hec-course-archive-impl</artifactId>
-				<version>1.0-SNAPSHOT</version>
+				<version>1.1-SNAPSHOT</version>
 				<scope>runtime</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>ca.hec.cdm</groupId>
 				<artifactId>cdm-api</artifactId>
-				<version>1.0-SNAPSHOT</version>
+				<version>1.1-SNAPSHOT</version>
 				<scope>provided</scope>
 			</dependency>
 
