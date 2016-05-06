@@ -203,7 +203,7 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	dc.add(Restrictions.eq("section", section));
 	dc.add(Restrictions.eq("period", period));
 	
-	List<ArchiveCourseSection> results = getHibernateTemplate().findByCriteria(dc);	    
+	List<ArchiveCourseSection> results = (List<ArchiveCourseSection>)getHibernateTemplate().findByCriteria(dc);	    
 	if (results.size() == 1) {
 	    return results.get(0);
 	}

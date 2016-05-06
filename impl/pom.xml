@@ -41,12 +41,14 @@
 		<!-- spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
+			<artifactId>spring-orm</artifactId>
+			<version>${kernel.spring.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate</artifactId>
-			 <version>3.2.7.ga</version>
+			<groupId>${sakai.hibernate.groupId}</groupId>
+			<artifactId>${sakai.hibernate.artifactId}</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- Sakai dependencies -->
