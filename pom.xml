@@ -61,17 +61,6 @@
       			<scope>provided</scope>
 		    </dependency>
 
-			<dependency>
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok</artifactId>
-				<version>${sakai.lombok.version}</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>log4j</groupId>
-				<artifactId>log4j</artifactId>
-				<version>${sakai.log4j.version}</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<properties>

@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link media="all" href="/library/skin/tool_base.css" rel="stylesheet" type="text/css" />
-    <link media="all" href="/library/skin/default/tool.css" rel="stylesheet" type="text/css" />
+    <link media="all" href="/library/skin/morpheus-default/tool.css" rel="stylesheet" type="text/css" />
 	<script src="/library/js/headscripts.js" language="JavaScript" type="text/javascript"></script>
 	<link href="css/hec-course-archive.css" rel="stylesheet">
 	<link href="plugins/jquery-ui-1.9.2.custom/css/smoothness/jquery-ui-1.9.2.custom.css" rel="stylesheet"> 
@@ -15,7 +15,8 @@
 
 </head>
 <body onLoad="window.parent.scroll(0, 0);">
-<div id="courseView" class="portletBody">
+<div id="courseView" class="portletBody ">
+<div class="course_info_frame">
 <div class="right">
 <a href="#" onClick="history.back();return false;"><c:out value="${msgs.back_button_label}"/></a>
 </div>
@@ -40,7 +41,7 @@
 <h2><c:out value="${msgs.course_outline_list_label}"/></h2>
 <table id="course_outline_table"></table>
 </div>
-
+</div>
 </div>
 
 <script  type="text/javascript">
@@ -51,8 +52,7 @@ $(document).ready(function() {
 	
 	
 $.ajax({
-		url : 'course_sections.json',
-		data : 'courseId=' + courseId,
+		url : 'course_sections.json?' + 'courseId=' + courseId,
 		datatype : 'json',
 		success : function(sections) {
 			var currentSession = null;

@@ -41,17 +41,16 @@ function launchSearch() {
 	
 
 	$.ajax({
-				url : 'search.json',
+				url : 'search.json?' + 'courseId=' + $('#input_course_id').val()
+				+ '&courseTitle='
+				+ encodeURIComponent($('#input_course_title').val())
+				+ '&courseInstructor='
+				+ encodeURIComponent(instructorSelected)
+				+ '&courseCareerGroup='
+				+ $('#input_course_career').val()
+				+ '&courseLanguage='
+				+ $('#input_course_lang').val(),
 				datatype : 'json',
-				data : 'courseId=' + $('#input_course_id').val()
-						+ '&courseTitle='
-						+ encodeURIComponent($('#input_course_title').val())
-						+ '&courseInstructor='
-						+ encodeURIComponent(instructorSelected)
-						+ '&courseCareerGroup='
-						+ $('#input_course_career').val()
-						+ '&courseLanguage='
-						+ $('#input_course_lang').val(),
 				success : function(searchResults) {
 					oTable.fnAddData(searchResults.aaData);
 

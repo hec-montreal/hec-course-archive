@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +17,9 @@ import org.sakaiproject.util.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ca.hec.archive.api.HecCourseArchiveService;
 import ca.hec.archive.model.ArchiveCourseSection;
@@ -49,11 +49,9 @@ public class HecCourseArchiveController {
 	msgs = new ResourceLoader("archives");
     }
 
-    @RequestMapping(value = "/course_sections.json")
-    public ModelAndView handleCourseRequest(HttpServletRequest request,
-	    HttpServletResponse response) throws Exception {
+    @RequestMapping(value = "/course_sections.json", method=RequestMethod.GET)
+    public @ResponseBody Map<String, Object> handleCourseRequest(@RequestParam("courseId") String course_id) throws Exception {
 
-	String course_id = request.getParameter("courseId");
 	String pdf_url = null;
 
 	List<ArchiveCourseSection> sections =
@@ -95,27 +93,22 @@ public class HecCourseArchiveController {
 	}
 	map.put("data", sections_details);
 
-	return new ModelAndView("jsonView", map);
+	return map;
     }
 
-    @RequestMapping(value = "/search.json")
-    public ModelAndView handleSearch(HttpServletRequest request,
-	    HttpServletResponse response) throws Exception {
+    @RequestMapping(value = "/search.json", method=RequestMethod.GET)
+    public @ResponseBody Map<String, Object> handleSearch(@RequestParam("courseId") String course_id,
+    		@RequestParam("courseTitle") String title, @RequestParam("courseInstructor") String instructor, 
+    		@RequestParam("courseCareerGroup") String courseCareerGroup, @RequestParam("courseLanguage") String courseLanguage) throws Exception {
 
 	
 	// search parameters
-	String course_id = request.getParameter("courseId").trim();
-	String title =
-		URLDecoder.decode(request.getParameter("courseTitle").trim(),
-			"UTF-8");
+	 course_id = course_id.trim();
+	 title = URLDecoder.decode(title.trim(),"UTF-8");
 
-	String instructor =
-		URLDecoder.decode(request.getParameter("courseInstructor"),
-			"UTF-8");
-	String courseCareerGroup = request.getParameter("courseCareerGroup");
-	String courseLanguage =
-		ArchiveUtils.getCorrespondenceLocaleLanguage(request
-			.getParameter("courseLanguage"));
+    instructor = URLDecoder.decode(instructor, "UTF-8");
+	courseLanguage =
+		ArchiveUtils.getCorrespondenceLocaleLanguage(courseLanguage);
 
 	List<CatalogDescription> catalogDescriptions =
 		hecCourseArchiveService.getListCatalogDescription(course_id,
@@ -133,12 +126,11 @@ public class HecCourseArchiveController {
 
 	map.put("aaData", data);
 
-	return new ModelAndView("jsonView", map);
+	return  map;
     }
 
-    @RequestMapping(value = "/instructors.json")
-    public ModelAndView handleListInstructors(HttpServletRequest request,
-	    HttpServletResponse response) throws Exception {
+    @RequestMapping(value = "/instructors.json", method=RequestMethod.GET)
+    public @ResponseBody Map<String, Object> handleListInstructors() throws Exception {
 
 	List<String> instructors = hecCourseArchiveService.getListInstructors();
 	java.util.Collections.sort(instructors);
@@ -147,15 +139,14 @@ public class HecCourseArchiveController {
 
 	map.put("data", instructors);
 
-	return new ModelAndView("jsonView", map);
+	return  map;
     }
 
     /*
      * Called to get tool bundles (for use in javascript function)
      */
-    @RequestMapping(value = "/bundle.json")
-    public ModelAndView getBundle(HttpServletRequest request,
-	    HttpServletResponse response) throws Exception {
+    @RequestMapping(value = "/bundle.json", method=RequestMethod.GET)
+    public @ResponseBody Map<String, Object> getBundle() throws Exception {
 
 	Map<String, String> msgsBundle = new HashMap<String, String>();
 	for (Object key : msgs.keySet()) {
@@ -174,6 +165,6 @@ public class HecCourseArchiveController {
 	}
 	model.put("locale", locale);
 
-	return new ModelAndView("jsonView", model);
+	return model;
     }
 }
