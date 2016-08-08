@@ -97,7 +97,6 @@
   <modules>
     <module>api</module>
     <module>impl</module>
-	<module>help</module>
     <module>tool</module>
     <module>pack</module>
   </modules>
