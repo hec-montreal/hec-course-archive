@@ -169,7 +169,9 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
      */
     private String getSection(Section section) {
 	String sectionEid = section.getEid();
-	String sectionId = sectionEid.substring(sectionEid.length()-3);
+	String courseOff = section.getCourseOfferingEid();
+	
+	String sectionId = sectionEid.substring(courseOff.length());
 	return sectionId;
     }
 }
