@@ -1,26 +1,23 @@
 package ca.hec.archive.impl;
 
-import java.util.Date;
-import java.util.List;
-
-import lombok.Setter;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.sakaiproject.authz.api.AuthzGroup;
-import org.sakaiproject.authz.api.AuthzGroupService;
-import org.sakaiproject.coursemanagement.api.AcademicSession;
-import org.sakaiproject.coursemanagement.api.CourseManagementService;
-import org.sakaiproject.coursemanagement.api.CourseOffering;
-import org.sakaiproject.coursemanagement.api.Section;
-import org.sakaiquebec.opensyllabus.shared.model.COSerialized;
-
 import ca.hec.archive.api.HecCourseArchiveService;
 import ca.hec.archive.dao.ArchiveDao;
 import ca.hec.archive.model.ArchiveCourseSection;
 import ca.hec.cdm.api.CatalogDescriptionService;
 import ca.hec.cdm.model.CatalogDescription;
 import ca.hec.commons.utils.FormatUtils;
+import lombok.Setter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.sakaiproject.authz.api.AuthzGroup;
+import org.sakaiproject.authz.api.AuthzGroupService;
+import org.sakaiproject.coursemanagement.api.*;
+import org.sakaiquebec.opensyllabus.shared.model.COSerialized;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 
@@ -54,7 +51,7 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 	    String title, String instructor, String courseCareerGroup, String courseLanguage) {
 	return archiveDao.getListCatalogDescription(course_id, title, instructor, courseCareerGroup, courseLanguage);
     }
-    
+
     public void saveCourseMetadataToArchive(COSerialized serializedCO) {
 	ArchiveCourseSection sectionToSave;
 	try {
@@ -111,7 +108,95 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 	    e.printStackTrace();
 	}
     }
-    
+
+	@Override
+	public void saveCourseMetadataToArchive(String siteId, String syllabusId, Set<String> syllabusSections) {
+		ArchiveCourseSection sectionToSave;
+		Set<String> sectionGroups;
+		try {
+			AuthzGroup realm =
+					authzGroupService.getAuthzGroup(SITE_PREFIX
+							+ siteId);
+			String providers = realm.getProviderGroupId();
+
+			for (String provider: providers.split("\\+")) {
+				sectionGroups = authzGroupService.getAuthzGroupIds(provider);
+
+				if (provider == null || !cmService.isSectionDefined(provider)) {
+					log.info("The course outline " + siteId
+							+ " is not associated to a section in the course management,"
+							+ " it's details will not be saved to HEC_COURSE_ARCHIVE.");
+					return;
+				}
+				if (provider.endsWith(SITE_SHAREABLE)) {
+					log.info("The course outline " + siteId
+							+ " will not be transferred to HEC_COURSE_ARCHIVE because it is a dummy section references the sharable site.");
+					return;
+				}
+				if (!updateArchiveEntry(sectionGroups, syllabusSections)) {
+					log.info("This syllabus " + syllabusId + " is not associated to the section " + provider);
+					continue;
+				}
+
+				Section cmSection = cmService.getSection(provider);
+				CourseOffering courseOffering = cmService.getCourseOffering(cmSection.getCourseOfferingEid());
+				AcademicSession cmSession = courseOffering.getAcademicSession();
+
+				String courseId = FormatUtils.formatCourseId(courseOffering.getCanonicalCourseEid());
+				String section = getSection(cmSection);
+				String session = getSession(cmSession);
+				String period = getPeriod(cmSession);
+
+				sectionToSave = archiveDao.getArchiveCourseSection(courseId, session, section, period);
+
+				if (sectionToSave == null) {
+					CatalogDescription catalogDescription =
+							catalogDescriptionService.getCatalogDescription(courseId);
+
+					// prepare the ArchiveCourseSection for writing
+					sectionToSave = new ArchiveCourseSection();
+					sectionToSave.setSection(section);
+					sectionToSave.setSession(session);
+					sectionToSave.setPeriod(period);
+					sectionToSave.setCatalogDescription(catalogDescription);
+				}
+
+				// always set the instructors string
+				sectionToSave.setInstructor(
+						archiveDao.getInstructors(getSectionInstructors(cmSection)));
+
+				// save or update
+				archiveDao.saveArchiveCourseSection(sectionToSave);
+
+				log.debug("saved metadata to archive for course " + syllabusId);
+			}
+		} catch (Exception e) {
+			log.error("saveCourseMetadataToArchive(): " + e);
+			e.printStackTrace();
+		}
+	}
+
+	private boolean updateArchiveEntry (Set<String> providerGroups, Set<String> syllabusSectionGroups){
+    	for (String providerGroup: providerGroups){
+    		for(String syllabusSectionGroup: syllabusSectionGroups){
+    			if (providerGroup.contains(syllabusSectionGroup))
+    				return true;
+			}
+		}
+		return false;
+	}
+	private Set<String> getSectionInstructors (Section section) {
+    	Set<String> instructors = new HashSet<String>();
+		Set<Membership> memberships = cmService.getSectionMemberships(section.getEid());
+
+		for (Membership member: memberships){
+			if (member.getRole().equalsIgnoreCase("I") || member.getRole().equalsIgnoreCase("CI"))
+				instructors.add(member.getUserId());
+		}
+
+    	return instructors;
+	}
+
     public void deleteArchiveCourseSection(String site_id) {
 	ArchiveCourseSection acs = null;
 	String site_info[] = site_id.split("\\.");
