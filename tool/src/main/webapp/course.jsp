@@ -76,7 +76,7 @@ $.ajax({
 			});
 		
 		$.ajax({
-			url : '/direct/catalogDescription/'+courseId+'.json',
+			url : '/direct/portalManager/getOfficialCourseDescription.json?courseId=' + courseId,
 			datatype : 'json',
 			success : function(course) {
 				var JSONdepartmentGroupDescription = JSON.parse(localStorage.getItem("departmentDescriptionsMap"));

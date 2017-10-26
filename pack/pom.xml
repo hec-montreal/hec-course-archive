@@ -24,12 +24,6 @@
 			<artifactId>hec-course-archive-impl</artifactId>
 			<version>1.1-SNAPSHOT</version>
 		</dependency>
-		<!-- catalog descriptions dependencies -->
-		<dependency>
-			<groupId>ca.hec.cdm</groupId>
-			<artifactId>cdm-impl</artifactId>
-			<version>1.1-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 	<build>
 		<!-- configure the build to use the standard maven structure -->

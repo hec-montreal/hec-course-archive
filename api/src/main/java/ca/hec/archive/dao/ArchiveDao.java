@@ -1,11 +1,11 @@
 package ca.hec.archive.dao;
 
+import ca.hec.archive.model.ArchiveCourseSection;
+import ca.hec.portal.model.OfficialCourseDescription;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
-
-import ca.hec.archive.model.ArchiveCourseSection;
-import ca.hec.cdm.model.CatalogDescription;
 
 /**
  * This is the interface for the Dao for our Archive tool, it
@@ -44,7 +44,7 @@ public interface ArchiveDao {
     public List<ArchiveCourseSection> getSectionsByCourseId(String course_id);
 
     /**
-     * Get a list of CatalogDescription for the given course id, part of course title
+     * Get a list of OfficialCourseDescription for the given course id, part of course title
      * or instructor.  Used for the archive search
      * 
      * @param course_id - part or all of the id of the courses to be returned
@@ -54,8 +54,8 @@ public interface ArchiveDao {
      * 
      * @return a list of ArchiveCourseSection
      */
-    public List<CatalogDescription> getListCatalogDescription(String course_id,
-	    String title, String instructor, String courseCareerGroup, String courseLanguage);
+    public List<OfficialCourseDescription> getListOfficialCourseDescription(String course_id,
+                                                                            String title, String instructor, String courseCareerGroup, String courseLanguage);
 
     /**
      * Get an ArchiveCourseSection for the given courseId, session, section and period

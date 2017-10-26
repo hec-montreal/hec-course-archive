@@ -24,8 +24,9 @@
 
 		<!-- Sakai dependencies -->
 		<dependency>
-			<groupId>ca.hec.cdm</groupId>
-			<artifactId>cdm-api</artifactId>
+			<groupId>ca.hec.portal</groupId>
+			<artifactId>hec-public-portal-manager-api</artifactId>
+			<version>1.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.sakaiquebec.opensyllabus</groupId>

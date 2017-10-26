@@ -15,8 +15,8 @@
 		<property name="section" type="string" column="SECTION" length="30" not-null="true"/>
 		<property name="period" type="string" column="PERIOD" length="10" not-null="false"/>
 		<property name="instructor" type="string" column="INSTRUCTOR" length="255" not-null="false"/>
-		<many-to-one name="catalogDescription" class="ca.hec.cdm.model.CatalogDescription" 
-			column="CATALOG_DESCRIPTION_ID" lazy="false" not-null="true" />
+		<many-to-one name="officialCourseDescription" class="ca.hec.portal.model.OfficialCourseDescription"
+			column="official_course_description_id" lazy="false" not-null="false" />
 			
 		<!--  these are defined ONLY for sorting the results in ArchiveDaoImpl -->
  		<property name="year" type="string" formula="SUBSTR(course_session, 2, 5)"/> 

@@ -1,16 +1,10 @@
 package ca.hec.archive.tool;
 
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
-
-import lombok.Getter;
-import lombok.Setter;
-
+import ca.hec.archive.api.HecCourseArchiveService;
+import ca.hec.archive.model.ArchiveCourseSection;
+import ca.hec.archive.util.ArchiveUtils;
+import ca.hec.commons.utils.FormatUtils;
+import ca.hec.portal.model.OfficialCourseDescription;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.sakaiproject.util.ResourceLoader;
@@ -21,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ca.hec.archive.api.HecCourseArchiveService;
-import ca.hec.archive.model.ArchiveCourseSection;
-import ca.hec.archive.util.ArchiveUtils;
-import ca.hec.cdm.model.CatalogDescription;
+import javax.annotation.PostConstruct;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HecCourseArchiveController {
@@ -34,8 +30,7 @@ public class HecCourseArchiveController {
      * 
      * @author Curtis van Osch (curtis.van-osch@hec.ca)
      */
-    @Setter
-    @Autowired
+     @Autowired
     private HecCourseArchiveService hecCourseArchiveService;
 
     private ResourceLoader msgs = null;
@@ -53,6 +48,9 @@ public class HecCourseArchiveController {
     public @ResponseBody Map<String, Object> handleCourseRequest(@RequestParam("courseId") String course_id) throws Exception {
 
 	String pdf_url = null;
+	//remove -
+	if (course_id.contains("-"))
+		course_id = course_id.replace("-","");
 
 	List<ArchiveCourseSection> sections =
 		hecCourseArchiveService.getSectionsByCourseId(course_id);
@@ -75,7 +73,7 @@ public class HecCourseArchiveController {
 
 	    // generate pdf url, maybe should be in utils?
 	    String site_id =
-		    acs.getCatalogDescription().getCourseId() + "."
+				FormatUtils.formatCourseId(acs.getOfficialCourseDescription().getCourseId()) + "."
 			    + acs.getSession();
 
 	    if (acs.getPeriod() != null && acs.getPeriod() != ""
@@ -104,22 +102,25 @@ public class HecCourseArchiveController {
 	
 	// search parameters
 	 course_id = course_id.trim();
+
+	 //remove -
+	 if (course_id.contains("-"))
+	 	course_id = course_id.replace("-","");
 	 title = URLDecoder.decode(title.trim(),"UTF-8");
 
     instructor = URLDecoder.decode(instructor, "UTF-8");
-	courseLanguage =
-		ArchiveUtils.getCorrespondenceLocaleLanguage(courseLanguage);
+	courseLanguage = ArchiveUtils.getCorrespondenceLocaleLanguage(courseLanguage);
 
-	List<CatalogDescription> catalogDescriptions =
-		hecCourseArchiveService.getListCatalogDescription(course_id,
+	List<OfficialCourseDescription> officialCourseDescriptions =
+		hecCourseArchiveService.getListOfficalCourseDescription(course_id,
 			title, instructor, courseCareerGroup, courseLanguage);
 
 	Map<String, Object> map = new HashMap<String, Object>();
 
 	List<Object> data = new ArrayList<Object>();
-	for (CatalogDescription cd : catalogDescriptions) {
+	for (OfficialCourseDescription cd : officialCourseDescriptions) {
 	    List<String> array = new ArrayList<String>();
-	    array.add(cd.getCourseId());
+	    array.add(FormatUtils.formatCourseId(cd.getCourseId()));
 	    array.add(cd.getTitle());
 	    data.add(array);
 	}

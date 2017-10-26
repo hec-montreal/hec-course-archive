@@ -18,7 +18,7 @@
 	<!--  create a target bean using the Dao implementation -->
 	<bean id="ca.hec.archive.ArchiveDaoTarget" class="ca.hec.archive.dao.impl.ArchiveDaoImpl" >
 		<property name="sessionFactory" ref="org.sakaiproject.springframework.orm.hibernate.GlobalSessionFactory" />
-		<property name="stopWordList" ref="ca.hec.cdm.util.Stopwords" />
+		<property name="stopWordList" ref="ca.hec.portal.util.Stopwords" />
 	</bean>
 
 	<!-- give the dao access to the global transaction manager so we can get to the global session factory
@@ -35,23 +35,6 @@
 			</property>
 	</bean>
 	
-	<!--  create a target bean using the Dao implementation -->
-	<bean id="ca.hec.cdm.CatalogDescriptionDaoTarget" class="ca.hec.cdm.dao.impl.CatalogDescriptionDaoImpl" >
-		<property name="sessionFactory" ref="org.sakaiproject.springframework.orm.hibernate.GlobalSessionFactory" />
-		<property name="stopWordList" ref="ca.hec.cdm.util.Stopwords" />
-	</bean>
-	<!-- give the dao access to the global transaction manager so we can get to the global session factory
-	 and the HBM defined data -->
-	<bean id="ca.hec.cdm.api.CatalogDescriptionDao"
-		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
-		>
-			<property name="transactionManager" ref="org.sakaiproject.springframework.orm.hibernate.GlobalTransactionManager" />
-			<property name="target" ref="ca.hec.cdm.CatalogDescriptionDaoTarget"/>
-			<property name="transactionAttributes">
-				<props>
-					<prop key="*">PROPAGATION_REQUIRED</prop>
-				</props>
-			</property>
-	</bean>
-	
+
+
 </beans>
