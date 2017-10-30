@@ -94,7 +94,7 @@ $.ajax({
 				$('#requirements').html(course.requirements);	
 				resizeIframe();		
 			} //end sucess for getting catalog descriptions
-			
+
 		});
 	} //end sucess for getting sections		
 	});

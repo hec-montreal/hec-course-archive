@@ -147,7 +147,7 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 				CourseOffering courseOffering = cmService.getCourseOffering(cmSection.getCourseOfferingEid());
 				AcademicSession cmSession = courseOffering.getAcademicSession();
 
-				String courseId = FormatUtils.formatCourseId(courseOffering.getCanonicalCourseEid());
+				String courseId =courseOffering.getCanonicalCourseEid();
 				String section = getSection(cmSection);
 				String session = getSession(cmSession);
 				String period = getPeriod(cmSession);
