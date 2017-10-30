@@ -15,9 +15,12 @@
 		<property name="section" type="string" column="SECTION" length="30" not-null="true"/>
 		<property name="period" type="string" column="PERIOD" length="10" not-null="false"/>
 		<property name="instructor" type="string" column="INSTRUCTOR" length="255" not-null="false"/>
-		<many-to-one name="officialCourseDescription" class="ca.hec.portal.model.OfficialCourseDescription"
-			column="official_course_description_id" lazy="false" not-null="false" />
-			
+		<property name="courseId" type="string" column="official_course_description_id" length="30" not-null="true"/>
+		<property name="title" type="string" column="TITLE" length="300" not-null="true"/>
+		<property name="department" type="string" column="ACAD_ORG" length="30" not-null="true"/>
+		<property name="career" type="string" column="ACAD_CAREER" length="12" not-null="true"/>
+		<property name="language" type="string" column="LANG" length="30" not-null="false"/>
+
 		<!--  these are defined ONLY for sorting the results in ArchiveDaoImpl -->
  		<property name="year" type="string" formula="SUBSTR(course_session, 2, 5)"/> 
 		<property name="session_letter" type="char" formula="SUBSTR(course_session, 1, 1)"/>

@@ -1,7 +1,6 @@
 package ca.hec.archive.dao;
 
 import ca.hec.archive.model.ArchiveCourseSection;
-import ca.hec.portal.model.OfficialCourseDescription;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -49,13 +48,13 @@ public interface ArchiveDao {
      * 
      * @param course_id - part or all of the id of the courses to be returned
      * @param title - part or all of the title of the courses to be returned
-     * @param instructor - the name of an instructor who taught at least one 
+     * @param instructor - the name of an instructor who taught at least one
      * 			   section of the courses to be returned
-     * 
+     *
      * @return a list of ArchiveCourseSection
      */
-    public List<OfficialCourseDescription> getListOfficialCourseDescription(String course_id,
-                                                                            String title, String instructor, String courseCareerGroup, String courseLanguage);
+    public List<ArchiveCourseSection> getListArchiveCourseSections(String course_id,
+                                                                   String title, String instructor, String courseCareerGroup, String courseLanguage);
 
     /**
      * Get an ArchiveCourseSection for the given courseId, session, section and period

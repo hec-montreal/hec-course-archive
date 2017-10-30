@@ -4,7 +4,6 @@ import ca.hec.archive.api.HecCourseArchiveService;
 import ca.hec.archive.model.ArchiveCourseSection;
 import ca.hec.archive.util.ArchiveUtils;
 import ca.hec.commons.utils.FormatUtils;
-import ca.hec.portal.model.OfficialCourseDescription;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.sakaiproject.util.ResourceLoader;
@@ -17,10 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.PostConstruct;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class HecCourseArchiveController {
@@ -73,7 +69,7 @@ public class HecCourseArchiveController {
 
 	    // generate pdf url, maybe should be in utils?
 	    String site_id =
-				FormatUtils.formatCourseId(acs.getOfficialCourseDescription().getCourseId()) + "."
+				FormatUtils.formatCourseId(acs.getCourseId()) + "."
 			    + acs.getSession();
 
 	    if (acs.getPeriod() != null && acs.getPeriod() != ""
@@ -111,18 +107,18 @@ public class HecCourseArchiveController {
     instructor = URLDecoder.decode(instructor, "UTF-8");
 	courseLanguage = ArchiveUtils.getCorrespondenceLocaleLanguage(courseLanguage);
 
-	List<OfficialCourseDescription> officialCourseDescriptions =
-		hecCourseArchiveService.getListOfficalCourseDescription(course_id,
+	List<ArchiveCourseSection> archiveCourseSections =
+		hecCourseArchiveService.getListArchiveCourseSections(course_id,
 			title, instructor, courseCareerGroup, courseLanguage);
 
 	Map<String, Object> map = new HashMap<String, Object>();
 
-	List<Object> data = new ArrayList<Object>();
-	for (OfficialCourseDescription cd : officialCourseDescriptions) {
-	    List<String> array = new ArrayList<String>();
-	    array.add(FormatUtils.formatCourseId(cd.getCourseId()));
-	    array.add(cd.getTitle());
-	    data.add(array);
+	Set<Object> data = new HashSet<Object>();
+	for (ArchiveCourseSection cd : archiveCourseSections) {
+	    List<String> arrayList = new ArrayList<String>();
+	    arrayList.add(FormatUtils.formatCourseId(cd.getCourseId()));
+	    arrayList.add(cd.getTitle());
+	    data.add(arrayList);
 	}
 
 	map.put("aaData", data);

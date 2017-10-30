@@ -79,7 +79,7 @@ public class ImportZc1MetadatasJob implements Job {
 			acs.setSession(sessioncours);
 			acs.setPeriod(periode);
 			acs.setInstructor(instructors);
-			acs.setOfficialCourseDescription(officialCourseDescription);
+			acs.setCourseId(courseId);
 
 			archiveDao.saveArchiveCourseSection(acs);
 

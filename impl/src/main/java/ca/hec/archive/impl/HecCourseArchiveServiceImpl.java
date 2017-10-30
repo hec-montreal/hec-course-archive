@@ -47,9 +47,9 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 	return archiveDao.getSectionsByCourseId(course_id);
     }
 
-    public List<OfficialCourseDescription> getListOfficalCourseDescription(String course_id,
-																		   String title, String instructor, String courseCareerGroup, String courseLanguage) {
-	return archiveDao.getListOfficialCourseDescription(course_id, title, instructor, courseCareerGroup, courseLanguage);
+    public List<ArchiveCourseSection> getListArchiveCourseSections(String course_id,
+																   String title, String instructor, String courseCareerGroup, String courseLanguage) {
+	return archiveDao.getListArchiveCourseSections(course_id, title, instructor, courseCareerGroup, courseLanguage);
     }
 
     public void saveCourseMetadataToArchive(COSerialized serializedCO) {
@@ -92,7 +92,12 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 		sectionToSave.setSection(section);
 		sectionToSave.setSession(session);
 		sectionToSave.setPeriod(period);
-		sectionToSave.setOfficialCourseDescription(officialCourseDescription);
+		sectionToSave.setCourseId(String.valueOf(courseId));
+		sectionToSave.setTitle(officialCourseDescription.getTitle());
+		sectionToSave.setCareer(officialCourseDescription.getCareer());
+		sectionToSave.setDepartment(officialCourseDescription.getDepartment());
+		sectionToSave.setLanguage(officialCourseDescription.getLanguage());
+
 	    }
 	    
 	    // always set the instructors string
@@ -158,7 +163,11 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 					sectionToSave.setSection(section);
 					sectionToSave.setSession(session);
 					sectionToSave.setPeriod(period);
-					sectionToSave.setOfficialCourseDescription(officialCourseDescription);
+					sectionToSave.setCourseId(String.valueOf(courseId));
+					sectionToSave.setTitle(officialCourseDescription.getTitle());
+					sectionToSave.setCareer(officialCourseDescription.getCareer());
+					sectionToSave.setDepartment(officialCourseDescription.getDepartment());
+					sectionToSave.setLanguage(officialCourseDescription.getLanguage());
 				}
 
 				// always set the instructors string

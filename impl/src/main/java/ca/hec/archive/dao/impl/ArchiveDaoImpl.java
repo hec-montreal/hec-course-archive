@@ -2,18 +2,14 @@ package ca.hec.archive.dao.impl;
 
 import ca.hec.archive.dao.ArchiveDao;
 import ca.hec.archive.model.ArchiveCourseSection;
-import ca.hec.commons.utils.FormatUtils;
-import ca.hec.portal.model.OfficialCourseDescription;
 import ca.hec.portal.util.Stopwords;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
 import org.hibernate.engine.SessionFactoryImplementor;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -70,17 +66,14 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	return listInstructors;
     }
 
-    public List<OfficialCourseDescription> getListOfficialCourseDescription(String course_id,
-																			String titleWords, String instructor, String courseCareerGroup, String courseLanguage) {
+    public List<ArchiveCourseSection> getListArchiveCourseSections(String course_id,
+																   String titleWords, String instructor, String courseCareerGroup, String courseLanguage) {
 
-	List<OfficialCourseDescription> listOfficialCourseDescriptions =
-		new ArrayList<OfficialCourseDescription>();
+	List<ArchiveCourseSection> listOfficialCourseDescriptions =
+		new ArrayList<ArchiveCourseSection>();
 
-	DetachedCriteria dc =
-		DetachedCriteria.forClass(ArchiveCourseSection.class);
+		Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(ArchiveCourseSection.class);
 
-	DetachedCriteria dcOfficialCourseDescription =
-		dc.createCriteria("officialCourseDescription");
 	try {
 
 	    /***************************** TITLE CRITERIA ****************************************************************************/
@@ -91,7 +84,7 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 		if (!stopWordList.isStopword(titleWord)) { // we don't add
 							   // stopWords to the
 							   // search
-		    dcOfficialCourseDescription.add(Restrictions.sqlRestriction("convert(lower({alias}.COURSE_TITLE_LONG), 'US7ASCII') like convert(lower(?), 'US7ASCII')","%" + titleWord + "%", Hibernate.STRING));
+		    criteria.add(Restrictions.sqlRestriction("convert(lower({alias}.TITLE), 'US7ASCII') like convert(lower(?), 'US7ASCII')","%" + titleWord + "%", Hibernate.STRING));
 		}
 	    }
 
@@ -99,21 +92,13 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	    if (course_id != null && !course_id.isEmpty()) {
 		// If the user type a course id without dash, we format it
 		// before the search
-		
-		if (!course_id.contains("-") && course_id.length() >= 6
-			&& course_id.length() <= 8) {
-		    dcOfficialCourseDescription.add(Restrictions.ilike("courseId",
-			    FormatUtils.formatCourseId(course_id) + "%"));
-		} else {
-		    dcOfficialCourseDescription.add(Restrictions.ilike("courseId",
-			    course_id + "%"));
+			criteria.add(Restrictions.ilike("courseId",
+					course_id + "%"));
 		}
-
-	    }
 
 	    /***************************** INSTRUCTOR CRITERIA ****************************************************************************/
 	    if (instructor != null && !instructor.isEmpty()) {
-		dc.add(Restrictions.ilike("instructor", "%" + instructor + "%"));
+		criteria.add(Restrictions.ilike("instructor", "%" + instructor + "%"));
 	    }
 	    
 	    /***************************** CAREER CRITERIA ****************************************************************************/
@@ -121,19 +106,35 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 		
 		List<String> listPossibleValues =
 			    Arrays.asList(courseCareerGroup.split(" "));
-		dcOfficialCourseDescription.add(Restrictions.in("career", listPossibleValues));
+		criteria.add(Restrictions.in("career", listPossibleValues));
 	    }
 	    
 	    /***************************** LANGUAGE CRITERIA ****************************************************************************/
 	    if (courseLanguage != null && !courseLanguage.isEmpty()) {
-		dcOfficialCourseDescription.add(Restrictions.eq("language", courseLanguage));
+		criteria.add(Restrictions.eq("language", courseLanguage));
 	    }
 
-	    
-	dc.setProjection(Projections.distinct(Projections.property("officialCourseDescription")));
 
-	    for (Object o : getHibernateTemplate().findByCriteria(dc)) {
-		listOfficialCourseDescriptions.add(((OfficialCourseDescription) o));
+		/*ProjectionList projList = Projections.projectionList();
+		projList.add(Projections.property("id"));
+		projList.add(Projections.property("session"));
+		projList.add(Projections.property("section"));
+		projList.add(Projections.property("period"));
+		projList.add(Projections.property("instructor"));
+		projList.add(Projections.property("courseId"));
+		projList.add(Projections.property("title"));
+		projList.add(Projections.property("department"));
+		projList.add(Projections.property("career"));
+		projList.add(Projections.property("language"));
+		projList.add(Projections.property("session_letter"));
+		projList.add(Projections.property("year"));*/
+	    criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+		ArchiveCourseSection acs = null;
+	    for (Object o : criteria.list()) {
+	    	acs = new ArchiveCourseSection();
+	    	
+		listOfficialCourseDescriptions.add(((ArchiveCourseSection) o));
 	    }
 
 	} catch (Exception e) {
@@ -166,7 +167,8 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 		DetachedCriteria.forClass(ArchiveCourseSection.class);
 	
 	if (course_id != null && !course_id.isEmpty()) {
-	    dc.createCriteria("officialCourseDescription").add(Restrictions.eq("courseId", course_id));
+		dc.add(Restrictions.ilike("courseId",
+				course_id + "%"));
 	}
 	
 	dc.addOrder(Order.desc("year"));
@@ -193,8 +195,9 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	if (period == null || period.isEmpty()) {
 	    period = "1";
 	}
-	
-	dc.createCriteria("officialCourseDescription").add(Restrictions.eq("courseId", courseId));
+
+		dc.add(Restrictions.ilike("courseId",
+				courseId + "%"));
 	dc.add(Restrictions.eq("session", session));
 	dc.add(Restrictions.eq("section", section));
 	dc.add(Restrictions.eq("period", period));

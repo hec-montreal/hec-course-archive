@@ -1,6 +1,5 @@
 package ca.hec.archive.model;
 
-import ca.hec.portal.model.OfficialCourseDescription;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -16,8 +15,12 @@ public class ArchiveCourseSection {
 	@NonNull private String section;
 	private String period;
 	private String instructor;
-	private OfficialCourseDescription officialCourseDescription;
-	
+	@NonNull private String courseId;
+	@NonNull private String title;
+	@NonNull private String department;
+	@NonNull private String career;
+	private String language;
+
 	// these are defined ONLY for sorting the results in ArchiveDaoImpl
 	private Character session_letter;
 	private String year;
