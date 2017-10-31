@@ -62,16 +62,20 @@
 		
 		<dependency>
 			<groupId>ca.hec</groupId>
+			<artifactId>hec-course-archive-impl</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>ca.hec</groupId>
 			<artifactId>hec-course-archive-api</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>ca.hec.portal</groupId>
-			<artifactId>hec-public-portal-manager-api</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<groupId>ca.hec.cdm</groupId>
+			<artifactId>cdm-api</artifactId>	
 		</dependency>
-
-		<!-- we are running a webapp in a servlet container so we need the servlet API -->
+		
+        <!-- we are running a webapp in a servlet container so we need the servlet API -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -114,16 +118,7 @@
 			<groupId>org.sakaiproject.kernel</groupId>
 			<artifactId>sakai-kernel-util</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <scope>compile</scope>
-        </dependency>
-		<dependency>
-			<groupId>ca.hec</groupId>
-			<artifactId>hec-utils</artifactId>
-			<version>1.1-SNAPSHOT</version>
-		</dependency>
+
 
 	</dependencies>
 
@@ -151,7 +146,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<warSourceDirectory>${basedir}/src/main/webapp</warSourceDirectory>
-					<!--<ouputDirectory>${project.build.directory}</ouputDirectory> -->
+					<ouputDirectory>${project.build.directory}</ouputDirectory>
 				</configuration>
 			</plugin>
 		</plugins>

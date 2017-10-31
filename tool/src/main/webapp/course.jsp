@@ -76,17 +76,15 @@ $.ajax({
 			});
 		
 		$.ajax({
-			url : '/direct/portalManager/getOfficialCourseDescription.json?courseId=' + courseId,
+			url : '/direct/catalogDescription/'+courseId+'.json',
 			datatype : 'json',
 			success : function(course) {
-			    if (course == null)
-			        $('#description_text').html(msgs.course_inactive);
 				var JSONdepartmentGroupDescription = JSON.parse(localStorage.getItem("departmentDescriptionsMap"));
 				var JSONcareerGroupDescription = JSON.parse(localStorage.getItem("careerDescriptionsMap"));
 				var departmentGroupDescription = JSONdepartmentGroupDescription[course.departmentGroup];
 				var careerGroupDescription = JSONcareerGroupDescription[course.careerGroup];
 			
-				$('#heading').html(course.hyphenatedCourseId + " - " + course.title);
+				$('#heading').html(course.courseId + " - " + course.title);
 				$('#description_text').html(course.description);
 				$('#department').html(departmentGroupDescription);
 				$('#career').html(careerGroupDescription);
@@ -94,7 +92,6 @@ $.ajax({
 				$('#requirements').html(course.requirements);	
 				resizeIframe();		
 			} //end sucess for getting catalog descriptions
-
 		});
 	} //end sucess for getting sections		
 	});

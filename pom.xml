@@ -33,14 +33,14 @@
 				<scope>runtime</scope>
 			</dependency>
 
-		<dependency>
-			<groupId>ca.hec.portal</groupId>
-			<artifactId>hec-public-portal-manager-api</artifactId>
-			<version>1.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
+			<dependency>
+				<groupId>ca.hec.cdm</groupId>
+				<artifactId>cdm-api</artifactId>
+				<version>1.1-SNAPSHOT</version>
+				<scope>provided</scope>
+			</dependency>
 
-		<dependency>
+   			<dependency>
       			<groupId>org.sakaiquebec.opensyllabus</groupId>
       			<artifactId>osyl-common-shared</artifactId>
 		        <version>${sakai.opensyllabus.version}</version>
@@ -97,7 +97,7 @@
   <modules>
     <module>api</module>
     <module>impl</module>
-    <module>pack</module>
     <module>tool</module>
+    <module>pack</module>
   </modules>
 </project>

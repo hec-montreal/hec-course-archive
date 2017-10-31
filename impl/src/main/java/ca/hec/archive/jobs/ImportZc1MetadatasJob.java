@@ -1,12 +1,14 @@
 package ca.hec.archive.jobs;
 
-import ca.hec.archive.dao.ArchiveDao;
-import ca.hec.archive.model.ArchiveCourseSection;
-import ca.hec.commons.utils.FormatUtils;
-import ca.hec.portal.api.OfficialCourseDescriptionDao;
-import ca.hec.portal.model.OfficialCourseDescription;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import lombok.Getter;
 import lombok.Setter;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.quartz.Job;
@@ -14,7 +16,11 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.sakaiproject.component.cover.ServerConfigurationService;
 
-import java.sql.*;
+import ca.hec.archive.dao.ArchiveDao;
+import ca.hec.archive.model.ArchiveCourseSection;
+import ca.hec.cdm.api.CatalogDescriptionDao;
+import ca.hec.cdm.model.CatalogDescription;
+import ca.hec.commons.utils.FormatUtils;
 
 /**
  * A one-time job to import the course outlines from ZC1 HTML format to ZC2 PDF
@@ -32,7 +38,7 @@ public class ImportZc1MetadatasJob implements Job {
 
     @Getter
     @Setter
-    private OfficialCourseDescriptionDao officialCourseDescriptionDao;
+    private CatalogDescriptionDao catalogDescriptionDao;
 
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
 
@@ -67,10 +73,10 @@ public class ImportZc1MetadatasJob implements Job {
 		    }
 
 		    /********************** Check if resource already exists ********************/
-		    OfficialCourseDescription officialCourseDescription =
-			    officialCourseDescriptionDao
-				    .getOfficialCourseDescription(courseId);
-		    if (officialCourseDescription == null) {
+		    CatalogDescription catalogDescription =
+			    catalogDescriptionDao
+				    .getCatalogDescription(courseId);
+		    if (catalogDescription == null) {
 			log.error("No description found for course: "
 				+ courseId);
 		    } else {
@@ -79,7 +85,7 @@ public class ImportZc1MetadatasJob implements Job {
 			acs.setSession(sessioncours);
 			acs.setPeriod(periode);
 			acs.setInstructor(instructors);
-			acs.setCourseId(courseId);
+			acs.setCatalogDescription(catalogDescription);
 
 			archiveDao.saveArchiveCourseSection(acs);
 
