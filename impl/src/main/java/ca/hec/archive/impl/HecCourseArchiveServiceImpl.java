@@ -3,7 +3,6 @@ package ca.hec.archive.impl;
 import ca.hec.archive.api.HecCourseArchiveService;
 import ca.hec.archive.dao.ArchiveDao;
 import ca.hec.archive.model.ArchiveCourseSection;
-import ca.hec.commons.utils.FormatUtils;
 import ca.hec.portal.api.OfficialCourseDescriptionService;
 import ca.hec.portal.model.OfficialCourseDescription;
 import lombok.Setter;
@@ -76,7 +75,7 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 	    CourseOffering courseOffering = cmService.getCourseOffering(cmSection.getCourseOfferingEid());
 	    AcademicSession cmSession = courseOffering.getAcademicSession();
 	    
-	    String courseId = FormatUtils.formatCourseId(courseOffering.getCanonicalCourseEid());
+	    String courseId = courseOffering.getCanonicalCourseEid();
 	    String section = getSection(cmSection);
 	    String session = getSession(cmSession);
 	    String period = getPeriod(cmSession);
