@@ -25,6 +25,7 @@
 
 <div id="course_description_div" class="content">
 <h2><c:out value="${msgs.description_label}"/></h2>
+<div id="shortDescription_text"></div><br/>
 <div id="description_text"></div><br/>
 
 <table id="course_details_table">
@@ -89,6 +90,7 @@ $.ajax({
                     var careerGroupDescription = JSONcareerGroupDescription[course.careerGroup];
 
                     $('#heading').html(course.hyphenatedCourseId + " - " + course.title);
+                     $('#shortDescription_text').html(course.shortDescription);
                     $('#description_text').html(course.description);
                     $('#department').html(departmentGroupDescription);
                     $('#career').html(careerGroupDescription);
