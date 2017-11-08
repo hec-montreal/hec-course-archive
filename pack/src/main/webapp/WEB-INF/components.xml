@@ -12,7 +12,7 @@
  		<property name="archiveDao" ref="ca.hec.archive.dao.ArchiveDao" />
 		<property name="authzGroupService" ref="org.sakaiproject.authz.api.AuthzGroupService" />
 		<property name="cmService" ref="org.sakaiproject.coursemanagement.api.CourseManagementService" />
-		<property name="catalogDescriptionService" ref="ca.hec.cdm.api.CatalogDescriptionService" />
+		<property name="officialCourseDescriptionService" ref="ca.hec.portal.api.OfficialCourseDescriptionService" />
 	</bean>
 	
     <!-- Quartz Jobs -->
@@ -51,7 +51,7 @@
     <bean id="ca.hec.archive.jobs.ImportZc1MetadatasJob"
 		class="ca.hec.archive.jobs.ImportZc1MetadatasJob">
 		<property name="archiveDao" ref="ca.hec.archive.dao.ArchiveDao" />
-		<property name="catalogDescriptionDao" ref="ca.hec.cdm.api.CatalogDescriptionDao" />		
+		<property name="officialCourseDescriptionDao" ref="ca.hec.portal.api.OfficialCourseDescriptionDao" />
 	</bean>	
 	<bean id="ImportZc1MetadatasJob"
        class="org.sakaiproject.component.app.scheduler.jobs.SpringJobBeanWrapper"

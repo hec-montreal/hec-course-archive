@@ -3,9 +3,9 @@ package ca.hec.archive.impl;
 import ca.hec.archive.api.HecCourseArchiveService;
 import ca.hec.archive.dao.ArchiveDao;
 import ca.hec.archive.model.ArchiveCourseSection;
-import ca.hec.cdm.api.CatalogDescriptionService;
-import ca.hec.cdm.model.CatalogDescription;
 import ca.hec.commons.utils.FormatUtils;
+import ca.hec.portal.api.OfficialCourseDescriptionService;
+import ca.hec.portal.model.OfficialCourseDescription;
 import lombok.Setter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,7 +28,7 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
     @Setter
     private CourseManagementService cmService;
     @Setter
-    private CatalogDescriptionService catalogDescriptionService;
+    private OfficialCourseDescriptionService officialCourseDescriptionService;
 
     private static final String SITE_PREFIX = "/site/";
     private static final String SITE_SHAREABLE = "00";
@@ -46,10 +46,10 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
     public List<ArchiveCourseSection> getSectionsByCourseId(String course_id) {
 	return archiveDao.getSectionsByCourseId(course_id);
     }
-    
-    public List<CatalogDescription> getListCatalogDescription(String course_id,
-	    String title, String instructor, String courseCareerGroup, String courseLanguage) {
-	return archiveDao.getListCatalogDescription(course_id, title, instructor, courseCareerGroup, courseLanguage);
+
+    public List<ArchiveCourseSection> getListArchiveCourseSections(String course_id,
+																   String title, String instructor, String courseCareerGroup, String courseLanguage) {
+	return archiveDao.getListArchiveCourseSections(course_id, title, instructor, courseCareerGroup, courseLanguage);
     }
 
     public void saveCourseMetadataToArchive(COSerialized serializedCO) {
@@ -84,15 +84,20 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 	    sectionToSave = archiveDao.getArchiveCourseSection(courseId, session, section, period);
 	    
 	    if (sectionToSave == null) {
-		CatalogDescription catalogDescription = 
-			catalogDescriptionService.getCatalogDescription(courseId);			
+		OfficialCourseDescription officialCourseDescription =
+			officialCourseDescriptionService.getOfficialCourseDescription(courseId);
 		
 		// prepare the ArchiveCourseSection for writing
 		sectionToSave = new ArchiveCourseSection();
 		sectionToSave.setSection(section);
 		sectionToSave.setSession(session);
 		sectionToSave.setPeriod(period);
-		sectionToSave.setCatalogDescription(catalogDescription);			
+		sectionToSave.setCourseId(String.valueOf(courseId));
+		sectionToSave.setTitle(officialCourseDescription.getTitle());
+		sectionToSave.setCareer(officialCourseDescription.getCareer());
+		sectionToSave.setDepartment(officialCourseDescription.getDepartment());
+		sectionToSave.setLanguage(officialCourseDescription.getLanguage());
+
 	    }
 	    
 	    // always set the instructors string
@@ -142,7 +147,7 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 				CourseOffering courseOffering = cmService.getCourseOffering(cmSection.getCourseOfferingEid());
 				AcademicSession cmSession = courseOffering.getAcademicSession();
 
-				String courseId = FormatUtils.formatCourseId(courseOffering.getCanonicalCourseEid());
+				String courseId =courseOffering.getCanonicalCourseEid();
 				String section = getSection(cmSection);
 				String session = getSession(cmSession);
 				String period = getPeriod(cmSession);
@@ -150,15 +155,19 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 				sectionToSave = archiveDao.getArchiveCourseSection(courseId, session, section, period);
 
 				if (sectionToSave == null) {
-					CatalogDescription catalogDescription =
-							catalogDescriptionService.getCatalogDescription(courseId);
+					OfficialCourseDescription officialCourseDescription =
+							officialCourseDescriptionService.getOfficialCourseDescription(courseId);
 
 					// prepare the ArchiveCourseSection for writing
 					sectionToSave = new ArchiveCourseSection();
 					sectionToSave.setSection(section);
 					sectionToSave.setSession(session);
 					sectionToSave.setPeriod(period);
-					sectionToSave.setCatalogDescription(catalogDescription);
+					sectionToSave.setCourseId(String.valueOf(courseId));
+					sectionToSave.setTitle(officialCourseDescription.getTitle());
+					sectionToSave.setCareer(officialCourseDescription.getCareer());
+					sectionToSave.setDepartment(officialCourseDescription.getDepartment());
+					sectionToSave.setLanguage(officialCourseDescription.getLanguage());
 				}
 
 				// always set the instructors string

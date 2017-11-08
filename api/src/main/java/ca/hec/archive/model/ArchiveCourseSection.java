@@ -4,9 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import ca.hec.cdm.model.CatalogDescription;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 @NoArgsConstructor
@@ -18,8 +15,12 @@ public class ArchiveCourseSection {
 	@NonNull private String section;
 	private String period;
 	private String instructor;
-	@NonNull private CatalogDescription catalogDescription;
-	
+	@NonNull private String courseId;
+	@NonNull private String title;
+	@NonNull private String department;
+	@NonNull private String career;
+	private String language;
+
 	// these are defined ONLY for sorting the results in ArchiveDaoImpl
 	private Character session_letter;
 	private String year;
