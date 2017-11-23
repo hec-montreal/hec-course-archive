@@ -25,6 +25,7 @@
 
 <div id="course_description_div" class="content">
 <h2><c:out value="${msgs.description_label}"/></h2>
+<div id="shortDescription_text"></div><br/>
 <div id="description_text"></div><br/>
 
 <table id="course_details_table">
@@ -47,6 +48,7 @@
 <script  type="text/javascript">
 var courseId = getUrlParam("courseId");
 var instructor = getUrlParam("instructor");
+var noDescriptionMessage = "${msgs.label_no_description}";
 
 $(document).ready(function() {
 	
@@ -79,20 +81,23 @@ $.ajax({
 			url : '/direct/portalManager/getOfficialCourseDescription.json?courseId=' + courseId,
 			datatype : 'json',
 			success : function(course) {
-			    if (course == null)
-			        $('#description_text').html(msgs.course_inactive);
-				var JSONdepartmentGroupDescription = JSON.parse(localStorage.getItem("departmentDescriptionsMap"));
-				var JSONcareerGroupDescription = JSON.parse(localStorage.getItem("careerDescriptionsMap"));
-				var departmentGroupDescription = JSONdepartmentGroupDescription[course.departmentGroup];
-				var careerGroupDescription = JSONcareerGroupDescription[course.careerGroup];
-			
-				$('#heading').html(course.hyphenatedCourseId + " - " + course.title);
-				$('#description_text').html(course.description);
-				$('#department').html(departmentGroupDescription);
-				$('#career').html(careerGroupDescription);
-				$('#credits').html(course.credits);
-				$('#requirements').html(course.requirements);	
-				resizeIframe();		
+			    if (course == null){
+			        $('#description_text').html("<p style=\"text-align: center;\"><em>" + noDescriptionMessage + "</em></p>");
+			    } else {
+                    var JSONdepartmentGroupDescription = JSON.parse(localStorage.getItem("departmentDescriptionsMap"));
+                    var JSONcareerGroupDescription = JSON.parse(localStorage.getItem("careerDescriptionsMap"));
+                    var departmentGroupDescription = JSONdepartmentGroupDescription[course.departmentGroup];
+                    var careerGroupDescription = JSONcareerGroupDescription[course.careerGroup];
+
+                    $('#heading').html(course.hyphenatedCourseId + " - " + course.title);
+                     $('#shortDescription_text').html(course.shortDescription);
+                    $('#description_text').html(course.description);
+                    $('#department').html(departmentGroupDescription);
+                    $('#career').html(careerGroupDescription);
+                    $('#credits').html(course.credits);
+                    $('#requirements').html(course.requirements);
+                    resizeIframe();
+                }
 			} //end sucess for getting catalog descriptions
 
 		});
