@@ -3,7 +3,6 @@
 	<tool id="sakai.hec-course-archive"
 		title="HEC Course Archive"
 		description="Tool for searching in the archive of all HEC course outlines in PDF form">
-		<configuration name="help.url" value="https://confluence.hec.ca:8443/display/NouveauCours/Archives+de+plan+de+cours"/>
     </tool>
 </registration>
 
