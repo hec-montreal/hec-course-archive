@@ -167,8 +167,8 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 		DetachedCriteria.forClass(ArchiveCourseSection.class);
 	
 	if (course_id != null && !course_id.isEmpty()) {
-		dc.add(Restrictions.ilike("courseId",
-				course_id + "%"));
+		dc.add(Restrictions.eq("courseId",
+				course_id));
 	}
 	
 	dc.addOrder(Order.desc("year"));
