@@ -2,7 +2,6 @@
 package ca.hec.archive.api;
 
 import ca.hec.archive.model.ArchiveCourseSection;
-import org.sakaiquebec.opensyllabus.shared.model.COSerialized;
 
 import java.util.List;
 import java.util.Set;
@@ -15,8 +14,6 @@ public interface HecCourseArchiveService {
 
     public List<ArchiveCourseSection> getListArchiveCourseSections(String course_id,
                                                                            String title, String instructor, String courseCareerGroup, String courseLanguage);
-
-    public void saveCourseMetadataToArchive(COSerialized serializedCO);
 
     public void saveCourseMetadataToArchive(String  siteId, String syllabusId, Set<String> syllabusSections);
 

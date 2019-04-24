@@ -65,12 +65,6 @@
 			<artifactId>hec-course-archive-api</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>ca.hec.portal</groupId>
-			<artifactId>hec-public-portal-manager-api</artifactId>
-			<version>1.1-SNAPSHOT</version>
-		</dependency>
-
 		<!-- we are running a webapp in a servlet container so we need the servlet API -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -114,6 +108,16 @@
 			<groupId>org.sakaiproject.kernel</groupId>
 			<artifactId>sakai-kernel-util</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.sakaiproject.entitybroker</groupId>
+			<artifactId>entitybroker-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.sakaiproject.entitybroker</groupId>
+			<artifactId>entitybroker-utils</artifactId>
+		</dependency>
+
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.0-api</artifactId>
