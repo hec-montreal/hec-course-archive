@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ca.hec</groupId>
 	<artifactId>hec-course-archive</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>19.0</version>
 	<packaging>pom</packaging>
 	<name>HEC Course Archive</name>
 	<description>Tool for searching in the archive of all HEC course outlines in PDF form</description>
