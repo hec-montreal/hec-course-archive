@@ -24,5 +24,7 @@
 		</property>
 	</bean>
 
+	<bean parent="org.sakaiproject.entitybroker.entityprovider.AbstractEntityProvider" 
+		class="ca.hec.archive.entityprovider.PortalManagerEntityProviderImpl" />
 
 </beans>

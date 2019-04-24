@@ -12,6 +12,19 @@
  		<property name="archiveDao" ref="ca.hec.archive.dao.ArchiveDao" />
 		<property name="authzGroupService" ref="org.sakaiproject.authz.api.AuthzGroupService" />
 		<property name="cmService" ref="org.sakaiproject.coursemanagement.api.CourseManagementService" />
-		<property name="officialCourseDescriptionService" ref="ca.hec.portal.api.OfficialCourseDescriptionService" />
+		<property name="officialCourseDescriptionService" ref="ca.hec.archive.api.OfficialCourseDescriptionService" />
 	</bean>
+
+	<!--  move this here so we can remove the portal manager project -->
+	<bean id="ca.hec.archive.api.PortalManagerService"
+			class="ca.hec.archive.impl.PortalManagerServiceImpl"
+			init-method="init">
+	</bean>
+
+	<bean id="ca.hec.archive.api.OfficialCourseDescriptionService"
+		  class="ca.hec.archive.impl.OfficialCourseDescriptionServiceImpl"
+		  init-method="init">
+		<property name="officialCourseDescriptionDao" ref="ca.hec.archive.api.OfficialCourseDescriptionDao"/>
+	</bean>
+	
 </beans>

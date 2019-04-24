@@ -2,7 +2,7 @@ package ca.hec.archive.dao.impl;
 
 import ca.hec.archive.dao.ArchiveDao;
 import ca.hec.archive.model.ArchiveCourseSection;
-import ca.hec.portal.util.Stopwords;
+import ca.hec.archive.util.Stopwords;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.logging.Log;
