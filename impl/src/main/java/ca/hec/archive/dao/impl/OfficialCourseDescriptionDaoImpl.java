@@ -8,10 +8,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Hibernate;
+import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.criterion.*;
 import org.hibernate.type.Type;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 import java.util.*;
 
@@ -181,7 +181,7 @@ public class OfficialCourseDescriptionDaoImpl extends HibernateDaoSupport implem
             accuracyProjection.deleteCharAt(0);
             projectList.add(Projections.alias(Projections.sqlProjection(
                     accuracyProjection.toString(), new String[]{"accuracy"},
-                    new Type[]{Hibernate.INTEGER}), "accuracy"));
+                    new Type[]{ StandardBasicTypes.INTEGER }), "accuracy"));
             // We sort the result set by accuracy
             dc.addOrder(Order.desc("accuracy"));
         } else {

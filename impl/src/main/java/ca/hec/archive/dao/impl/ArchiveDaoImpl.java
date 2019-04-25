@@ -8,10 +8,10 @@ import lombok.Setter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
+import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.criterion.*;
-import org.hibernate.engine.SessionFactoryImplementor;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.sakaiproject.db.api.SqlService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,6 +29,9 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
     @Setter
     @Getter
     private Stopwords stopWordList = null;
+    
+    @Setter
+    private SqlService sqlService;
 
     public void init() {
 	log.info("init");
@@ -84,7 +87,7 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 		if (!stopWordList.isStopword(titleWord)) { // we don't add
 							   // stopWords to the
 							   // search
-		    criteria.add(Restrictions.sqlRestriction("convert(lower({alias}.TITLE), 'US7ASCII') like convert(lower(?), 'US7ASCII')","%" + titleWord + "%", Hibernate.STRING));
+		    criteria.add(Restrictions.sqlRestriction("convert(lower({alias}.TITLE), 'US7ASCII') like convert(lower(?), 'US7ASCII')","%" + titleWord + "%", StandardBasicTypes.STRING));
 		}
 	    }
 
@@ -223,12 +226,10 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 
     	Connection connection = null;
     	PreparedStatement ps = null;
-    	SessionFactoryImplementor sfi = null;
 
     	try {
 
-    		sfi = (SessionFactoryImplementor)getHibernateTemplate().getSessionFactory();
-    		connection = sfi.getConnectionProvider().getConnection();
+    		connection = sqlService.borrowConnection();
     		
     		for (String id : instructorIds) {
     			String request = null;
@@ -251,8 +252,7 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
     	} catch (Exception e) {
     		e.printStackTrace();
     	} finally {
-    		if (sfi != null && connection != null) 
-    			sfi.getConnectionProvider().closeConnection(connection);
+    		connection.close();
     	}
     	return instructors;
     }
