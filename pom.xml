@@ -22,14 +22,14 @@
 			<dependency>
 				<groupId>ca.hec</groupId>
 				<artifactId>hec-course-archive-api</artifactId>
-				<version>1.1-SNAPSHOT</version>
+				<version>19.0</version>
 				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>ca.hec</groupId>
 				<artifactId>hec-course-archive-impl</artifactId>
-				<version>1.1-SNAPSHOT</version>
+				<version>19.0</version>
 				<scope>runtime</scope>
 			</dependency>
 

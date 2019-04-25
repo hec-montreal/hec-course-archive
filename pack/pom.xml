@@ -5,12 +5,12 @@
 	<parent>
 		<artifactId>hec-course-archive</artifactId>
 		<groupId>ca.hec</groupId>
-		<version>1.1-SNAPSHOT</version>
+		<version>19.0</version>
 	</parent>
 	<groupId>ca.hec</groupId>
 	<artifactId>hec-course-archive-pack</artifactId>
 	<name>hec-course-archive-pack</name>
-
+	<version>19.0</version>
 	<packaging>sakai-component</packaging>
 
 	<properties>
@@ -22,7 +22,6 @@
 		<dependency>
 			<groupId>ca.hec</groupId>
 			<artifactId>hec-course-archive-impl</artifactId>
-			<version>1.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	<build>
