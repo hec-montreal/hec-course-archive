@@ -44,7 +44,6 @@
 				<property name="sessionFactory">
 					<ref bean="org.sakaiproject.springframework.orm.hibernate.GlobalSessionFactory" />
 				</property>
-				<property name="stopWordList" ref="ca.hec.archive.util.Stopwords" />
 			</bean>
 		</property>
 		<property name="transactionAttributes">

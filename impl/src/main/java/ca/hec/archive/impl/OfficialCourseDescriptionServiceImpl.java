@@ -20,11 +20,6 @@ public class OfficialCourseDescriptionServiceImpl implements OfficialCourseDescr
 	
     }
 
-    public List<OfficialCourseDescription> getOfficialCourseDescriptions(Map<String, String> searchWords, Map<String, String> searchScope){
-
-		return officialCourseDescriptionDao.getOfficialCourseDescriptions(searchWords, searchScope);
-    }
-
     public OfficialCourseDescription getOfficialCourseDescription(String courseId){
 		return officialCourseDescriptionDao.getOfficialCourseDescription(courseId);
     }
