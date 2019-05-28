@@ -102,7 +102,7 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 					sectionToSave.setCourseId(String.valueOf(courseId));
 					sectionToSave.setTitle(officialCourseDescription.getTitle());
 					sectionToSave.setCareer(officialCourseDescription.getCareer());
-					sectionToSave.setDepartment(officialCourseDescription.getDepartment());
+					sectionToSave.setDepartment(officialCourseDescription.getSubject());
 					sectionToSave.setLanguage(officialCourseDescription.getLanguage());
 				}
 

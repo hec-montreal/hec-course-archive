@@ -19,7 +19,7 @@ public class SimpleOfficialCourseDescription implements
     private String requirements;
     private String credits;
     private String lang;
-    private String departmentGroup;
+    private String subjectGroup;
     private String careerGroup;
     private String shortDescription;
     private String themes;

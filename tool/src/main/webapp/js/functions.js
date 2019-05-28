@@ -152,7 +152,7 @@ function initializeGroupDescriptions() {
 
 	$
 			.ajax({
-				url : '/direct/portalManager/getDepartments/'
+				url : '/direct/portalManager/getSubjects/'
 						+ localStorage.getItem("locale") + '.json',
 				datatype : 'json',
 				success : function(listItems) {

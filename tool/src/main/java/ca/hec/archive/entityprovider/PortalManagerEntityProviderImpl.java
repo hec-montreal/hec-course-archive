@@ -58,7 +58,7 @@ implements CoreEntityProvider, AutoRegisterEntityProvider, Resolvable, Sampleabl
 			scd.setDescription(cd.getDescription().replace("\n", "</br>") );
 		else
 			scd.setDescription(cd.getDescription());
-		scd.setDepartmentGroup(portalManagerService.getDepartmentGroup(cd.getDepartment()));
+		scd.setSubjectGroup(portalManagerService.getSubjectGroup(cd.getSubject()));
 		scd.setCareerGroup(portalManagerService.getCareerGroup(cd.getCareer()));
 		scd.setRequirements(cd.getRequirements());
 		scd.setCourseId(cd.getCourseId());
@@ -79,10 +79,10 @@ implements CoreEntityProvider, AutoRegisterEntityProvider, Resolvable, Sampleabl
 		return scd;
 	}
 
-	@EntityCustomAction(action = "getDepartments", viewKey = EntityView.VIEW_LIST)
-	public List<?> getDepartments(EntityView view, Map<String, Object> params) {
+	@EntityCustomAction(action = "getSubjects", viewKey = EntityView.VIEW_LIST)
+	public List<?> getSubjects(EntityView view, Map<String, Object> params) {
 		String locale = view.getPathSegment(2);
-		return portalManagerService.getDepartments(locale);
+		return portalManagerService.getSubjects(locale);
 	}
 
 	@EntityCustomAction(action = "getCareers", viewKey = EntityView.VIEW_LIST)

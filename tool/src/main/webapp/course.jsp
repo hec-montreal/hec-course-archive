@@ -86,7 +86,7 @@ $.ajax({
 			    } else {
                     var JSONdepartmentGroupDescription = JSON.parse(localStorage.getItem("departmentDescriptionsMap"));
                     var JSONcareerGroupDescription = JSON.parse(localStorage.getItem("careerDescriptionsMap"));
-                    var departmentGroupDescription = JSONdepartmentGroupDescription[course.departmentGroup];
+                    var departmentGroupDescription = JSONdepartmentGroupDescription[course.subjectGroup];
                     var careerGroupDescription = JSONcareerGroupDescription[course.careerGroup];
 
                     $('#heading').html(course.hyphenatedCourseId + " - " + course.title);
