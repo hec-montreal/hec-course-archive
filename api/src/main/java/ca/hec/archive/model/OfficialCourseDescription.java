@@ -22,7 +22,7 @@ public class OfficialCourseDescription {
 	private String career;
 	private String requirements;
 
-	private Float credits;
+	private String credits;
 	private String language;
 	private String shortDescription;
 	private String themes;
