@@ -4,18 +4,17 @@
           "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="ca.hec.archive.model.OfficialCourseDescription" table="PSFTCONT.ZONECOURS2_PS_N_COUR_OFFER_VW">
-		<id name="courseId" type="string" length="30" column="CATALOG_NBR" >
-	  	</id>
+	<class name="ca.hec.archive.model.OfficialCourseDescription" table="PSFTCONT.ZONECOURS2_PS_N_BR_PORTAIL_MV">
+		<id name="catalogNbr" type="string" length="30" column="CATALOG_NBR" />
+		<property name="courseId" type="string" formula="concat(subject, catalog_nbr)"/>
+		<property name="subject" type="string" column="SUBJECT" length="24" not-null="true"/>
 		<property name="title" type="string" column="COURSE_TITLE_LONG" length="300" not-null="true"/>
-		<property name="department" type="string" column="ACAD_ORG" length="30" not-null="true"/>
 		<property name="career" type="string" column="ACAD_CAREER" length="12" not-null="true"/>
-		<property name="requirements" type="string" column="REQUIREMENTS" length="4000" not-null="false"/>
-		<property name="credits" type="float" column="UNITS_MINIMUM" not-null="true"/>
-		<property name="language" type="string" column="N_LANGUE_COURS" length="30" not-null="false"/>
-		<property name="shortDescription" type="string" column="N_SHORT_DESCR" length="1200" not-null="false"/>
-		<property name="description" type="string" column="N_LONG_DESCR" length="3750" not-null="false"/>
+		<property name="requirements" type="string" column="DESCRLONG_NOTES" length="4000" not-null="false"/>
+		<property name="credits" type="string" column="UNITS_ACAD_PROG" length="120" not-null="true"/>
+		<property name="language" type="string" column="CRSE_ATTR_VALUE" length="30" not-null="false"/>
+		<property name="shortDescription" type="string" column="N_SHORT_DESCR" length="4000" not-null="false"/>
+		<property name="description" type="string" column="N_LONG_DESCR" length="4000" not-null="false"/>
 		<property name="themes" type="string" column="N_THEMES" length="4000" not-null="false"/>
-
      </class>
 </hibernate-mapping>

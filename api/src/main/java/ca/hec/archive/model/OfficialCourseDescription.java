@@ -14,14 +14,15 @@ import lombok.Data;
 @Data
 public class OfficialCourseDescription {
 	
+	private String catalogNbr;
 	private String courseId;
+	private String subject;
 	private String title;
 	private String description;
-	private String department;
 	private String career;
 	private String requirements;
 
-	private Float credits;
+	private String credits;
 	private String language;
 	private String shortDescription;
 	private String themes;

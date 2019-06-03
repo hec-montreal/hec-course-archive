@@ -15,12 +15,12 @@ import ca.hec.archive.model.ItemFactory;
 public class PortalManagerServiceImpl implements PortalManagerService {
 
 	private ResourceBundle msgs = null;
-	List<Item> bundleDepartments = null;
+	List<Item> bundleSubjects = null;
 	List<Item> bundleCareers = null;
-	private ResourceBundle listDepartmentsToDisplay = null;
+	private ResourceBundle listSubjectsToDisplay = null;
 	private ResourceBundle listCareersToDisplay = null;
 	private Map<String, String> careerGroups = null;
-	private Map<String, String> departmentGroups = null;
+	private Map<String, String> subjectGroups = null;
 
 	public void init() {
 
@@ -28,9 +28,9 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 
 
 	/**
-	 * Return the departments/careers that need to be displayed in HEC public portal
-	 * Each department/career have a description and is associated to a group (can include several careers/departments)
-	 * @param  itemsType: department/career
+	 * Return the subjects/careers that need to be displayed in HEC public portal
+	 * Each subject/career have a description and is associated to a group (can include several careers/subjects)
+	 * @param  itemsType: subject/career
 	 */
 	public List<Item> getItems(String itemsType, String locale) {
 		ItemFactory listDpt = new ItemFactory();
@@ -47,11 +47,11 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 			orderBundle = ResourceBundle.getBundle("order_careers");
 		}
 		else{
-			listDepartmentsToDisplay = ResourceBundle.getBundle("departments",new Locale(locale));
-			initGroup("department");
-			listItemsToDisplay = listDepartmentsToDisplay;
-			itemGroups =  departmentGroups;
-			orderBundle = ResourceBundle.getBundle("order_departments");
+			listSubjectsToDisplay = ResourceBundle.getBundle("subjects",new Locale(locale));
+			initGroup("subject");
+			listItemsToDisplay = listSubjectsToDisplay;
+			itemGroups =  subjectGroups;
+			orderBundle = ResourceBundle.getBundle("order_subjects");
 		}
 
 		for (String itemKey : (Set<String>) listItemsToDisplay
@@ -59,7 +59,7 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 			String description = listItemsToDisplay.getString(itemKey);
 			dpTemp = listDpt.getItemByDescription(description);
 
-			//if dp != null it means that we already have a department associated with this description, so we will update this department instead of creating a new one
+			//if dp != null it means that we already have a subject associated with this description, so we will update this subject instead of creating a new one
 			if (dpTemp == null){
 				Item dp = new Item();
 				dp.setDescription(listItemsToDisplay.getString(itemKey));
@@ -76,9 +76,9 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 
 
 	/**
-	 *  Init  the list of career or department groups specified in the properties files
-	 * 	A career/department group can include several careers/departments
-	 *  @param  itemsType: department/career
+	 *  Init  the list of career or subject groups specified in the properties files
+	 * 	A career/subject group can include several careers/subjects
+	 *  @param  itemsType: subject/career
 	 */
 	public void initGroup(String itemsType) {
 		ResourceBundle listItemsToDisplay = null;
@@ -91,9 +91,9 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 			listitemGroups = careerGroups;
 		}
 		else{
-			listItemsToDisplay = listDepartmentsToDisplay;
-			departmentGroups = new HashMap<String, String>();
-			listitemGroups = departmentGroups;
+			listItemsToDisplay = listSubjectsToDisplay;
+			subjectGroups = new HashMap<String, String>();
+			listitemGroups = subjectGroups;
 		}
 
 		for (String key : listItemsToDisplay.keySet()) {
@@ -115,50 +115,18 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 
 	}
 
-
-	/**
-	 *  Return the group description associated with the department group
-	 * 	A department group can include several departments
-	 *  @param department - the group code whose description should be returned
-	 *  @param locale - the language for the description
-	 */
-	public String getDepartmentDescription(String department, Locale locale) {
-		ResourceBundle departmentDescriptions = ResourceBundle.getBundle("departments", locale);
-		return departmentDescriptions.getString(department);
-	}
-
-	/**
-	 *  Return the group description associated with the career group 
-	 * 	A career group can include several careers
-	 *  @param career - the group code whose description should be returned
-	 *  @param locale - the language for the description
-	 */
-	public String getCareerDescription(String career, Locale locale) {
-		ResourceBundle careerDescriptions = ResourceBundle.getBundle("careers", locale);
-
-		if (careerDescriptions.containsKey(career)) {
-			return careerDescriptions.getString(career);
-		} 
-		else {
-			return ResourceBundle.getBundle("portal", locale).getString("label_unknown_category");
-		}
-	}
-
-
-
 	public Map<String, String> getBundle(String locale) {
 		Map<String, String> msgsBundle = new HashMap<String, String>();
 		msgs = ResourceBundle.getBundle("portal", new Locale(locale));	
-		bundleDepartments = getItems("department",locale);
+		bundleSubjects = getItems("subject",locale);
 		bundleCareers = getItems("career",locale);
-
 
 		for (String key : msgs.keySet()) {
 			msgsBundle.put((String) key, (String) msgs.getString(key));
 		}
 
-		for (Item item : bundleDepartments) {
-			String key = "department_" + item.getItemGroup();
+		for (Item item : bundleSubjects) {
+			String key = "subject_" + item.getItemGroup();
 			String description = item.getDescription();
 			msgsBundle.put(key, description);
 		}
@@ -174,8 +142,8 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 	}
 
 
-	public String getDepartmentGroup(String department) {
-		return departmentGroups.get(department);
+	public String getSubjectGroup(String subject) {
+		return subjectGroups.get(subject);
 	}
 
 
@@ -184,8 +152,8 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 	}    
 
 
-	public List<Item> getDepartments(String locale) {
-		return getItems("department",locale);
+	public List<Item> getSubjects(String locale) {
+		return getItems("subject",locale);
 	}
 
 	public List<Item> getCareers(String locale) {

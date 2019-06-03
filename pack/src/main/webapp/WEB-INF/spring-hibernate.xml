@@ -20,7 +20,6 @@
 	<bean id="ca.hec.archive.ArchiveDaoTarget" class="ca.hec.archive.dao.impl.ArchiveDaoImpl" >
 		<property name="sessionFactory" ref="org.sakaiproject.springframework.orm.hibernate.GlobalSessionFactory" />
 		<property name="stopWordList" ref="ca.hec.archive.util.Stopwords" />
-		<property name="sqlService" ref="org.sakaiproject.db.api.SqlService" />
 	</bean>
 
 	<!-- give the dao access to the global transaction manager so we can get to the global session factory
@@ -45,7 +44,6 @@
 				<property name="sessionFactory">
 					<ref bean="org.sakaiproject.springframework.orm.hibernate.GlobalSessionFactory" />
 				</property>
-				<property name="stopWordList" ref="ca.hec.archive.util.Stopwords" />
 			</bean>
 		</property>
 		<property name="transactionAttributes">

@@ -96,7 +96,7 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 		// If the user type a course id without dash, we format it
 		// before the search
 			criteria.add(Restrictions.ilike("courseId",
-					course_id + "%"));
+					"%" + course_id + "%"));
 		}
 
 	    /***************************** INSTRUCTOR CRITERIA ****************************************************************************/
