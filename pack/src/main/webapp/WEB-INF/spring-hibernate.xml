@@ -37,7 +37,7 @@
 			</property>
 	</bean>
 	
-	<bean id="ca.hec.archive.api.OfficialCourseDescriptionDao"
+	<bean id="ca.hec.archive.dao.OfficialCourseDescriptionDao"
 		  class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 		<property name="transactionManager" ref="org.sakaiproject.springframework.orm.hibernate.GlobalTransactionManager" />
 		<property name="target">

@@ -24,7 +24,7 @@
 	<bean id="ca.hec.archive.api.OfficialCourseDescriptionService"
 		  class="ca.hec.archive.impl.OfficialCourseDescriptionServiceImpl"
 		  init-method="init">
-		<property name="officialCourseDescriptionDao" ref="ca.hec.archive.api.OfficialCourseDescriptionDao"/>
+		<property name="officialCourseDescriptionDao" ref="ca.hec.archive.dao.OfficialCourseDescriptionDao"/>
 	</bean>
 	
 </beans>
