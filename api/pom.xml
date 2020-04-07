@@ -5,7 +5,7 @@
 	<parent>
 		<artifactId>hec-course-archive</artifactId>
 		<groupId>ca.hec</groupId>
-		<version>19.4</version>
+		<version>19.3</version>
 	</parent>
 	<groupId>ca.hec</groupId>
 	<artifactId>hec-course-archive-api</artifactId>
