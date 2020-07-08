@@ -241,7 +241,7 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
     			ps.setString(1, id);
     			rset = ps.executeQuery();
 
-    			while (rset.next()) {
+    			while (rset.next() && instructors.length() < 255) {
     				if (!instructors.equals(""))
     					instructors += " & ";
     				instructors += rset.getString(1).replace(",", ", ");
