@@ -69,11 +69,6 @@ public class HecCourseArchiveServiceImpl implements HecCourseArchiveService {
 							+ " it's details will not be saved to HEC_COURSE_ARCHIVE.");
 					return;
 				}
-				if (provider.endsWith(SITE_SHAREABLE)) {
-					log.info("The course outline " + siteId
-							+ " will not be transferred to HEC_COURSE_ARCHIVE because it is a dummy section references the sharable site.");
-					return;
-				}
 				if (!updateArchiveEntry(sectionGroups, syllabusSections)) {
 					log.info("This syllabus " + syllabusId + " is not associated to the section " + provider);
 					continue;
