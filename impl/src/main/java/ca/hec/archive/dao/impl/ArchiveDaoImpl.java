@@ -199,8 +199,7 @@ public class ArchiveDaoImpl extends HibernateDaoSupport implements ArchiveDao {
 	    period = "1";
 	}
 
-		dc.add(Restrictions.ilike("courseId",
-				courseId + "%"));
+	dc.add(Restrictions.eq("courseId", courseId));
 	dc.add(Restrictions.eq("session", session));
 	dc.add(Restrictions.eq("section", section));
 	dc.add(Restrictions.eq("period", period));
